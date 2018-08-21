@@ -28,22 +28,29 @@ let fourthIntervals = [intervals.octave,
     en: 'unselect all'
   }
 },]
-console.log(fourthIntervals)
+
 let intervalsGroups = [firstIntervals, secondIntervals, thirdIntervals, fourthIntervals]
 
 class IntervalButtonsWrap extends Component {
+  constructor (props) {
+    super(props)
+    this.props.handleSubmit.bind(this)
+  }
+  
   render () {
     return (<div className='interval-buttons-wrap'>
         {intervalsGroups.map((groupX, i) => {
           return (
             <IntervalGroup
+              handleEvent={this.props.handleEvent}
               key={i}
               group={groupX}
             />
           )
         })
         }
-        <button value="send">ГЕНЕРИРАЙ ТЕСТ</button>
+        <button value="send"
+                onClick={this.props.handleSubmit.bind(this)}>ГЕНЕРИРАЙ ТЕСТ</button>
       </div>
     )
   }
