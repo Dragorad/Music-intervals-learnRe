@@ -19,13 +19,13 @@ let fourthIntervals = [intervals.octave,
   idx: 13,
   name: {
     bg: 'избери всички',
-    en: 'select all'
+    en: 'select-all'
   }
 },
   {  idx: 13,
   name: {
     bg: 'освободи всички',
-    en: 'unselect all'
+    en: 'deselect-all'
   }
 },]
 
@@ -35,6 +35,7 @@ class IntervalButtonsWrap extends Component {
   constructor (props) {
     super(props)
     this.props.handleSubmit.bind(this)
+    this.props.handleInputChange.bind(this)
   }
   
   render () {
@@ -42,6 +43,7 @@ class IntervalButtonsWrap extends Component {
         {intervalsGroups.map((groupX, i) => {
           return (
             <IntervalGroup
+              handleInputChange={this.props.handleInputChange.bind(this)}
               handleEvent={this.props.handleEvent}
               key={i}
               group={groupX}

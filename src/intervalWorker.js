@@ -31,12 +31,12 @@ const muzWorker = (() => {
 
             for (let i = 0; i < pianoKeys.length; i++) {
 
-                let basetoneName = ""
+                let baseToneName = ""
                 if (Array.isArray(pianoKeys[i])) {
                     let tempIdx = _getRandomInt(0, 2)
-                    basetoneName = pianoKeys[i][tempIdx]
+                    baseToneName = pianoKeys[i][tempIdx]
                 } else {
-                    basetoneName = pianoKeys[i]
+                    baseToneName = pianoKeys[i]
                 }
 
                 let baseToneString = [pianoKeys[i], octave]
@@ -254,7 +254,7 @@ const muzWorker = (() => {
             for (let i = 0; i < testCount; i++) {
                 let idx = _getRandomInt(0, targetIntervals.length)
                 currentInterval = (targetIntervals.splice(idx, 1))[0]
-                let intervalsKeys = Object.values((muzWorker.intervals))
+                let intervalsKeys = Object.values(muzWorker.intervals)
                 let semitones = intervalsKeys.find(e => e.name.bg == currentInterval.name).semitones
                 tested.push(currentInterval)
                 currentInterval.semitones = Number(semitones)
@@ -316,4 +316,5 @@ const muzWorker = (() => {
     }
 
 )()
+
 export default muzWorker

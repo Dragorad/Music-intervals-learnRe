@@ -18,6 +18,7 @@ class NumericControlField extends Component {
                  >
           </input>
         </label>
+        <span className='error'></span>
       </div>
     )
     

@@ -3,17 +3,27 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import TestForm from './components/TestForm'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter} from 'react-router-dom'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+// import logger from 'redux-logger'
+
+import ReduxPromise from 'redux-promise'
 
 import registerServiceWorker from './registerServiceWorker'
 import ControlFields from './components/ControlFields'
 import ControlForm from './components/ControlForm'
 import WorkPane from './components/WorkPane'
 import Footer from './components/Footer'
-// import IntervalGroup from './components/IntervalGroup'
-// import IntervalButtonsWrap from './components/IntervalButtonsWrap'
 
-ReactDOM.render(<BrowserRouter>
-  <App/>
-</BrowserRouter>, document.getElementById('root'))
+// const store = createStore(
+//   reducers, applyMiddleware(logger, ReduxPromise)
+// )
+
+ReactDOM.render(
+  /*<Provider>*/
+    <App/>
+  // </Provider>
+, document.getElementById('root')
+)
 registerServiceWorker()

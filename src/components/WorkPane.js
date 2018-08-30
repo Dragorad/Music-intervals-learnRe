@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
 import WorkHeader from './WorkHeader'
-import Footer from './Footer'
 import FormSummary from './FormSummary'
 import Keyboard from './Keyboard'
+import testIntervalData from './ControlForm'
+
+
 
 class WorkPane extends Component {
+  constructor (props) {
+    super(props)
+    // this.testIntervalData = this.props.testIntervalData.bind(this)
+  }
   render () {
     return (
       <div>
-        <WorkHeader/>
+        <WorkHeader
+        // testIntervalData={this.testIntervalData.bind(this)}
+        />
         <div className="work-pane">
           <FormSummary/>
           <Keyboard/>

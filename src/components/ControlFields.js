@@ -8,16 +8,6 @@ import muzWorker from '../intervalWorker'
 
 let {intervals} = muzWorker
 
-// let {secondMinor, secondMajor, thirdMinor, thirdMajor, ...rest} = intervals
-// let {fourthPerfect, fourthAug, fifthDiminished, fifthPerfect, ...rest1} = rest
-// let {sixthMinor, sixthMajor, seventhMinor, seventhMajor, ...rest2} = rest1
-//
-// let firstIntervals = [secondMinor, secondMajor, thirdMinor, thirdMajor]
-// let secondIntervals = [fourthPerfect, fourthAug, fifthDiminished, fifthPerfect]
-// let thirdIntervals = [sixthMinor, sixthMajor, seventhMinor, seventhMajor]
-//
-// let intervalsGroups = [firstIntervals, secondIntervals, thirdIntervals]
-
 let regimes = [
   ['only-generate', 'само генериране'],
   ['local-store', 'генериране и запазване локално'],
@@ -35,11 +25,11 @@ class ControlFields extends Component {
       <div className="controls-wrap">
         <NumericControlField
           handleInputChange={this.handleInputChange.bind(this)}
-          fieldName="time-for-answer"
+          fieldName="timeForAnswer"
           text='време за отгатване'/>
         <NumericControlField
           handleInputChange={this.handleInputChange.bind(this)}
-          fieldName='number-of-tasks'
+          fieldName='numberOfTasks'
           text='брой задачи'/>
         <div className="regimes">
           <p>Режими на ползване</p>

@@ -3,13 +3,9 @@ import jquery from 'jquery'
 // import muzWorker from '../intervalWorker.js'
 import ControlFields from './ControlFields.js'
 import IntervalButtonsWrap from './IntervalButtonsWrap'
-import Footer from './Footer'
-import { Redirect } from 'react-router-dom'
-import NumericControlField from './NumericControlField'
-import FormInput from './Form-input'
 
 let $ = jquery
-let intervalData = {}
+let testIntervalData = {}
 let regimes = [['only-generate', 'само генериране'],
   ['local-store', 'генериране и запазване локално'],
   ['exam', 'изпит']]
@@ -17,26 +13,29 @@ let regimes = [['only-generate', 'само генериране'],
 class ControlForm extends Component {
   constructor (props) {
     super(props)
-    this.input = React.createRef()
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     this.redirectPage.bind(this)
-    this.state = {
-      timeForAnswer: '',
-      numberOfTasks: ''
-    }
+    
   }
   
   redirectPage () {
-    this.props.push('/work-pane')
+    this.props.push('/work-pane', testIntervalData)
   }
   
   handleInputChange (event) {
     event.preventDefault()
     
     let target = event.target
+    console.log(target.name)
+    if (target.type === 'checkbox') {
+      console.log(this)
+    }
+    console.log(target.type)
     let field = target.type === 'checkbox' ? target.checked : target.value
     let value = target.value
+    
+    testIntervalData[target.name] = Number(target.value)
     this.setState({[target]: value})
     console.log({[target]: value})
     
@@ -44,20 +43,33 @@ class ControlForm extends Component {
   
   handleSubmit (event) {
     event.preventDefault()
-    this.props.history.push('/work-pane')
-    // let timeForAnswer = $('input[name="time-for-answer"]').value()
-    let numberOfTasks = $('input[name="number-of-tasks"]')
-    let intervalsForTest = $('input[type="checkbox"]:checked')
-    intervalData = this.state.data
-    console.log(intervalData)
-    // let stateObj = {
-    //   'intervalsForTest': intervalsForTest,
-    //   'timeForAnswer': timeForAnswer,
-    //   'numberOfTasks': numberOfTasks
-    // }
-    // console.log(stateObj)
-    console.log(this.state.numberOfTasks)
-    this.redirectPage.bind(this)
+    let intervalsForTest = $('input[type="checkbox"]:checked').not($('#select-all'))
+    let timeForAnswer = this.props.timeForAnswer
+    
+    testIntervalData['intervalsForTest'] = intervalsForTest.serializeArray().map(el => el.name)
+    if (intervalsForTest.length === 0) {
+      alert('You have to select at last one interval for test')
+    }
+    
+    else {
+      localStorage.setItem('testIntervalData', JSON.stringify(testIntervalData))
+      this.props.history.push('/work-pane')
+    }
+    
+  }
+  
+  componentDidMount () {
+    let boxes = $('input[type = "checkbox"]')
+    let selectAllBox = $('#select-all')
+    let deselectAllBox = $('#deselect-all')
+    let simpleBoxes = boxes.filter((i, el) => Number(el.value) < 13)
+    selectAllBox.on('click', function () {
+      simpleBoxes.prop('checked', true)
+      
+    })
+    deselectAllBox.on('click', function () {
+      boxes.prop('checked', false)
+    })
   }
   
   render () {
@@ -68,13 +80,15 @@ class ControlForm extends Component {
         <p> Опитвайте и ще успеете!Никой не се е родил научен!!! </p>
         <div className='fields-wrap'>
           <ControlFields
-          handleInputChange={this.handleInputChange.bind(this)}/>
+            handleInputChange={this.handleInputChange.bind(this)}/>
           
           <IntervalButtonsWrap
+            handleInputChange={this.handleInputChange.bind(this)}
             handleSubmit={this.handleSubmit.bind(this)}/>
         </div>
       </form>)
   }
 }
 
+export { testIntervalData }
 export default ControlForm
