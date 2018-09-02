@@ -1,7 +1,21 @@
+import {combineReducers } from 'redux'
 import * as types from '../types'
+import * as currentUser from '../currentUser'
+import * as currentTime from '../currentTime'
 
 const initialState = {
   currentTime: new Date().toLocaleTimeString()
+}
+
+export const rootReducer = combineReducers({
+  currentTime: currentTime.reducer,
+  currentUser: currentUser.reducer
+})
+
+export const initialState = {
+  currentTime: currentTime.initialState,
+  currentUser: currentUser.initialState,
+  
 }
 const RootReducer = (state=initialState, action)=>{
   switch (action.type) {
@@ -13,3 +27,4 @@ const RootReducer = (state=initialState, action)=>{
   return state
 }
 
+export default rootReducer

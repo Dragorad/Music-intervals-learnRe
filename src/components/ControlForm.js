@@ -53,6 +53,7 @@ class ControlForm extends Component {
     
     else {
       localStorage.setItem('testIntervalData', JSON.stringify(testIntervalData))
+      $('#C-1').css('color', 'red')
       this.props.history.push('/work-pane')
     }
     
