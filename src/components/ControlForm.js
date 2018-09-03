@@ -25,20 +25,15 @@ class ControlForm extends Component {
   
   handleInputChange (event) {
     event.preventDefault()
-    
     let target = event.target
-    console.log(target.name)
     if (target.type === 'checkbox') {
       console.log(this)
     }
-    console.log(target.type)
     let field = target.type === 'checkbox' ? target.checked : target.value
     let value = target.value
-    
     testIntervalData[target.name] = Number(target.value)
     this.setState({[target]: value})
-    console.log({[target]: value})
-    
+    // console.log({[target]: value})
   }
   
   handleSubmit (event) {
