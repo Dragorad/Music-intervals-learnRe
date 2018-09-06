@@ -5,18 +5,18 @@ const muzWorker = (() => {
     const keyboardPositions = 34
     const scale = {
       keys: {
-        0: ['C', 'His'],
+        0: ['C', 'His', 'Deses'],
         1: ['Cis', 'Des'],
-        2: ['D', 'Cisis'],
+        2: ['D', 'Cisis', 'Eses'],
         3: ['Dis', 'Es'],
-        4: ['E', 'Fes'],
-        5: ['F', 'Eis'],
+        4: ['E', 'Fes', 'Disis'],
+        5: ['F', 'Eis', 'Geses'],
         6: ['Fis', 'Ges'],
-        7: ['G', 'Fisis'],
+        7: ['G', 'Fisis', 'Ases'],
         8: ['Gis', 'As'],
-        9: ['A', 'Heses'],
+        9: ['A', 'Heses', 'Gisis'],
         10: ['Ais', 'B', 'Hes'],
-        11: ['H', 'Ces']
+        11: ['H', 'Ces', 'Aisis']
       },
       octaves: ['LITTLE', '1', '2', '3'],
       tones: ['C', 'D', 'E', 'F', 'G', 'A', 'H']
@@ -29,7 +29,6 @@ const muzWorker = (() => {
       ]
       
       for (let i = 0; i < pianoKeys.length; i++) {
-        
         let baseToneName = ''
         if (Array.isArray(pianoKeys[i])) {
           let tempIdx = _getRandomInt(0, 2)
@@ -162,20 +161,18 @@ const muzWorker = (() => {
     function findByName (obj, propString) {
       let result = []
       for (let p in obj) {
-        if (obj[p] == propString) {
+        if (obj[p] === propString) {
           result = [p, obj[p]]
           return result
         } else {
-          
           if (Array.isArray(obj[p]) && obj[p].includes(propString)) {
             result = [p, obj[p]]
             return result
           }
-          if (typeof(obj[p]) === 'object') {
+          if (typeof (obj[p]) === 'object') {
             result = findByName(obj[p], propString)
           }
         }
-        
       }
       return result
     }
@@ -183,49 +180,58 @@ const muzWorker = (() => {
     function generateAnswer (intervalObj) {
       let toneStr = intervalObj.baseTone
       let [toneName, octave] = toneStr.split(' - ')
-      let tone = toneStr.split(' - ')[0].slice(0, 1)
-      let answerLetter = ''
-      let answerArr = []
-      let answerKey = ''
-      if (toneName === 'B') {
-        answerKey = [10, scale.keys[10]]
-      } else {
-        answerKey = findByName(scale.keys, toneName)
-      }
-      let ansKeyIdx = Number(answerKey[0])
-      let octaveIdx = scale.octaves.indexOf(octave)
-      let answerLetterIdx = ''
+      let toneLetter = toneName.slice(0, 1)
       
-      if (intervalObj.direction == 'down') {
-        answerLetterIdx = (scale.tones.findIndex((e) => e == tone) - Number(intervalObj.value)) % 7
-        ansKeyIdx = Number(ansKeyIdx) - Number(intervalObj.semitones)
+      let answerKey = ''
+      // if (toneName === 'B') {
+      //   answerKey = [10, scale.keys[10]]
+      // } else {
+      //   answerKey = findByName(scale.keys, toneName)
+      // }
+      // let ansKeyI
+      // dx = Number(answerKey[0])
+      // let octaveIdx = scale.octaves.indexOf(octave)
+      // let answerLetterIdx = ''
+      //
+      let scalePositions = Object.values(scale.keys)
+      let basePosition = scalePositions.findIndex(el => el.includes(toneName))
+      let semitones = Number(intervalObj.semitones)
+      let ansKeyIdx = 0
+      let answerLetterIdx = 0
+      let answerOctave = octave
+      // let oktaveIdx = scale.octaves.findIndex( e => e === octave)
+      if (intervalObj.direction === 'down') {
+        // answerKey = scalePositions[basePosition - semitones]
+        answerLetterIdx = (scale.tones.findIndex((e) => e === toneLetter) - Number(intervalObj.idx)) % 7
+        ansKeyIdx = basePosition - semitones
         if (ansKeyIdx < 0) {
-          octaveIdx = scale.octaves.indexOf(octave) - 1
+          octave = scale.octaves[(scale.octaves.indexOf(octave) - 1)]
           ansKeyIdx += 12
         }
-        
       } else {
-        answerLetterIdx = (scale.tones.findIndex((e) => e == tone) + Number(intervalObj.value)) % 7
-        ansKeyIdx = Number(ansKeyIdx) + Number(intervalObj.semitones)
+        answerLetterIdx = (scale.tones.findIndex((e) => e === toneLetter) + Number(intervalObj.idx)) % 7
+        ansKeyIdx = basePosition + semitones
         if (ansKeyIdx > 11) {
-          octaveIdx = scale.octaves.indexOf(octave) + 1
+          octave = scale.octaves[(scale.octaves.indexOf(octave) - 1)]
           ansKeyIdx -= 12
         }
       }
-      answerArr = scale.keys[ansKeyIdx]
-      answerLetter = (scale.tones).slice(answerLetterIdx)[0]
-      let resultTone = answerArr.find(key => key.substring(0, 1) === answerLetter)
-      if (resultTone == 'Hes') {
+      let answerLetter = scale.tones[answerLetterIdx]
+      let resultTone = scalePositions[ansKeyIdx]
+        .find(el => el.startsWith(answerLetter))
+      // let answerArr = scale.keys[ansKeyIdx]
+      // let resultTone = answerArr.find(key => key.substring(0, 1) === answerLetter)
+      if (resultTone === 'Hes') {
         resultTone = 'B'
       }
-      let resultString = resultTone + ' - ' + scale.octaves[octaveIdx]
+      let resultString = resultTone + ' - ' + octave
       return resultString
     }
     
     function _getRandomInt (min, max) {
       min = Math.ceil(min)
       max = Math.floor(max)
-      return Math.floor(Math.random() * (max - min)) + min //The maximum is exclusive and the minimum is inclusive
+      return Math.floor(Math.random() * (max - min)) + min // The maximum is exclusive and the minimum is inclusive
     }
     
     function generateBasePos (intervalObj) {
@@ -237,9 +243,7 @@ const muzWorker = (() => {
       } else {
         baseTonIndex = _getRandomInt(semitones, keyboardPositions + 1)
       }
-      
       return baseTonIndex
-      
     }
     
     function generateTestArr (inputIntervalsArr, testCount) {
@@ -249,13 +253,12 @@ const muzWorker = (() => {
       let tested = []
       let currentInterval = {}
       let directions = ['down', 'up']
+      let intervalsKeys = Object.values(muzWorker.intervals)
+      targetIntervals = targetIntervals.map(element => intervalsKeys.find(e => e.name.bg === element))
       for (let i = 0; i < testCount; i++) {
         let idx = _getRandomInt(0, targetIntervals.length)
         currentInterval = (targetIntervals.splice(idx, 1))[0]
-        let intervalsKeys = Object.values(muzWorker.intervals)
-        currentInterval = intervalsKeys.find(e => e.name.bg === currentInterval)
-        currentInterval.name = currentInterval.name.bg
-        currentInterval.direction = directions[_getRandomInt(0, 2)]
+        currentInterval.direction = directions[(_getRandomInt(0, 2))]
         tested.push(currentInterval)
         currentInterval.baseToneIdx = generateBasePos(currentInterval)
         testArr.push(currentInterval)
@@ -264,56 +267,37 @@ const muzWorker = (() => {
           tested = []
         }
       }
-      let newTestArr = testArr.map(function (e) {
-        let e1 = JSON.parse(JSON.stringify(e))
-        let modifier = directions[(_getRandomInt(0, 2))]
-        e1.direction = modifier
-        e1.position = generateBasePos(e1)
-        return e1
-      })
-      return newTestArr
+      
+      
+      testArr = testArr.map(el => generateTones(el))
+      console.log(testArr)
+      return testArr
     }
     
-    function getBaseTonId (intervalObj) {
-      // let elements = $(`[position = ${intervalObj.position}]`).toArray()
-      // if (intervalObj.direction == 'up') {
-      //     intervalObj.id = $(elements[0]).attr('id')
-      // } else {
-      //     intervalObj.id = $(elements.pop()).attr('id')
-      // }
-      // let path = $(`#${intervalObj.id}`)
-      let baseTonName = baseTonsArr[intervalObj.position]
+    function generateTones (intervalObj) {
+      // console.log(baseTonsArr)
+      let baseTonName = baseTonsArr[intervalObj.baseToneIdx]
       let bassName = baseTonName[0]
-      if (Array.isArray(baseTonName[0])) {
-        bassName = baseTonName[0]
-        bassName = bassName[_getRandomInt(0, 2)]
+      if (Array.isArray(bassName)) {
+        bassName = bassName[(_getRandomInt(0, 2))]
       }
-      
+      baseTonName[0] = bassName
       // let baseTonName = path.children().text()
-      let octave = baseTonsArr[intervalObj.position][1]
-      intervalObj.baseTone = `${bassName} - ${octave}`
+      intervalObj.baseTone = baseTonName.join(' - ')
       intervalObj.answer = generateAnswer(intervalObj)
       return intervalObj
     }
     
-    function testAction (ctx, intervalObj) {
-      ctx.baseton = intervalObj.baseTone
-      ctx.answer = intervalObj.answer
-    }
-    
     return {
       generateTestArr,
-      // generateBaseIdx,
-      generateBasePos,
-      // reduseTime,
-      getBaseTonId,
-      _getRandomInt,
+      generateTones,
+      baseTonsArr,
       intervals,
-      generateAnswer,
-      testAction
+      _getRandomInt
+      // testAction
     }
   }
 
 )()
-muzWorker.generateTestArr(['малка секунда', 'голяма секунда'], 5)
-// export default muzWorker
+
+export default muzWorker
