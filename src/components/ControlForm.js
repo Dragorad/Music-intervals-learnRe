@@ -7,8 +7,8 @@ import IntervalButtonsWrap from './IntervalButtonsWrap'
 let $ = jquery
 let testIntervalData = {}
 let regimes = [['only-generate', 'само генериране'],
-  ['local-store', 'генериране и запазване локално'],
-  ['exam', 'изпит']]
+['local-store', 'генериране и запазване локално'],
+['exam', 'изпит']]
 
 class ControlForm extends Component {
   constructor (props) {
@@ -16,13 +16,12 @@ class ControlForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     this.redirectPage.bind(this)
-    
   }
-  
+
   redirectPage () {
     this.props.push('/work-pane', testIntervalData)
   }
-  
+
   handleInputChange (event) {
     event.preventDefault()
     let target = event.target
@@ -32,28 +31,25 @@ class ControlForm extends Component {
     let field = target.type === 'checkbox' ? target.checked : target.value
     let value = target.value
     testIntervalData[target.name] = Number(target.value)
-    this.setState({[target]: value})
+    this.setState({ [target]: value })
     // console.log({[target]: value})
   }
-  
+
   handleSubmit (event) {
     event.preventDefault()
     let intervalsForTest = $('input[type="checkbox"]:checked').not($('#select-all'))
     let timeForAnswer = this.props.timeForAnswer
-    
+
     testIntervalData['intervalsForTest'] = intervalsForTest.serializeArray().map(el => el.name)
     if (intervalsForTest.length === 0) {
       alert('You have to select at last one interval for test')
-    }
-    
-    else {
-      localStorage.setItem('testIntervalData', JSON.stringify(testIntervalData))
+    } else {
+      window.localStorage.setItem('testIntervalData', JSON.stringify(testIntervalData))
       $('#C-1').css('color', 'red')
       this.props.history.push('/work-pane')
     }
-    
   }
-  
+
   componentDidMount () {
     let boxes = $('input[type = "checkbox"]')
     let selectAllBox = $('#select-all')
@@ -61,26 +57,25 @@ class ControlForm extends Component {
     let simpleBoxes = boxes.filter((i, el) => Number(el.value) < 13)
     selectAllBox.on('click', function () {
       simpleBoxes.prop('checked', true)
-      
     })
     deselectAllBox.on('click', function () {
       boxes.prop('checked', false)
     })
   }
-  
+
   render () {
     return (
       <form method='GET' action='#/conditions'
-            onSubmit={this.handleSubmit.bind(this)}>
+        onSubmit={this.handleSubmit.bind(this)}>
         <h2> Добре дошли в Intervals L </h2>
         <p> Опитвайте и ще успеете!Никой не се е родил научен!!! </p>
         <div className='fields-wrap'>
           <ControlFields
-            handleInputChange={this.handleInputChange.bind(this)}/>
-          
+            handleInputChange={this.handleInputChange.bind(this)} />
+
           <IntervalButtonsWrap
             handleInputChange={this.handleInputChange.bind(this)}
-            handleSubmit={this.handleSubmit.bind(this)}/>
+            handleSubmit={this.handleSubmit.bind(this)} />
         </div>
       </form>)
   }

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
 import './App.css'
-import { BrowserRouter, Route} from 'react-router-dom'
-import ControlForm from './components/ControlForm'
+import { BrowserRouter, Route } from 'react-router-dom'
 import Footer from './components/Footer'
 import Routes from './Routes'
 
@@ -16,16 +14,16 @@ class App extends Component {
       error: ''
     }
   }
-  
+
   render () {
     return (
       <BrowserRouter>
         <div>
-          <Routes/>
-          <Footer/>
+          <Routes />
+          <Footer />
         </div>
       </BrowserRouter>
-  )
+    )
   }
 }
 
