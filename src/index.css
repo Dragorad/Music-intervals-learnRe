@@ -245,10 +245,11 @@ form-summary .summary-field {
     display: block;
 }
 
-a.summary-field {
+a.summary-field, button.summary-field {
     text-transform: uppercase;
     text-decoration: none;
     border: 1px solid #5693c9;
+    color: #5693c9;
     padding: 1%;
     background-color: #eeeef8;
 }

@@ -3,6 +3,7 @@ import jquery from 'jquery'
 // import muzWorker from '../intervalWorker.js'
 import ControlFields from './ControlFields.js'
 import IntervalButtonsWrap from './IntervalButtonsWrap'
+import muzWorker from '../../intervalWorker'
 
 let $ = jquery
 let testIntervalData = {}
@@ -44,7 +45,13 @@ class ControlForm extends Component {
     if (intervalsForTest.length === 0) {
       alert('You have to select at last one interval for test')
     } else {
+      
+      let testArr = muzWorker.generateTestArr(testIntervalData.intervalsForTest, testIntervalData.numberOfTasks)
+      testArr.map(el => muzWorker.generateTones(el))
+      console.log(testArr)
       window.localStorage.setItem('testIntervalData', JSON.stringify(testIntervalData))
+      window.localStorage.setItem('testArr', JSON.stringify(testArr))
+      
       $('#C-1').css('color', 'red')
       this.props.history.push('/work-pane')
     }
@@ -81,5 +88,5 @@ class ControlForm extends Component {
   }
 }
 
-export { testIntervalData }
+// export { testIntervalData }
 export default ControlForm

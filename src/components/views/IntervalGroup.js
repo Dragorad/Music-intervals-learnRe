@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import FormInput from './Form-input.js'
-import muzWorker from '../intervalWorker.js'
+import muzWorker from '../../intervalWorker.js'
 
 let {intervals} = muzWorker
 
