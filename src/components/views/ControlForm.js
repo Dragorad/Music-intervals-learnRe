@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import jquery from 'jquery'
-// import muzWorker from '../intervalWorker.js'
 import ControlFields from './ControlFields.js'
 import IntervalButtonsWrap from './IntervalButtonsWrap'
 import muzWorker from '../../intervalWorker'
@@ -48,7 +47,6 @@ class ControlForm extends Component {
       
       let testArr = muzWorker.generateTestArr(testIntervalData.intervalsForTest, testIntervalData.numberOfTasks)
       testArr.map(el => muzWorker.generateTones(el))
-      console.log(testArr)
       window.localStorage.setItem('testIntervalData', JSON.stringify(testIntervalData))
       window.localStorage.setItem('testArr', JSON.stringify(testArr))
       

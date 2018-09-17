@@ -49,7 +49,7 @@ class IntervalButtonsWrap extends Component {
         })
         }
         <button value="send"
-                onClick={this.props.handleSubmit.bind(this)}>ГЕНЕРИРАЙ ТЕСТ</button>
+                onClick={this.props.handleSubmit.bind(this)}>GENERATE TEST/ ГЕНЕРИРАЙ ТЕСТ</button>
       </div>
     )
   }

@@ -1,29 +1,16 @@
 import React, { Component } from 'react'
+import TestField from './TestField'
 
 class TestArea extends Component {
   constructor (props) {
     super(props)
-    // this.state = {
-    //   testInterval:this.props.testArr[0]
-    // }
-  }
-  
-  passIndex = (() => {
-    let idx = 0
-    return function () {
-      console.log(idx++)
-      return idx
+    this.state = {
+      idxClick: 0,
+      testInterval: this.props.testArr[0],
+      answerVisible: this.props.answerVisible
     }
-  })()
-  
-  nextQuestionClicked (e) {
-    e.preventDefault()
-    console.log('next question clicked')
-    let idxClick = this.passIndex()
-    let testInterval = this.props.testArr[idxClick]
-    
   }
-  
+ 
   answeringClicked (e) {
     e.preventDefault()
     console.log('answering clicked')
@@ -31,37 +18,42 @@ class TestArea extends Component {
   
   render () {
     let testArr = this.props.testArr
-    console.log(testArr)
-    let interval = testArr[0]
+    console.log(this.state.idxClick)
+    let interval = this.props.testInterval
+    // testArr[this.state.idxClick]
     console.log(interval)
-    // let intervalState = this.props.testArr[0].toString()
-    // console.log('props interval = ' + intervalState)
-    //
+    
     if (this.props.testRendered) {
       return (
         <div className="test-area">
           <div className="condition">
-            <div className="summary-field">
-              интервал<span>
-            {interval.name.bg} {interval.direction}
-            </span>
-            </div>
-            <div className="summary-field">
-              начален тон<span>
-            {interval.baseTone}
-            </span>
-            </div>
+            
+            <TestField
+              key="0"
+              label={'интервал'}
+              text={interval.name.bg}/>
+            <TestField
+              key="1"
+              label={'посока'}
+              text={interval.direction === 'up' ?
+                String.fromCharCode(8593) : String.fromCharCode(8595)}/>
+            <TestField
+              key="2"
+              label={'начален тон'}
+              text={interval.baseTone}/>
+           
             <div className="summary-field">
               <label htmlFor="testedAnswer "> отговор </label>
               <input id="testedAnswer" type='text' name="testedAnswer" placeholder="Не знам"></input>
               <button
                 onClick={this.answeringClicked.bind(this)}/>
             </div>
-            <div className="summary-field right-answer" style={{display:'none'}}>
-              Верен отговор <span>{interval.answer}</span>
+            <div className="summary-field right-answer" style={
+              this.props.answerVisible ? {display: 'block'} : {display: 'none'}}>
+              Верен отговор <p style={{color:"red"}}>{interval.answer}</p>
             </div>
             <button id="next-question" className="summary-field"
-                    onClick={this.nextQuestionClicked.bind(this)}>
+                    onClick={this.props.nextQuestionClicked.bind(this)}>
               СЛЕДВАЩ ВЪПРОС
             </button>
           </div>
@@ -74,7 +66,3 @@ class TestArea extends Component {
 }
 
 export default TestArea
-//
-// export default connect(
-//   mapStateToProps
-// )(TestArea)

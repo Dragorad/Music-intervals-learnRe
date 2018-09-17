@@ -311,12 +311,12 @@ header a {
     padding: 3%;
 }
 
-.summary span {
+.summary p {
     color: darkcyan;
     font-style: italic;
     font-weight: bold;
     font-size: larger;
-    padding: 1em;
+    padding: 0.1em;
 }
 
 .summary-field {
@@ -326,6 +326,18 @@ header a {
 .answer-form > input {
     background-color: #c0cfe1;
 }
+.test-area{
+    display: flex ;
+    flex-flow: column;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 40%;
+    margin: 3%;
+    padding: 10% 2%;
+}
+div.test-area{
+    width: 100%;
+    }
 
 .right-answer {
     display: none;

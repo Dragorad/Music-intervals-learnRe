@@ -25,11 +25,13 @@ class ControlFields extends Component {
       <div className="controls-wrap">
         <NumericControlField
           handleInputChange={this.handleInputChange.bind(this)}
-          fieldName="timeForAnswer"
+          fieldName='timeForAnswer'
+            placeholder='time for answer'
           text='време за отгатване'/>
         <NumericControlField
           handleInputChange={this.handleInputChange.bind(this)}
           fieldName='numberOfTasks'
+          placeholder='number of tasks'
           text='брой задачи'/>
         <div className="regimes">
           <p>Режими на ползване</p>

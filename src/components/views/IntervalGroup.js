@@ -36,9 +36,7 @@ class IntervalGroup extends Component {
             />
           )
         })
-        }
-      </div>)
-  }
+        }      </div>)  }
 }
 
 export default IntervalGroup

@@ -11,13 +11,12 @@ import TestArea from './TestArea'
 
 let $ = jQuery
 
-let store = configureStore()
-
 class WorkPane extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      testIntervalData: {}
+      testIntervalData: {},
+      testArr: {}
     }
   }
   
@@ -28,19 +27,24 @@ class WorkPane extends Component {
     this.setState({testIntervalData, testArr}, function () {
       console.log(this.state.testIntervalData)
       console.log(this.state.testArr)
-      // let {intervalsForTest, numberOfTasks} = this.state.testIntervalData
       // console.log(testArr)
     })
-    
-    // let C1 = $('path').find( el => el.firstChild === 'C - 1')
-    // console.log(C1)
-    //   // .css('fill', 'green')
-    $('path').on('click', function () {
-      console.log($(this))
-      $(this).toggleClass('clicked-key')
-    })
-    // $('.clicked-key').css('fill', 'red')
   }
+  // renderNewTest = ((testData=this.state.testIntervalData)=> {
+  //   // let testData = this.state.testIntervalData
+  //   this.setState({testArr: muzWorker.generateTestArr(testData.intervalsForTest, testData.numberOfTasks)})
+  // })()
+  
+  // let {intervalsForTest, numberOfTasks} = this.state.testIntervalData
+  
+  //   // let C1 = $('path').find( el => el.firstChild === 'C - 1')
+  //   // console.log(C1)
+  //   //   // .css('fill', 'green')
+  //   $('path').on('click', function () {
+  //     console.log($(this))
+  //     $(this).toggleClass('clicked-key')
+  //   })
+  //   // $('.clicked-key').css('fill', 'red')
   
   render () {
     let testIntervalData = this.state.testIntervalData
@@ -49,12 +53,12 @@ class WorkPane extends Component {
       <div>
         <WorkHeader
           testIntervalData={testIntervalData}
+          // renderNewTest={this.renderNewTest.bind(this)}
         />
         <div className='work-pane'>
           <FormSummary
             testIntervalData={testIntervalData}
             testArr={testArr}/>
-          
           <Keyboard/>
         </div>
       

@@ -15,6 +15,7 @@ class NumericControlField extends Component {
           <input type="number"
                  onChange={this.handleInputChange.bind(this)}
                  name={this.props.fieldName}
+                 placeholder={this.props.placeholder}
                  >
           </input>
         </label>
