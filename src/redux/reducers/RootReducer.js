@@ -1,23 +1,24 @@
 import {combineReducers } from 'redux'
-import * as types from '../types'
+import * as types from '../actions/types'
 import * as currentUser from '../currentUser'
-import * as currentTime from '../currentTime'
+// import * as currentTime from '../currentTime'
+import * as logIntervalsNames from './DisplayIntervalsNames'
 
 const initialState = {
-  currentTime: new Date().toLocaleTimeString()
+  testIntervalData: window.localStorage.getItem('testIntervalData'),
+  testArr: window.localStorage.getItem('testArr'),
+  // currentTime: currentTime.initialState,
+  // currentUser: currentUser.initialState,
+  //
 }
+//
+// export const rootReducer = combineReducers({
+  // currentTime: currentTime.reducer,
+  // currentUser: currentUser.reducer,
+  // intervalsNames: logIntervalsNames,
+// })
 
-export const rootReducer = combineReducers({
-  currentTime: currentTime.reducer,
-  currentUser: currentUser.reducer
-})
-
-export const initialState = {
-  currentTime: currentTime.initialState,
-  currentUser: currentUser.initialState,
-  
-}
-const RootReducer = (state=initialState, action)=>{
+const GTrootReducer = (state=initialState, action)=>{
   switch (action.type) {
     case types.FETCH_NEW_TIME:{
       return{...state, currentTime: action.payload}
@@ -27,4 +28,4 @@ const RootReducer = (state=initialState, action)=>{
   return state
 }
 
-export default rootReducer
+export default GTrootReducer

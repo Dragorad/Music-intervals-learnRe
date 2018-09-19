@@ -1,4 +1,4 @@
-import * as types from './types'
+import * as types from './actions/types'
 
 export const fetchNewTime = () => {
   return {
@@ -15,4 +15,9 @@ export const login = (user) => (
 
 export const logout = () => ({
   type: types.LOGOUT
+})
+
+export const logIntervalsNames = (intervalsNames) => ({
+  type: types.DISPLAY_INTERVALS,
+  payload: intervalsNames
 })

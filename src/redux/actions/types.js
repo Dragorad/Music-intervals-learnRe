@@ -1,0 +1,7 @@
+export const FETCH_NEW_TIME = 'FETCH_NEW_TIME'
+export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
+export const DISPLAY_INTERVALS = 'DISPLAY_INTERVALS'
+export const  GET_INTERVAL_FOR_TEST = 'GET_INTERVAL_FOR_TEST'
+export const  SAY_MAMATA = 'SAY_MAMATA'
+

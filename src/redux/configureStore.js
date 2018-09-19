@@ -1,24 +1,27 @@
-import { createStore, combineReducers } from 'redux'
-import { rootReducer, initialState } from './reducers/RootReducer'
-import {createStore, applyMiddleware} from 'redux'
-import { reducer, initialState as userInitialState } from './currentUser'
-
-const loggingMiddleware = (store)=>(next)=> (action)=>{
-  console.log('Redux log', action)
-  next(action)
-}
-
-export const configureStore = () => {
-  const store = createStore(
-    rootReducer,
-    initialState,
-    applyMiddleware(
-      apiMiddleware,
-      loggingMiddleware
-    )
-    
-  )
-  return store
-}
-
-export default configureStore
+// import { createStore, combineReducers , applyMiddleware} from 'redux'
+// // import { reducer, initialState as userInitialState } from './currentUser'
+// import rootReducer from './reducers/RootReducer'
+//
+// // const loggingMiddleware = (store)=>(next)=> (action)=>{
+// //   console.log('Redux log', action)
+// //   next(action)
+// // }
+//
+// const initialState = {
+//   testArr: JSON.parse(window.localStorage.getItem('testArr')),
+//   testIntervalData: JSON.parse(window.localStorage.getItem('testIntervalData'))
+// }
+// const configureStore = () => {
+//   const store = createStore(
+//     rootReducer,
+//     // initialState,
+//     // applyMiddleware(
+//     //   apiMiddleware,
+//     //   loggingMiddleware
+//     // )
+//     //
+//   )
+//   return store
+// }
+//
+// export default configureStore
