@@ -17,7 +17,7 @@ class WorkHeader extends Component {
     console.log(this.props.testIntervalData)
   }
   
-  componentDidUnmount () {
+  componentWillUnmount () {
     window.localStorage.clear()
   }
   

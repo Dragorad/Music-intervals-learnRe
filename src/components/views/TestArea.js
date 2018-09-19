@@ -10,7 +10,7 @@ class TestArea extends Component {
       answerVisible: this.props.answerVisible
     }
   }
- 
+  
   answeringClicked (e) {
     e.preventDefault()
     console.log('answering clicked')
@@ -18,7 +18,6 @@ class TestArea extends Component {
   
   render () {
     let testArr = this.props.testArr
-    console.log(this.state.idxClick)
     let interval = this.props.testInterval
     // testArr[this.state.idxClick]
     console.log(interval)
@@ -41,7 +40,7 @@ class TestArea extends Component {
               key="2"
               label={'начален тон'}
               text={interval.baseTone}/>
-           
+            
             <div className="summary-field">
               <label htmlFor="testedAnswer "> отговор </label>
               <input id="testedAnswer" type='text' name="testedAnswer" placeholder="Не знам"></input>
@@ -50,7 +49,7 @@ class TestArea extends Component {
             </div>
             <div className="summary-field right-answer" style={
               this.props.answerVisible ? {display: 'block'} : {display: 'none'}}>
-              Верен отговор <p style={{color:"red"}}>{interval.answer}</p>
+              Верен отговор <p style={{color: 'red'}}>{interval.answer}</p>
             </div>
             <button id="next-question" className="summary-field"
                     onClick={this.props.nextQuestionClicked.bind(this)}>

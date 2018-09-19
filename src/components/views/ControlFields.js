@@ -26,7 +26,7 @@ class ControlFields extends Component {
         <NumericControlField
           handleInputChange={this.handleInputChange.bind(this)}
           fieldName='timeForAnswer'
-            placeholder='time for answer'
+          placeholder='time for answer'
           text='време за отгатване'/>
         <NumericControlField
           handleInputChange={this.handleInputChange.bind(this)}

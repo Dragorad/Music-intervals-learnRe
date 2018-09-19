@@ -50,6 +50,11 @@ class FormSummary extends Component {
     console.log('next question clicked')
     this.setState({answerVisible: false})
     let idxClicked = this.passIndex()
+    
+    if(idxClicked === this.props.testArr.length){
+      alert('test finished')
+      this.props.history.push('/index')
+    }
     let interval = this.props.testArr[idxClicked]
     this.setState({
       testInterval: interval,

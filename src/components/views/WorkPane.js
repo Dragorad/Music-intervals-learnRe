@@ -26,10 +26,10 @@ class WorkPane extends Component {
     
     this.setState({testIntervalData, testArr}, function () {
       console.log(this.state.testIntervalData)
-      console.log(this.state.testArr)
       // console.log(testArr)
     })
   }
+  
   // renderNewTest = ((testData=this.state.testIntervalData)=> {
   //   // let testData = this.state.testIntervalData
   //   this.setState({testArr: muzWorker.generateTestArr(testData.intervalsForTest, testData.numberOfTasks)})
