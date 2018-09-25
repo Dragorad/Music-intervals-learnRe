@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import TestField from './TestField'
+import { Link } from 'react-router-dom'
 
 class TestArea extends Component {
   constructor (props) {
@@ -23,7 +24,8 @@ class TestArea extends Component {
     console.log(interval)
     
     if (this.props.testRendered) {
-      return (
+      if(!this.props.testFinished){
+        return (
         <div className="test-area">
           <div className="condition">
             
@@ -57,11 +59,25 @@ class TestArea extends Component {
             </button>
           </div>
         </div>
-      )
+      )}
+      else {
+        return(
+          <div className={'testFinished'}>
+            <p>Test finished!</p>
+            <p>Please choose:</p>
+            <Link to='/index' className='summary-field' onClick={() => window.localStorage.clear()}>НОВ ТЕСТ ОТНАЧАЛО</Link>
+            
+            <Link to='/work-pane' className='summary-field'
+                  onClick={this.props.generateNewTest.bind(this)}>
+              НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ</Link>
+          </div>
+        )
+      }
     } else {
       return <div></div>
     }
   }
 }
+
 
 export default TestArea

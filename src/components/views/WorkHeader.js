@@ -11,7 +11,6 @@ class WorkHeader extends Component {
     super(props)
   }
   
-  
   componentDidMount (props) {
     console.log('mounting work-pane')
     console.log(this.props.testIntervalData)
@@ -26,10 +25,11 @@ class WorkHeader extends Component {
     return (
       <header>
         <Link to='/index' className='summary-field' onClick={() => window.localStorage.clear()}>НОВ ТЕСТ ОТНАЧАЛО</Link>
-        <Link to='/re-test' className='summary-field'
-              // onClick={this.props.renderNewTest.bind(this)}
-        >
-          НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ</Link>
+        <Link to='/work-pane' className='summary-field'
+              onClick={
+                this.props.generateNewTest.bind(this)
+              }
+        >НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ</Link>
         <p> включени интервали: <br/>
           <span>{intervalData.intervalsForTest.join(', ')}</span>
         </p>

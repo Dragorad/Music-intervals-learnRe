@@ -3,21 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "immutable": "^3.8.2",
     "jquery": "^3.3.1",
-    "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "redux": "^4.0.0",
-    "redux-logger": "^3.0.6",
-    "redux-promise": "^0.6.0"
+    "redux": "^4.0.0"
   },
-  "homepage": "http://Dragorad.github.io/music-intervals-first-build",
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build",
   "engines": {
     "node": "10.6.0"
   },
@@ -25,12 +18,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "redux-devtools": "^3.4.1",
-    "gh-pages": "^1.1.0"
+    "redux-devtools": "^3.4.1"
   }
 }
