@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import muzWorker from '../../intervalWorker'
+import { connect } from 'react-redux'
 import TestArea from './TestArea'
 import TestField from './TestField'
+import jquery from 'jquery'
+
+let $ = jquery
 
 class FormSummary extends Component {
   constructor (props) {
@@ -10,8 +15,10 @@ class FormSummary extends Component {
       testArr: this.props.testArr,
       testIntervalData: this.props.testIntervalData,
       timeRemaining: this.props.testIntervalData.timeForAnswer,
+      tasksRemaining: this.props.testArr.length,
       answerVisible: false,
-      testInterval: this.props.testArr[0]
+      testInterval: this.props.testArr[0],
+      testFinished: false
     }
     this.passIndex = (() => {
       let idx = 0
@@ -29,31 +36,42 @@ class FormSummary extends Component {
         }
         else {
           this.setState({answerVisible: true})
+          let answerId = this.state.testInterval.baseTone
+          answerId.replace(/' '/g, '')
+          console.log(answerId)
+          $(`#answerId`).css('background-color', 'red')
           clearTimeout(this.timer)
+          
         }
       }, 500)
   }
   
   componentDidMount () {
     console.log('Form summary rendering')
+  
   }
   
   onTestButtonClick (e) {
     e.preventDefault()
     console.log('test button clicked')
     this.testRendered = true
+    this.setState(
+      {tasksRemaining: this.state.tasksRemaining - 1}
+    )
     this.timer()
   }
   
   nextQuestionClicked (e) {
     e.preventDefault()
     console.log('next question clicked')
-    this.setState({answerVisible: false})
+    this.setState({
+      answerVisible: false,
+      tasksRemaining: this.state.tasksRemaining - 1
+    })
     let idxClicked = this.passIndex()
-    
-    if(idxClicked === this.props.testArr.length){
-      alert('test finished')
-      this.props.history.push('/index')
+    if (idxClicked === this.props.testArr.length) {
+      // alert('test finished')
+      this.setState({testFinished: true})
     }
     let interval = this.props.testArr[idxClicked]
     this.setState({
@@ -63,50 +81,54 @@ class FormSummary extends Component {
     })
     this.timer()
   }
+  mapDispatchToProps = dispatch => {
   
+  }
+  // if(this.state.testFinished === false){
   render () {
     let testArr = this.props.testArr
     let intervalData = this.props.testIntervalData
     let testRendered = this.testRendered
     console.log(testRendered)
     return (
-      
       <div className='summary'>
         <TestField
           label={'време за отгатване'}
           text={this.state.timeRemaining}/>
         <TestField
           label={'оставащи задачи до края на теста'}
-          text={this.state.testArr.length}/>
+          text={this.state.tasksRemaining}/>
         <TestField
           label={'включени интервали'}
           text={intervalData.intervalsForTest.join(', ')}/>
         
-        {/*<div id='summary-time' className='summary-field'>*/}
-        {/*време за отгатване<br/> <span>{this.state.timeRemaining}</span>*/}
-        {/*</div>*/}
-        {/*<div id='summary-tasks' className='summary-field'>*/}
-        {/*оставащи задачи до края на теста <br/> <span>{testArr.length}</span><span/>*/}
-        {/*</div>*/}
-        {/*<div id='summary-intervals' className='summary-field'>*/}
-        {/*включени интервали: <br/>*/}
-        {/*<span>{intervalData.intervalsForTest.join(', ')}</span>*/}
-        {/*</div>*/}
         <button className='summary-field' name='test-start-button'
                 onClick={this.onTestButtonClick.bind(this)}>Начало на теста
         </button>
-        
         < TestArea
           testRendered={testRendered}
           testArr={testArr}
           testInterval={this.state.testInterval}
           answerVisible={this.state.answerVisible}
+          testFinished={this.state.testFinished}
           nextQuestionClicked={this.nextQuestionClicked.bind(this)}
+          generateNewTest={this.props.generateNewTest}
         />
       </div>
-    
     )
   }
+
+// }
+
+// else{
+//   render(){
+//     return(
+//       <div>
+//         Need new Component
+//       </div>
+//     )
+//   }
+// }
 }
 
 export default FormSummary

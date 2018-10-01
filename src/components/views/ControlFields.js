@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import NumericControlField from './NumericControlField.js'
 import FormInput from './Form-input.js'
-// import IntervalButtonsWrap from './IntervalButtonsWrap.js'
 import muzWorker from '../../intervalWorker'
-// import IntervalGroup from './IntervalGroup'
-// import props from './ControlForm'
 
 let {intervals} = muzWorker
 

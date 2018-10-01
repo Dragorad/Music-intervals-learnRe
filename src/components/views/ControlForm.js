@@ -3,7 +3,7 @@ import jquery from 'jquery'
 import ControlFields from './ControlFields.js'
 import IntervalButtonsWrap from './IntervalButtonsWrap'
 import muzWorker from '../../intervalWorker'
-
+import { connect } from 'react-redux'
 let $ = jquery
 let testIntervalData = {}
 let regimes = [['only-generate', 'само генериране'],
@@ -78,7 +78,7 @@ class ControlForm extends Component {
       boxes.prop('checked', false)
     })
   }
-  
+
   render () {
     return (
       <form method='GET' action='#/conditions'

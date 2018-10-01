@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import WorkHeader from './WorkHeader'
-import FormSummary from './FormSummary'
-import Keyboard from './Keyboard'
+import WorkHeader from '../views/WorkHeader'
+import FormSummary from '../views/FormSummary'
+import Keyboard3 from '../views/Keyboard3'
 import jQuery from 'jquery'
 
 import muzWorker from '../../intervalWorker'
 import { displayIntervalsNames } from '../../redux/reducers/DisplayIntervalsNames'
 import configureStore from '../../redux/configureStore'
-import TestArea from './TestArea'
+import TestArea from '../views/TestArea'
 
 let $ = jQuery
 
@@ -15,25 +15,18 @@ class WorkPane extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      testIntervalData: {},
-      testArr: {}
+      testIntervalData: JSON.parse(window.localStorage.getItem('testIntervalData')),
+      testArr: JSON.parse(window.localStorage.getItem('testArr'))
     }
   }
-  
-  componentWillMount () {
-    let testIntervalData = JSON.parse(window.localStorage.getItem('testIntervalData'))
-    let testArr = JSON.parse(window.localStorage.getItem('testArr'))
-    
-    this.setState({testIntervalData, testArr}, function () {
-      console.log(this.state.testIntervalData)
-      // console.log(testArr)
-    })
+  generateNewTest(){
+    let testData = this.state.testIntervalData
+    let newTest = muzWorker.generateTestArr(testData.intervalsForTest, testData.numberOfTasks)
+    this.setState({testArr: newTest})
+    console.log(newTest)
   }
+  // componentWillMount () {
   
-  // renderNewTest = ((testData=this.state.testIntervalData)=> {
-  //   // let testData = this.state.testIntervalData
-  //   this.setState({testArr: muzWorker.generateTestArr(testData.intervalsForTest, testData.numberOfTasks)})
-  // })()
   
   // let {intervalsForTest, numberOfTasks} = this.state.testIntervalData
   
@@ -53,13 +46,14 @@ class WorkPane extends Component {
       <div>
         <WorkHeader
           testIntervalData={testIntervalData}
-          // renderNewTest={this.renderNewTest.bind(this)}
+          generateNewTest={this.generateNewTest.bind(this) }
         />
         <div className='work-pane'>
           <FormSummary
             testIntervalData={testIntervalData}
-            testArr={testArr}/>
-          <Keyboard/>
+            testArr={testArr}
+            generateNewTest={this.generateNewTest.bind(this)}/>
+          <Keyboard3/>
         </div>
       
       </div>

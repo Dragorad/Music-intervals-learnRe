@@ -1,31 +1,18 @@
-import {combineReducers } from 'redux'
-import * as types from '../actions/types'
-import * as currentUser from '../currentUser'
-// import * as currentTime from '../currentTime'
-import * as logIntervalsNames from './DisplayIntervalsNames'
+import { ADD_ARTICLE } from '../constants/action-types'
 
 const initialState = {
-  testIntervalData: window.localStorage.getItem('testIntervalData'),
-  testArr: window.localStorage.getItem('testArr'),
-  // currentTime: currentTime.initialState,
-  // currentUser: currentUser.initialState,
-  //
+  testIntervalData: JSON.parse(window.localStorage.getItem('testIntervalData')),
+  testArr: JSON.parse(window.localStorage.getItem('testArr'))
 }
-//
-// export const rootReducer = combineReducers({
-  // currentTime: currentTime.reducer,
-  // currentUser: currentUser.reducer,
-  // intervalsNames: logIntervalsNames,
-// })
 
-const GTrootReducer = (state=initialState, action)=>{
+const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.FETCH_NEW_TIME:{
-      return{...state, currentTime: action.payload}
-    }
-    default: return state
+    case ADD_ARTICLE:
+      
+      return {...state, articles: [...state.articles,action.payload]}
+    
+    default:
+      return state
   }
-  return state
 }
-
-export default GTrootReducer
+export default rootReducer
