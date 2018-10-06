@@ -36,10 +36,12 @@ class FormSummary extends Component {
         }
         else {
           this.setState({answerVisible: true})
-          let answerId = this.state.testInterval.baseTone
-          answerId.replace(/' '/g, '')
-          console.log(answerId)
-          $(`#answerId`).css('background-color', 'red')
+          let answerBase = this.state.testInterval.baseTone
+          answerBase.split(' ').join('')
+          let selector = `path#${answerBase.split(' ').join('')}`
+          console.log(selector)
+          $("svg #answerBase").css('background-color', 'red')
+          
           clearTimeout(this.timer)
           
         }
@@ -48,7 +50,7 @@ class FormSummary extends Component {
   
   componentDidMount () {
     console.log('Form summary rendering')
-  
+    
   }
   
   onTestButtonClick (e) {
@@ -81,10 +83,7 @@ class FormSummary extends Component {
     })
     this.timer()
   }
-  mapDispatchToProps = dispatch => {
   
-  }
-  // if(this.state.testFinished === false){
   render () {
     let testArr = this.props.testArr
     let intervalData = this.props.testIntervalData
@@ -117,18 +116,7 @@ class FormSummary extends Component {
       </div>
     )
   }
-
-// }
-
-// else{
-//   render(){
-//     return(
-//       <div>
-//         Need new Component
-//       </div>
-//     )
-//   }
-// }
+  
 }
 
 export default FormSummary

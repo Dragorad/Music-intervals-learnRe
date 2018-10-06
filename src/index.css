@@ -295,7 +295,8 @@ header a {
     fill: lightpink;
 
 }
-.clicked-key:first-child{
+
+.clicked-key:first-child {
     color: black;
 }
 
@@ -326,8 +327,9 @@ header a {
 .answer-form > input {
     background-color: #c0cfe1;
 }
-.test-area{
-    display: flex ;
+
+.test-area {
+    display: flex;
     flex-flow: column;
     justify-content: space-evenly;
     width: 100%;
@@ -335,9 +337,10 @@ header a {
     margin: 3%;
     padding: 10% 2%;
 }
-div.test-area{
+
+div.test-area {
     width: 100%;
-    }
+}
 
 .right-answer {
     display: none;
@@ -351,6 +354,29 @@ div.test-area{
 #testedAnswer {
     margin-bottom: 3em;
     height: 2em;
+    background-color: palegoldenrod;
+    color:#c10413;
+    text-align: center;
+    font-weight: bold;
+}
+
+.testFinished {
+    margin: 5%;
+    padding: 10%;
+    border-radius: 7%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: #867260;
+    border: 1px solid blueviolet;
+    background-color: midnightblue;
+}
+
+.testFinished p {
+    color: #fafafa;
+    font-weight: bold;
+    margin: 5%;
 }
 
 #infoBox,

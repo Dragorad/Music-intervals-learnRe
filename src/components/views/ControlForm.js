@@ -4,8 +4,11 @@ import ControlFields from './ControlFields.js'
 import IntervalButtonsWrap from './IntervalButtonsWrap'
 import muzWorker from '../../intervalWorker'
 import { connect } from 'react-redux'
+import { setTestIntervalData, generateTestArr } from '../../redux/actions/indexActions'
+
 let $ = jquery
 let testIntervalData = {}
+let testArr = {}
 let regimes = [['only-generate', 'само генериране'],
   ['local-store', 'генериране и запазване локално'],
   ['exam', 'изпит']]
@@ -26,15 +29,15 @@ class ControlForm extends Component {
     event.preventDefault()
     
     let target = event.target
-    if (target.type === 'checkbox') {
-      console.log(this)
-    }
+    // if (target.type === 'checkbox') {
+    //   console.log(this)
+    // }
     let field = target.type === 'checkbox' ? target.checked : target.value
     let value = target.value
     
     testIntervalData[target.name] = Number(target.value)
     this.setState({[target]: value})
-    // console.log({[target]: value})
+    
   }
   
   handleSubmit (event) {
@@ -55,9 +58,9 @@ class ControlForm extends Component {
     if (intervalsForTest.length === 0) {
       alert('You have to select at last one interval for test')
     } else {
-      
-      let testArr = muzWorker.generateTestArr(testIntervalData.intervalsForTest, testIntervalData.numberOfTasks)
-      testArr.map(el => muzWorker.generateTones(el))
+  
+      this.props.generateTestArr(testIntervalData.intervalsForTest, numberOfTasks)
+      this.props.setTestIntervalData(testIntervalData)
       window.localStorage.setItem('testIntervalData', JSON.stringify(testIntervalData))
       window.localStorage.setItem('testArr', JSON.stringify(testArr))
       
@@ -78,7 +81,7 @@ class ControlForm extends Component {
       boxes.prop('checked', false)
     })
   }
-
+  
   render () {
     return (
       <form method='GET' action='#/conditions'
@@ -97,5 +100,11 @@ class ControlForm extends Component {
   }
 }
 
-// export { testIntervalData }
-export default ControlForm
+function mapDispatchToProps(dispatch){
+  return {
+    setTestIntervalData: () => {dispatch(setTestIntervalData(testIntervalData))},
+    generateTestArr: (intervalsForTest, numberOfTasks)=>
+    {dispatch(generateTestArr(intervalsForTest, numberOfTasks))}
+  }
+}
+export default connect(null, mapDispatchToProps)(ControlForm)

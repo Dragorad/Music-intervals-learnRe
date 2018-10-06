@@ -5,62 +5,60 @@ import Keyboard from '../views/Keyboard'
 import jQuery from 'jquery'
 
 import muzWorker from '../../intervalWorker'
-import { displayIntervalsNames } from '../../redux/reducers/DisplayIntervalsNames'
-import configureStore from '../../redux/configureStore'
 import TestArea from '../views/TestArea'
+import { connect } from 'react-redux'
 
 let $ = jQuery
 
 class WorkPaneRedux extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      testIntervalData: JSON.parse(window.localStorage.getItem('testIntervalData')),
-      testArr: JSON.parse(window.localStorage.getItem('testArr'))
-    }
   }
-  generateNewTest(){
+  
+  generateNewTest () {
+    console.log(newTest)
     let testData = this.state.testIntervalData
     let newTest = muzWorker.generateTestArr(testData.intervalsForTest, testData.numberOfTasks)
-    this.setState({testArr: newTest})
-    console.log(newTest)
+    window.localStorage.setItem('testArr', JSON.stringify(newTest))
+    this.setState({
+      testArr: newTest,
+      testRendered: false
+    })
   }
-  // componentWillMount () {
   
-  
-  // let {intervalsForTest, numberOfTasks} = this.state.testIntervalData
-  
-    // let C1 = $('path').find( el => el.firstChild === 'C - 1')
-    // console.log(C1).css('fill', 'green')
-    componentDidMount () {
+  componentDidMount () {
     let path = $('path')
     path.on('click', function () {
-        console.log($(this))
-        console.log($(this))
-        $(this).toggleClass('clicked-key')
-      })
-      path.on('hover', function () {
-        $(this).css('background-color', 'green')
-      })
-    }
-    
+      console.log($(this))
+      let targetId = this.id
+      
+      console.log(targetId)
+      $('#testedAnswer').val(targetId.split('').join(' '))
+      $('.clicked-key').toggleClass()
+      $(this).toggleClass('clicked-key')
+      
+    })
+    path.on('hover', function () {
+      $(this).css('background-color', 'green')
+    })
+  }
   
   render () {
-    let testIntervalData = this.state.testIntervalData
-    let testArr = this.state.testArr
+    let testIntervalData = this.props.testIntervalData
+    let testArr = this.props.testArr
     return (
       <div className='all-work'>
         <WorkHeader
           testIntervalData={testIntervalData}
-          generateNewTest={this.generateNewTest.bind(this) }
+          testArr={testArr}
         />
         <div className='work-pane'>
           <FormSummary
             testIntervalData={testIntervalData}
             testArr={testArr}
-            generateNewTest={this.generateNewTest.bind(this)}/>
-          <Keyboard />
-          
+          />
+          <Keyboard/>
+        
         </div>
       
       </div>
@@ -69,4 +67,10 @@ class WorkPaneRedux extends Component {
   }
 }
 
-export default WorkPaneRedux
+const mapStateToProps = state => {
+  return {
+    testArr: state.testArr,
+    testIntervalData: state.testIntervalData
+  }
+}
+export default connect(mapStateToProps)(WorkPaneRedux)
