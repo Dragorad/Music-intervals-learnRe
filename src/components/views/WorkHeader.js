@@ -32,10 +32,11 @@ const WorkHeader = (props) => {
     <header>
       <Link to='/index' className='summary-field' onClick={() => window.localStorage.clear()}>НОВ ТЕСТ ОТНАЧАЛО</Link>
       <Link to='/work-pane' className='summary-field'
-            onClick={(e)=>{
+            onClick={(e) => {
               e.preventDefault()
               props.generateNewTest(props.testIntervalData.intervalsForTest,
-              props.testIntervalData.numberOfTasks)}
+                props.testIntervalData.numberOfTasks)
+            }
             }
       >НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ</Link>
       <p> включени интервали: <br/>
@@ -61,8 +62,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    generateNewTest: (intervalsForTest, numberOfTasks)=>
-    {dispatch(generateNewTest(intervalsForTest,numberOfTasks))}
+    generateNewTest: (intervalsForTest, numberOfTasks) => {dispatch(generateNewTest(intervalsForTest, numberOfTasks))}
   }
 }
 

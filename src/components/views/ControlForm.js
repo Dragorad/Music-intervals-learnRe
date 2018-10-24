@@ -58,7 +58,7 @@ class ControlForm extends Component {
     if (intervalsForTest.length === 0) {
       alert('You have to select at last one interval for test')
     } else {
-  
+      
       this.props.generateTestArr(testIntervalData.intervalsForTest, numberOfTasks)
       this.props.setTestIntervalData(testIntervalData)
       window.localStorage.setItem('testIntervalData', JSON.stringify(testIntervalData))
@@ -84,27 +84,41 @@ class ControlForm extends Component {
   
   render () {
     return (
-      <form method='GET' action='#/conditions'
+      <form method='GET' action='#/conditions' className='control-form'
             onSubmit={this.handleSubmit.bind(this)}>
         <h2> Добре дошли в Intervals L </h2>
-        <p> Опитвайте и ще успеете!Никой не се е родил научен!!! </p>
-        <div className='fields-wrap'>
-          <ControlFields
-            handleInputChange={this.handleInputChange.bind(this)}/>
-          
-          <IntervalButtonsWrap
-            handleInputChange={this.handleInputChange.bind(this)}
-            handleSubmit={this.handleSubmit.bind(this)}/>
-        </div>
-      </form>)
+        <h3> Опитвайте и ще успеете!   Никой не се е родил научен!!! </h3>
+        <div className='example'><p> Задайте време за отговор между 2 и 20 секунди, брой на задачите не по-малък от 2 и изберете поне един
+          интервал върху който да се задават въпроси.</p>
+        <p> Всеки вид интервал включен в теста дава по 20 точки за верен отговор</p>
+        <p> Всяка секунда отпусната за отговаряне намалява резултата за верен отговор с 1 точка</p></div>
+        <p> Пример:<br/></p>
+        <div className='example'> <p>Ако тестът включва само малки секунди за всеки отговор ще получите 20 точки минус броя
+          на секундите за отговор. Ако си дадете 15 секунди за мислене ви остават по 5 точки за всеки верен отговор.
+        </p>
+        <p> Ако тестът включва малки секунди, малки и големи терци за
+          всеки отговор ще получите по 60 точки минус броя на секундите.
+          Ако секундите са по 5 за отговор ще получите по 55. Всеки грешен отговор отнема по толкова точки,
+          колкото се дават за верен отговор.</p>
+      </div>
+      < div
+    className = 'fields-wrap' >
+      < ControlFields
+    handleInputChange = {this.handleInputChange.bind(this)
+  }
+    />
+    
+    <IntervalButtonsWrap
+      handleInputChange={this.handleInputChange.bind(this)}
+      handleSubmit={this.handleSubmit.bind(this)}/>
+    < /div>
+  </form>)
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    setTestIntervalData: () => {dispatch(setTestIntervalData(testIntervalData))},
-    generateTestArr: (intervalsForTest, numberOfTasks)=>
-    {dispatch(generateTestArr(intervalsForTest, numberOfTasks))}
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  setTestIntervalData: testIntervalData => dispatch(setTestIntervalData(testIntervalData)),
+  generateTestArr: (intervalsForTest, numberOfTasks) => dispatch(generateTestArr(intervalsForTest, numberOfTasks))
+})
+
 export default connect(null, mapDispatchToProps)(ControlForm)

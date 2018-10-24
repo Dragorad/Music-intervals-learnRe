@@ -36,6 +36,12 @@ body {
     height: 100%;
 }
 
+.control-form p {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #e7f6e7;
+}
+
 form {
     font-weight: normal;
     background-color: slategrey;
@@ -46,13 +52,21 @@ form {
     text-align: center;
 }
 
-h2 {
+h2, h3 {
     font-family: "Vollkorn", sans-serif;
     text-align: center;
     color: #e7f6e7;
     font-size: 2.2em;
 }
 
+.control-form h3 {
+    font-size: 1.2em;
+    margin: 0.4em;
+}
+.control-form .example{
+    text-align: left;
+    padding: 1em;
+}
 .control-field {
     width: 25%;
     text-align: center;
@@ -246,6 +260,7 @@ form-summary .summary-field {
 }
 
 a.summary-field, button.summary-field {
+
     text-transform: uppercase;
     text-decoration: none;
     border: 1px solid #5693c9;
@@ -301,15 +316,16 @@ header a {
 }
 
 .summary {
-    margin: 5% auto;
+    margin: auto;
     display: flex;
     flex-flow: column;
-    justify-content: space-between;
-    height: 70%;
+    justify-content: flex-start;
+    height: 60%;
     width: 40%;
-    font-size: 1.1em;
+    font-size: 1em;
     color: #666666;
-    padding: 3%;
+    border: 1px solid cornflowerblue;
+    border-radius: 1%;
 }
 
 .summary p {
@@ -328,18 +344,24 @@ header a {
     background-color: #c0cfe1;
 }
 
-.test-area {
+.test-area, .condition {
     display: flex;
     flex-flow: column;
     justify-content: space-evenly;
     width: 100%;
     height: 40%;
-    margin: 3%;
+    margin: 0 3%;
     padding: 10% 2%;
 }
 
 div.test-area {
     width: 100%;
+}
+
+.answer-area {
+    display: flex;
+    border: 1px solid antiquewhite;
+    flex-flow: column;
 }
 
 .right-answer {
@@ -355,7 +377,7 @@ div.test-area {
     margin-bottom: 3em;
     height: 2em;
     background-color: palegoldenrod;
-    color:#c10413;
+    color: #c10413;
     text-align: center;
     font-weight: bold;
 }

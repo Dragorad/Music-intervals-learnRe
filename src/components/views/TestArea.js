@@ -26,7 +26,6 @@ class TestArea extends Component {
         return (
           <div className="test-area">
             <div className="condition">
-              
               <TestField
                 key="0"
                 label={'интервал'}
@@ -40,22 +39,34 @@ class TestArea extends Component {
                 key="2"
                 label={'начален тон'}
                 text={interval.baseTone}/>
-              
-              <div className="summary-field">
+            </div>
+            
+            <div className='answer-area'>
+              <div className="summary-field " style={{display:'block'}}>
                 <label htmlFor="testedAnswer "> отговор </label>
                 <input id="testedAnswer" type='text' name="testedAnswer" placeholder="Не знам"></input>
                 <button
                   onClick={this.answeringClicked.bind(this)}/>
               </div>
+              <button id="next-question" className="summary-field" style={
+                {
+                  margin: 'auto',
+                  'background-color': '#f9f9f9',
+                  color: 'crimson'
+                  
+                }}
+                      onClick={this.props.nextQuestionClicked.bind(this)}>
+                ИЗПРАЩАМ ОТГОВОР
+              </button>
               <div className="summary-field right-answer" style={
                 this.props.answerVisible ? {display: 'block'} : {display: 'none'}}>
                 Верен отговор <p style={{color: 'red'}}>{interval.answer}</p>
               </div>
-              <button id="next-question" className="summary-field"
-                      onClick={this.props.nextQuestionClicked.bind(this)}>
-                СЛЕДВАЩ ВЪПРОС
-              </button>
             </div>
+            <button id="next-question" className="summary-field"
+                    onClick={this.props.nextQuestionClicked.bind(this)}>
+              СЛЕДВАЩ ВЪПРОС
+            </button>
           </div>
         )
       }

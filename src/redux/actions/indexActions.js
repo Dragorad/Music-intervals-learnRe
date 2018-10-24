@@ -19,6 +19,11 @@ export const fillAnswerInput = text=> ({
     type: types.FILL_ANSWER_INPUT,
     payload: text
   })
+export const pushIntervalInResults = intervalName => ({
+   
+    type: types.PUSH_INTERVAL_IN_RESULTS,
+    payload: intervalName
+  })
 export const generateNewTest = intervalData => ({
   type: types.GENERATE_NEW_TEST,
   payload: () => {
