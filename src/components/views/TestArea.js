@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import TestField from './TestField'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import * as actions from '../../redux/actions/indexActions'
 
 class TestArea extends Component {
   constructor (props) {
@@ -78,9 +80,9 @@ class TestArea extends Component {
             <Link to='/index' className='summary-field' onClick={() => window.localStorage.clear()}>НОВ ТЕСТ
               ОТНАЧАЛО</Link>
             
-            <Link to='/work-pane' className='summary-field'
-                  onClick={this.props.generateNewTest.bind(this)}>
-              НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ</Link>
+            {/*<Link to='/work-pane' className='summary-field'*/}
+                  {/*onClick={this.props.generateNewTest.bind(this)}>*/}
+              {/*НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ</Link>*/}
           </div>
         )
       }
@@ -90,4 +92,12 @@ class TestArea extends Component {
   }
 }
 
-export default TestArea
+const mapStateToProps = store => {
+  intervalsForTest: store.testIntervalData.intervalsForTest
+  numberOfTasks: store.testIntervalData.numberOfTasks
+}
+// const mapDispatchToProps = (dispatch, state) =>{
+//   generateNewTest: dispatch(actions.generateTestArr(state.testIntervalData.intervalsForTest,
+//     state.testIntervalData.numberOfTasks))
+// }
+export default connect(mapStateToProps)(TestArea)

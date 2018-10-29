@@ -1,46 +1,19 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import muzWorker from '../../intervalWorker'
 import { connect } from 'react-redux'
 import TestArea from './TestArea'
 import TestField from './TestField'
 import jquery from 'jquery'
-import * as PropTypes from 'prop-types'
+import ConditionArea from './ConditionArea'
 
 let $ = jquery
-
-class ConditionArea extends Component {
-  render () {
-    return <div className='condition'><TestField
-      label={'време за отгатване'}
-      text={this.props.text}/>
-      <TestField
-        label={'оставащи задачи до края на теста'}
-        text={this.props.text1}/>
-      <TestField
-        label={'включени интервали'}
-        text={this.props.intervalData.intervalsForTest.join(', ')}/>
-      
-      <button className='summary-field' name='test-start-button'
-              onClick={this.props.onClick}>Начало на теста
-      </button>
-    </div>
-  }
-}
-
-ConditionArea.propTypes = {
-  text: PropTypes.any,
-  text1: PropTypes.any,
-  intervalData: PropTypes.any,
-  onClick: PropTypes.any
-}
 
 class FormSummary extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      testArr: this.props.testArr,
-      testIntervalData: this.props.testIntervalData,
+      // testArr: this.props.testArr,
+      // testIntervalData: this.props.testIntervalData,
       timeRemaining: this.props.testIntervalData.timeForAnswer,
       tasksRemaining: this.props.testArr.length,
       answerVisible: false,
@@ -60,8 +33,7 @@ class FormSummary extends Component {
         if (timeRemaining > 0) {
           setTimeout(this.timer)
           this.setState({'timeRemaining': this.state.timeRemaining - 1})
-        }
-        else {
+        } else {
           this.setState({answerVisible: true})
           let answerBase = this.state.testInterval.baseTone
           answerBase.split(' ').join('')
@@ -70,14 +42,8 @@ class FormSummary extends Component {
           $('svg #answerBase').css('background-color', 'red')
           
           clearTimeout(this.timer)
-          
         }
       }, 500)
-  }
-  
-  componentDidMount () {
-    console.log('Form summary rendering')
-    
   }
   
   onTestButtonClick (e) {
@@ -109,6 +75,8 @@ class FormSummary extends Component {
       timeRemaining: this.props.testIntervalData.timeForAnswer
     })
     this.timer()
+    let testedAnswer = $('#testedAnswer').val()
+    console.log(testedAnswer)
   }
   
   render () {
@@ -118,25 +86,23 @@ class FormSummary extends Component {
     console.log(testRendered)
     return (
       <div className='summary'>
-        <ConditionArea text={this.state.timeRemaining} text1={this.state.tasksRemaining} intervalData={intervalData}
+        <ConditionArea timeRemaining={this.state.timeRemaining} text1={this.state.tasksRemaining} intervalData={intervalData}
                        onClick={this.onTestButtonClick.bind(this)}/>
-        < TestArea
+        <TestArea
           testRendered={testRendered}
           testArr={testArr}
           testInterval={this.state.testInterval}
           answerVisible={this.state.answerVisible}
           testFinished={this.state.testFinished}
           nextQuestionClicked={this.nextQuestionClicked.bind(this)}
-          generateNewTest={this.props.generateNewTest}
         />
       </div>
     )
   }
-  
 }
 
-const mapStateToProps = store => ({
-  testArr: this.state.testArr,
-  testIntervalData: this.state.testIntervalData
+const mapStateToProps = state => ({
+  testArr: state.testArr,
+  testIntervalData: state.testIntervalData
 })
-export default connect()(FormSummary)
+export default connect(mapStateToProps)(FormSummary)
