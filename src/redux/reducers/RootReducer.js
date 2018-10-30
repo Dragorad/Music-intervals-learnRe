@@ -1,4 +1,3 @@
-// import { ADD_ARTICLE } from '../constants/action-types'
 import * as types from '../actions/types'
 
 const initialState = {
@@ -35,3 +34,4 @@ const rootReducer = (state = initialState, action) => {
   }
 }
 export default rootReducer
+
