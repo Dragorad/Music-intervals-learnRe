@@ -3,6 +3,9 @@ import TestField from './TestField'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actions from '../../redux/actions/indexActions'
+import jquery from 'jquery'
+
+let $ = jquery
 
 class TestArea extends Component {
   constructor (props) {
@@ -10,13 +13,32 @@ class TestArea extends Component {
     this.state = {
       idxClick: 0,
       testInterval: this.props.testArr[0],
-      answerVisible: this.props.answerVisible
+      answerVisible: this.props.answerVisible,
+      userAnswer: ''
     }
   }
   
   answeringClicked (e) {
+    let pointsPerAnswer = this.props.pointsPerAnswer
+    console.log('redux points per answer' + pointsPerAnswer)
     e.preventDefault()
-    console.log('answering clicked')
+    console.log('answering clicked ' + this.props.testInterval.answer)
+    let userAnswer = this.props.userAnswer
+    console.log(userAnswer)
+    let isAnswerTrue = userAnswer === this.props.testInterval.answer
+    
+    console.log(isAnswerTrue)
+    let intervalName = this.state.testInterval.name.bg
+    this.props.addAnswerToResult(intervalName, isAnswerTrue)
+    this.props.addPointsToResult(pointsPerAnswer, isAnswerTrue)
+    
+  }
+  
+  componentDidMount () {
+    // let baseToneId = this.state.testInterval.baseTone.split(' ').join('')
+    // let baseKey = $(`path#${baseToneId}`)
+    // baseKey.css('fill', 'red')
+    //
   }
   
   render () {
@@ -44,7 +66,7 @@ class TestArea extends Component {
             </div>
             
             <div className='answer-area'>
-              <div className="summary-field " style={{display:'block'}}>
+              <div className="summary-field " style={{display: 'block'}}>
                 <label htmlFor="testedAnswer "> отговор </label>
                 <input id="testedAnswer" type='text' name="testedAnswer" placeholder="Не знам"></input>
                 <button
@@ -53,11 +75,9 @@ class TestArea extends Component {
               <button id="next-question" className="summary-field" style={
                 {
                   margin: 'auto',
-                  'background-color': '#f9f9f9',
+                  backgroundColor: '#f9f9f9',
                   color: 'crimson'
-                  
-                }}
-                      onClick={this.props.nextQuestionClicked.bind(this)}>
+                }} onClick={this.answeringClicked.bind(this)}>
                 ИЗПРАЩАМ ОТГОВОР
               </button>
               <div className="summary-field right-answer" style={
@@ -80,9 +100,9 @@ class TestArea extends Component {
             <Link to='/index' className='summary-field' onClick={() => window.localStorage.clear()}>НОВ ТЕСТ
               ОТНАЧАЛО</Link>
             
-            {/*<Link to='/work-pane' className='summary-field'*/}
-                  {/*onClick={this.props.generateNewTest.bind(this)}>*/}
-              {/*НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ</Link>*/}
+            <Link to='/work-pane' className='summary-field'
+                  onClick={this.props.generateNewTest.bind(this)}>
+              НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ</Link>
           </div>
         )
       }
@@ -93,11 +113,19 @@ class TestArea extends Component {
 }
 
 const mapStateToProps = store => {
-  intervalsForTest: store.testIntervalData.intervalsForTest
-  numberOfTasks: store.testIntervalData.numberOfTasks
+  return {
+    intervalsForTest: store.testIntervalData.intervalsForTest,
+    numberOfTasks: store.testIntervalData.numberOfTasks,
+    totalPoints: store.totalPoints,
+    sessionPoints: store.sessionPoints,
+    sessionAnswers: store.sessionAnswers,
+    pointsPerAnswer: store.pointsPerAnswer,
+    userAnswer: store.userAnswer
+  }
 }
-// const mapDispatchToProps = (dispatch, state) =>{
-//   generateNewTest: dispatch(actions.generateTestArr(state.testIntervalData.intervalsForTest,
-//     state.testIntervalData.numberOfTasks))
-// }
-export default connect(mapStateToProps)(TestArea)
+const mapDispatchToProps = (dispatch, state) => ({
+  generateNewTest: (intervalsForTest, numberOfTasks) => dispatch(actions.generateTestArr(intervalsForTest, numberOfTasks)),
+  addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),
+  addAnswerToResult: (intervalName, boolean) => dispatch(actions.addAnswerToResult(intervalName, boolean))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(TestArea)

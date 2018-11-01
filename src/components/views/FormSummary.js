@@ -12,8 +12,6 @@ class FormSummary extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      // testArr: this.props.testArr,
-      // testIntervalData: this.props.testIntervalData,
       timeRemaining: this.props.testIntervalData.timeForAnswer,
       tasksRemaining: this.props.testArr.length,
       answerVisible: false,
@@ -35,20 +33,23 @@ class FormSummary extends Component {
           this.setState({'timeRemaining': this.state.timeRemaining - 1})
         } else {
           this.setState({answerVisible: true})
-          let answerBase = this.state.testInterval.baseTone
-          answerBase.split(' ').join('')
-          let selector = `path#${answerBase.split(' ').join('')}`
-          console.log(selector)
-          $('svg #answerBase').css('background-color', 'red')
-          
           clearTimeout(this.timer)
         }
       }, 500)
   }
   
+  baseKeyColorize (testInterval) {
+    $('path').removeClass('base-key clicked-key')
+    let baseToneId = testInterval.baseTone.split(' ').join('')
+    let baseKey = $(`path#${baseToneId}`)
+    baseKey.addClass('base-key')
+  }
+  
   onTestButtonClick (e) {
     e.preventDefault()
-    console.log('test button clicked')
+    let answerBase = this.state.testInterval.baseTone
+    console.log(answerBase)
+    this.baseKeyColorize(this.state.testInterval)
     this.testRendered = true
     this.setState(
       {tasksRemaining: this.state.tasksRemaining - 1}
@@ -75,8 +76,7 @@ class FormSummary extends Component {
       timeRemaining: this.props.testIntervalData.timeForAnswer
     })
     this.timer()
-    let testedAnswer = $('#testedAnswer').val()
-    console.log(testedAnswer)
+    this.baseKeyColorize(interval)
   }
   
   render () {
@@ -86,7 +86,8 @@ class FormSummary extends Component {
     console.log(testRendered)
     return (
       <div className='summary'>
-        <ConditionArea timeRemaining={this.state.timeRemaining} text1={this.state.tasksRemaining} intervalData={intervalData}
+        <ConditionArea timeRemaining={this.state.timeRemaining} text1={this.state.tasksRemaining}
+                       intervalData={intervalData}
                        onClick={this.onTestButtonClick.bind(this)}/>
         <TestArea
           testRendered={testRendered}
@@ -105,4 +106,8 @@ const mapStateToProps = state => ({
   testArr: state.testArr,
   testIntervalData: state.testIntervalData
 })
+// const mapDispatchToProps = dispatch => ({
+//   addPointsToResult: (points,boolean) => dispatch(addPointsToResult(points, boolean))
+// })
+
 export default connect(mapStateToProps)(FormSummary)
