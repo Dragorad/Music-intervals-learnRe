@@ -63,10 +63,12 @@ h2, h3 {
     font-size: 1.2em;
     margin: 0.4em;
 }
-.control-form .example{
+
+.control-form .example {
     text-align: left;
     padding: 1em;
 }
+
 .control-field {
     width: 25%;
     text-align: center;
@@ -310,16 +312,20 @@ header a {
     fill: lightpink;
 
 }
+.base-key {
+    fill: #afffec;
+
+}
 
 .clicked-key:first-child {
     color: black;
 }
 
 .summary {
-    margin: auto;
     display: flex;
     flex-flow: column;
     justify-content: flex-start;
+    align-items: center;
     height: 60%;
     width: 40%;
     font-size: 1em;

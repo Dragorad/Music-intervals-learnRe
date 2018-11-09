@@ -1,5 +1,5 @@
 import * as types from './types'
-import muzWorker from '../../intervalWorker'
+import muzWorker from '../../appWorkers/intervalWorker'
 
 export const sayMamata = text => ({
   type: types.SAY_MAMATA,
@@ -32,22 +32,32 @@ export const setPointsPerAnswer = intervalData => ({
 })
 export const addPointsToResult = (number, boolean) => ({
   type: types.ADD_POINTS_TO_RESULT,
-  payload: () => {
+  payload: (() => {
     if (boolean === false) {
       return number * -1
     }
     return number
+  })()
+})
+export const addAnswerToResult = (intervalName, boolean) => ({
+  type: types.ADD_ANSWER_TO_RESULT,
+  payload: {
+    name: intervalName,
+    isCorrect: boolean
   }
 })
-// export const addIntervalResult = (intervalName, boolean) => ({
-//   type: types.ADD_INTERVAL_RESULT,
-//   payload: number
-// })
+
 export const getIntervalForTest = (testArr) => {
   let idx = 0
   return {
     type: types.GET_INTERVAL_FOR_TEST,
     payload: testArr[idx++]
+  }
+}
+export const setUserAnswer = (answer) => {
+  return {
+    type: types.SET_USER_ANSWER,
+    payload: answer
   }
 }
 

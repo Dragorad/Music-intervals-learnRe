@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import muzWorker from '../../intervalWorker'
+import muzWorker from '../../appWorkers/intervalWorker'
 import FormInput from './Form-input'
 import IntervalGroup from './IntervalGroup'
 

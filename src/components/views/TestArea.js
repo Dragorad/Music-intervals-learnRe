@@ -20,7 +20,7 @@ class TestArea extends Component {
   
   answeringClicked (e) {
     let pointsPerAnswer = this.props.pointsPerAnswer
-    console.log('redux points per answer' + pointsPerAnswer)
+    console.log('redux points per answer ' + pointsPerAnswer)
     e.preventDefault()
     console.log('answering clicked ' + this.props.testInterval.answer)
     let userAnswer = this.props.userAnswer
@@ -28,7 +28,8 @@ class TestArea extends Component {
     let isAnswerTrue = userAnswer === this.props.testInterval.answer
     
     console.log(isAnswerTrue)
-    let intervalName = this.state.testInterval.name.bg
+    let intervalName = this.props.testInterval.name.bg
+    console.log(intervalName)
     this.props.addAnswerToResult(intervalName, isAnswerTrue)
     this.props.addPointsToResult(pointsPerAnswer, isAnswerTrue)
     
@@ -126,6 +127,6 @@ const mapStateToProps = store => {
 const mapDispatchToProps = (dispatch, state) => ({
   generateNewTest: (intervalsForTest, numberOfTasks) => dispatch(actions.generateTestArr(intervalsForTest, numberOfTasks)),
   addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),
-  addAnswerToResult: (intervalName, boolean) => dispatch(actions.addAnswerToResult(intervalName, boolean))
+  addAnswerToResult: (sessionAnswers,intervalName, boolean) => dispatch(actions.addAnswerToResult(sessionAnswers,intervalName, boolean))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(TestArea)

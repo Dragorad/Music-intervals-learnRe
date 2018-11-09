@@ -1,4 +1,6 @@
 import * as types from '../actions/types'
+import getState from 'react-redux'
+import resultsHandler from '../../appWorkers/resultHandler'
 
 const initialState = {
   testIntervalData: {},
@@ -6,32 +8,36 @@ const initialState = {
   pointsPerAnswer: 0,
   totalPoints: 0,
   sessionPoints: 0,
-  sessionResult: {
-    intervalsScore: {}
-  }
+  sessionAnswers: [],
+  userAnswer: ''
 }
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    // case types.ADD_ARTICLE:
-    //   return {...state, articles: [...state.articles,action.payload]}
     case types.TEST_INTERVAL_DATA:
-      return {...state, testIntervalData: action.payload}
+      return {...state, testIntervalData: action.payload,
+      sessionAnswers: action.payload.intervalsForTest
+      }
     case types.GENERATE_TEST_ARR:
       return {...state, testArr: action.payload}
+    case types.SET_USER_ANSWER:
+      return {...state, userAnswer: action.payload}
     case types.SET_POINTS_PER_ANSWER:
       return {...state, pointsPerAnswer: action.payload}
-    case types.ADD_POINTS_TO_RESULT:
+    case types.ADD_ANSWER_TO_RESULT:
       return {
-        ...state, sessionResult: {
-          ...state.sessionResult, points: + action.payload
-        }
-      }
+        ...state, sessionAnswers:
+           [...state.sessionAnswers].map( el => el.name === action.payload.name ?
+              resultsHandler.handleSingleResult(el, action.payload) : el
+          )}
+        case types.ADD_POINTS_TO_RESULT:
+      return {...state, sessionPoints: state.sessionPoints + action.payload}
     case types.PUSH_INTERVAL_IN_RESULTS:
       return {...state, testResult: action.payload}
     default:
       return state
   }
 }
+
 export default rootReducer
 

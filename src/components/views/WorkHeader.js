@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import jquery from 'jquery'
-import muzWorker from '../../intervalWorker'
+import muzWorker from '../../appWorkers/intervalWorker'
 import { generateNewTest } from '../../redux/actions/indexActions'
 
 let $ = jquery
@@ -40,7 +40,7 @@ const WorkHeader = (props) => {
             }
       >НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ</Link>
       <p> включени интервали: <br/>
-        <span>{intervalData.intervalsForTest.join(', ')}</span>
+        <span>{intervalData.intervalsForTest.map(el => el.name).join(', ')}</span>
       </p>
       <p>общ брой задачи: <br/>
         <span>{intervalData.numberOfTasks} </span>

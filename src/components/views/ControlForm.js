@@ -21,11 +21,11 @@ class ControlForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this)
     this.redirectPage.bind(this)
   }
-
+  
   redirectPage () {
     this.props.push('/work-pane', testIntervalData)
   }
-
+  
   handleInputChange (event) {
     event.preventDefault()
     let target = event.target
@@ -34,16 +34,15 @@ class ControlForm extends Component {
     // }
     let field = target.type === 'checkbox' ? target.checked : target.value
     let value = target.value
-
+    
     testIntervalData[target.name] = Number(target.value)
-    this.setState({ [target]: value })
+    this.setState({[target]: value})
   }
-
+  
   handleSubmit (event) {
     event.preventDefault()
     let intervalsForTest = $('input[type="checkbox"]:checked').not(
-      $('#select-all')
-    )
+      $('#select-all'))
     let timeForAnswer = testIntervalData.timeForAnswer
     if (timeForAnswer < 2 || timeForAnswer > 20) {
       alert('time for answer must be between 2 and 20 seconds')
@@ -54,10 +53,18 @@ class ControlForm extends Component {
       alert('number of tasks must be at last 2')
       return
     }
-
-    testIntervalData[
-      'intervalsForTest'
-    ] = intervalsForTest.serializeArray().map(el => el.name)
+    console.log(testIntervalData.intervalsForTest)
+    testIntervalData['intervalsForTest'] = intervalsForTest.serializeArray()
+    .map(function (el) {
+      let elNew = {
+        name: el.name,
+        trueAnswers:0,
+        falseAnswers: 0
+      }
+        return elNew
+    }
+    )
+    console.log(testIntervalData)
     if (intervalsForTest.length === 0) {
       alert('You have to select at last one interval for test')
     } else {
@@ -75,7 +82,7 @@ class ControlForm extends Component {
       this.props.history.push('/work-pane')
     }
   }
-
+  
   componentDidMount () {
     let boxes = $('input[type = "checkbox"]')
     let selectAllBox = $('#select-all')
@@ -88,7 +95,7 @@ class ControlForm extends Component {
       boxes.prop('checked', false)
     })
   }
-
+  
   render () {
     return (
       <form
@@ -127,7 +134,7 @@ class ControlForm extends Component {
           <ControlFields
             handleInputChange={this.handleInputChange.bind(this)}
           />
-
+          
           <IntervalButtonsWrap
             handleInputChange={this.handleInputChange.bind(this)}
             handleSubmit={this.handleSubmit.bind(this)}
