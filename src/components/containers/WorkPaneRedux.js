@@ -2,41 +2,42 @@ import React, { Component } from 'react'
 import WorkHeader from '../views/WorkHeader'
 import FormSummary from '../views/FormSummary'
 import Keyboard from '../views/Keyboard'
+import * as actions from '../../redux/actions/indexActions'
 import jQuery from 'jquery'
-
-import muzWorker from '../../intervalWorker'
 import { connect } from 'react-redux'
+
 
 let $ = jQuery
 
 class WorkPaneRedux extends Component {
-  generateNewTest () {
-    let testData = this.state.testIntervalData
-    let newTest = muzWorker.generateTestArr(testData.intervalsForTest, testData.numberOfTasks)
-    console.log(newTest)
-    window.localStorage.setItem('testArr', JSON.stringify(newTest))
-    this.setState({
-      testArr: newTest,
+  // generateNewTest () {
+  //   let testData = this.state.testIntervalData
+  //   let newTest = muzWorker.generateTestArr(testData.intervalsForTest, testData.numberOfTasks)
+  //   console.log(newTest)
+  //   window.localStorage.setItem('testArr', JSON.stringify(newTest))
+  constructor (props) {
+    super(props)
+    this.state = {
       testRendered: false
-    })
+      
+    }
   }
-
+  
   componentDidMount () {
+    let that = this
     let path = $('path')
     path.on('click', function () {
       console.log($(this))
-      let targetId = this.id
-
+      let targetId = this.id.split('-').join(' - ')
       console.log(targetId)
-      $('#testedAnswer').val(targetId.split('').join(' '))
+      that.props.setUserAnswer(targetId)
+      $('#testedAnswer').val(targetId)
       $('.clicked-key').toggleClass()
       $(this).toggleClass('clicked-key')
     })
-    path.on('hover', function () {
-      $(this).css('background-color', 'green')
-    })
+    
   }
-
+  
   render () {
     let testIntervalData = this.props.testIntervalData
     let testArr = this.props.testArr
@@ -54,7 +55,7 @@ class WorkPaneRedux extends Component {
           <Keyboard />
         </div>
       </div>
-
+    
     )
   }
 }
@@ -65,4 +66,7 @@ const mapStateToProps = state => {
     testIntervalData: state.testIntervalData
   }
 }
-export default connect(mapStateToProps)(WorkPaneRedux)
+const mapDispatchToProps = dispach => ({
+  setUserAnswer: userAnswer => dispach(actions.setUserAnswer(userAnswer))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(WorkPaneRedux)
