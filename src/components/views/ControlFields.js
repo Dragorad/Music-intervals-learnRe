@@ -3,8 +3,6 @@ import NumericControlField from './NumericControlField.js'
 import FormInput from './Form-input.js'
 import muzWorker from '../../appWorkers/intervalWorker'
 
-let {intervals} = muzWorker
-
 let regimes = [
   ['only-generate', 'само генериране'],
   ['local-store', 'генериране и запазване локално'],

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../redux/actions/indexActions'
 import jquery from 'jquery'
 import ResultStats from './ResultStats'
+import eventWorker from '../../appWorkers/eventWorker'
 
 let $ = jquery
 
@@ -13,10 +14,35 @@ class TestArea extends Component {
     super(props)
     this.state = {
       idxClick: 0,
+      answerVisible: false,
       testInterval: this.props.testArr[0],
-      answerVisible: this.props.answerVisible,
-      userAnswer: ''
+      testFinished: false,
+      answeringDisabled: false
     }
+  }
+  
+  nextQuestionClicked (e) {
+    e.preventDefault()
+    console.log('next question clicked')
+    $('#testedAnswer').val('Не знам')
+    this.props.changeTasksRemaining(this.props.tasksRemaining - 1)
+    this.setState({
+      answerVisible: false,
+      answeringDisabled: false
+    })
+    let idxClicked = eventWorker.passIndex()
+    if (idxClicked === this.props.testArr.length) {
+      // alert('test finished')
+      this.setState({testFinished: true})
+    }
+    let interval = this.props.testArr[idxClicked]
+    this.setState({
+      testInterval: interval,
+      answerVisible: false,
+      timeRemaining: this.props.testIntervalData.timeForAnswer
+    })
+    this.props.timer()
+    eventWorker.baseKeyColorize(interval)
   }
   
   answeringClicked (e) {
@@ -25,15 +51,12 @@ class TestArea extends Component {
     e.preventDefault()
     console.log('answering clicked ' + this.props.testInterval.answer)
     let userAnswer = this.props.userAnswer
-    console.log(userAnswer)
     let isAnswerTrue = userAnswer === this.props.testInterval.answer
-    
-    console.log(isAnswerTrue)
     let intervalName = this.props.testInterval.name.bg
     console.log(intervalName)
     this.props.addAnswerToResult(intervalName, isAnswerTrue)
     this.props.addPointsToResult(pointsPerAnswer, isAnswerTrue)
-    
+    this.setState({answeringDisabled: true})
   }
   
   componentDidMount () {
@@ -45,7 +68,7 @@ class TestArea extends Component {
   
   render () {
     let testArr = this.props.testArr
-    let interval = this.props.testInterval
+    let interval = {...this.state.testInterval}
     
     if (this.props.testRendered) {
       if (!this.props.testFinished) {
@@ -72,15 +95,19 @@ class TestArea extends Component {
               <div className="summary-field " style={{display: 'block'}}>
                 <label htmlFor="testedAnswer "> отговор </label>
                 <input id="testedAnswer" type='text' name="testedAnswer" placeholder="Не знам"></input>
-                <button
-                  onClick={this.answeringClicked.bind(this)}/>
+                {/*<button id="answering"*/}
+                
+                {/*onClick={this.answeringClicked.bind(this)}/>*/}
               </div>
-              <button id="next-question" className="summary-field" style={
+              <button id="answering"
+                      disabled={this.state.answeringDisabled}
+                      className="summary-field" style={
                 {
                   margin: 'auto',
                   backgroundColor: '#f9f9f9',
                   color: 'crimson'
-                }} onClick={this.answeringClicked.bind(this)}>
+                }}
+                      onClick={this.answeringClicked.bind(this)}>
                 ИЗПРАЩАМ ОТГОВОР
               </button>
               <div className="summary-field right-answer" style={
@@ -89,7 +116,7 @@ class TestArea extends Component {
               </div>
             </div>
             <button id="next-question" className="summary-field"
-                    onClick={this.props.nextQuestionClicked.bind(this)}>
+                    onClick={this.nextQuestionClicked.bind(this)}>
               СЛЕДВАЩ ВЪПРОС
             </button>
             <table>
@@ -120,18 +147,22 @@ class TestArea extends Component {
 
 const mapStateToProps = store => {
   return {
+    testIntervalData: store.testIntervalData,
     intervalsForTest: store.testIntervalData.intervalsForTest,
     numberOfTasks: store.testIntervalData.numberOfTasks,
     totalPoints: store.totalPoints,
     sessionPoints: store.sessionPoints,
     sessionAnswers: store.sessionAnswers,
     pointsPerAnswer: store.pointsPerAnswer,
-    userAnswer: store.userAnswer
+    userAnswer: store.userAnswer,
+    tasksRemaining: store.tasksRemaining
+    
   }
 }
 const mapDispatchToProps = (dispatch, state) => ({
   generateNewTest: (intervalsForTest, numberOfTasks) => dispatch(actions.generateTestArr(intervalsForTest, numberOfTasks)),
   addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),
+  changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),
   addAnswerToResult: (sessionAnswers, intervalName, boolean) => dispatch(actions.addAnswerToResult(sessionAnswers, intervalName, boolean))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(TestArea)

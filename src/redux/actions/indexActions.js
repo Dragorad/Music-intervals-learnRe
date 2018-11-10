@@ -26,6 +26,10 @@ export const generateNewTest = intervalData => ({
   type: types.GENERATE_NEW_TEST,
   payload: muzWorker.generateTestArr(intervalData.intervalsForTest, intervalData.numberOfTasks)
 })
+export const changeTasksRemaining = number => ({
+  type: types.CHANGE_TASKS_REMAINING,
+  payload: number-1
+})
 export const setPointsPerAnswer = intervalData => ({
   type: types.SET_POINTS_PER_ANSWER,
   payload: intervalData.intervalsForTest.length * 20 - Number(intervalData.timeForAnswer)

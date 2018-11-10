@@ -5,6 +5,8 @@ import TestArea from './TestArea'
 import TestField from './TestField'
 import jquery from 'jquery'
 import ConditionArea from './ConditionArea'
+import eventWorker from '../../appWorkers/eventWorker'
+import * as actions from '../../redux/actions/indexActions'
 
 let $ = jquery
 
@@ -14,17 +16,9 @@ class FormSummary extends Component {
     this.state = {
       timeRemaining: this.props.testIntervalData.timeForAnswer,
       tasksRemaining: this.props.testArr.length,
-      answerVisible: false,
-      testInterval: this.props.testArr[0],
-      testFinished: false
+      testInterval: this.props.testArr[0]
     }
-    this.passIndex = (() => {
-      let idx = 0
-      return function () {
-        console.log(idx++)
-        return idx
-      }
-    })()
+  
     this.timer = () => setTimeout(
       () => {
         let timeRemaining = this.state.timeRemaining
@@ -33,51 +27,45 @@ class FormSummary extends Component {
           this.setState({'timeRemaining': this.state.timeRemaining - 1})
         } else {
           this.setState({answerVisible: true})
+          $('#testedAnswer').val('Не знам')
           clearTimeout(this.timer)
         }
       }, 500)
   }
   
-  baseKeyColorize (testInterval) {
-    $('path').removeClass('base-key clicked-key')
-    let baseToneId = testInterval.baseTone.split(' ').join('')
-    let baseKey = $(`path#${baseToneId}`)
-    baseKey.addClass('base-key')
-  }
-  
   onTestButtonClick (e) {
     e.preventDefault()
     let answerBase = this.state.testInterval.baseTone
-    console.log(answerBase)
-    this.baseKeyColorize(this.state.testInterval)
+    eventWorker.baseKeyColorize(this.state.testInterval)
     this.testRendered = true
-    this.setState(
-      {tasksRemaining: this.state.tasksRemaining - 1}
-    )
+    
+    this.props.changeTasksRemaining(this.props.tasksRemaining)
     this.timer()
   }
   
-  nextQuestionClicked (e) {
-    e.preventDefault()
-    console.log('next question clicked')
-    this.setState({
-      answerVisible: false,
-      tasksRemaining: this.state.tasksRemaining - 1
-    })
-    let idxClicked = this.passIndex()
-    if (idxClicked === this.props.testArr.length) {
-      // alert('test finished')
-      this.setState({testFinished: true})
-    }
-    let interval = this.props.testArr[idxClicked]
-    this.setState({
-      testInterval: interval,
-      answerVisible: false,
-      timeRemaining: this.props.testIntervalData.timeForAnswer
-    })
-    this.timer()
-    this.baseKeyColorize(interval)
-  }
+  // nextQuestionClicked (e) {
+  //   e.preventDefault()
+  //   console.log('next question clicked')
+  //   $('#testedAnswer').val('Не знам')
+  //   this.setState({
+  //     answerVisible: false,
+  //     tasksRemaining: this.state.tasksRemaining - 1,
+  //     answeringDisabled: false
+  //   })
+  //   let idxClicked = eventWorker.passIndex()
+  //   if (idxClicked === this.props.testArr.length) {
+  //     // alert('test finished')
+  //     this.setState({testFinished: true})
+  //   }
+  //   let interval = this.props.testArr[idxClicked]
+  //   this.setState({
+  //     testInterval: interval,
+  //     answerVisible: false,
+  //     timeRemaining: this.props.testIntervalData.timeForAnswer
+  //   })
+  //   this.timer()
+  //   eventWorker.baseKeyColorize(interval)
+  // }
   
   render () {
     let testArr = this.props.testArr
@@ -95,19 +83,20 @@ class FormSummary extends Component {
           testInterval={this.state.testInterval}
           answerVisible={this.state.answerVisible}
           testFinished={this.state.testFinished}
-          nextQuestionClicked={this.nextQuestionClicked.bind(this)}
+          timer={this.timer}
+          
         />
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  testArr: state.testArr,
+const mapStateToProps = state => ({testArr: state.testArr,
+  tasksRemaining: state.tasksRemaining,
   testIntervalData: state.testIntervalData
 })
-// const mapDispatchToProps = dispatch => ({
-//   addPointsToResult: (points,boolean) => dispatch(addPointsToResult(points, boolean))
-// })
+const mapDispatchToProps = (dispatch,state) => ({
+  changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number))
+})
 
-export default connect(mapStateToProps)(FormSummary)
+export default connect(mapStateToProps, mapDispatchToProps)(FormSummary)
