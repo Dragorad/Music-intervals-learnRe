@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actions from '../../redux/actions/indexActions'
 import jquery from 'jquery'
+import ResultStats from './ResultStats'
 
 let $ = jquery
 
@@ -50,6 +51,7 @@ class TestArea extends Component {
       if (!this.props.testFinished) {
         return (
           <div className="test-area">
+            
             <div className="condition">
               <TestField
                 key="0"
@@ -90,6 +92,9 @@ class TestArea extends Component {
                     onClick={this.props.nextQuestionClicked.bind(this)}>
               СЛЕДВАЩ ВЪПРОС
             </button>
+            <table>
+              <ResultStats/>
+            </table>
           </div>
         )
       }
@@ -127,6 +132,6 @@ const mapStateToProps = store => {
 const mapDispatchToProps = (dispatch, state) => ({
   generateNewTest: (intervalsForTest, numberOfTasks) => dispatch(actions.generateTestArr(intervalsForTest, numberOfTasks)),
   addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),
-  addAnswerToResult: (sessionAnswers,intervalName, boolean) => dispatch(actions.addAnswerToResult(sessionAnswers,intervalName, boolean))
+  addAnswerToResult: (sessionAnswers, intervalName, boolean) => dispatch(actions.addAnswerToResult(sessionAnswers, intervalName, boolean))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(TestArea)

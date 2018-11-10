@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import jquery from 'jquery'
 import muzWorker from '../../appWorkers/intervalWorker'
 import { generateNewTest } from '../../redux/actions/indexActions'
+import TestField from './TestField'
 
 let $ = jquery
 
@@ -39,25 +40,33 @@ const WorkHeader = (props) => {
             }
             }
       >НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ</Link>
-      <p> включени интервали: <br/>
-        <span>{intervalData.intervalsForTest.map(el => el.name).join(', ')}</span>
-      </p>
-      <p>общ брой задачи: <br/>
-        <span>{intervalData.numberOfTasks} </span>
-      </p>
-      <p>максимално време за задача: <br/>
-        <span>
-            {intervalData.timeForAnswer}
-          </span>
-      </p>
-    
+      
+      
+      <TestField
+        label={'точки за верен отговор'}
+        text={props.pointsPerAnswer}/>
+  
+      {/*<p> включени интервали: <br/>*/}
+        {/*<span>{intervalData.intervalsForTest.map(el => el.name).join(', ')}</span>*/}
+      {/*</p>*/}
+      {/*<p>общ брой задачи: <br/>*/}
+        {/*<span>{intervalData.numberOfTasks} </span>*/}
+      {/*</p>*/}
+      {/*<p>максимално време за задача: <br/>*/}
+        {/*<span>*/}
+            {/*{intervalData.timeForAnswer}*/}
+          {/*</span>*/}
+      {/*</p>*/}
+      
     </header>
   )
   
 }
 
 function mapStateToProps (state) {
-  return {testIntervalData: state.testIntervalData}
+  return {testIntervalData: state.testIntervalData,
+  pointsPerAnswer: state.pointsPerAnswer,
+  sessionPoints: state.sessionPoints}
 }
 
 function mapDispatchToProps (dispatch) {

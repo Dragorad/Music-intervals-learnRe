@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import NumericControlField from './NumericControlField.js'
 import FormInput from './Form-input.js'
-import muzWorker from '../../intervalWorker'
+import muzWorker from '../../appWorkers/intervalWorker'
 
 let {intervals} = muzWorker
 

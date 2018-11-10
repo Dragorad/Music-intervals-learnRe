@@ -3,12 +3,23 @@ import { connect } from 'react-redux'
 import TestStatsField from './TestStatsField'
 
 class ResultStats extends Component {
-  render () {
-    return  this.props.sessionAnswers.map((el, idx) => (<div>
-    <p>{el.name}:</p>
-    <span>Right Answers: {el.trueAnswers}</span>
-    <span> False Answers: {el.falseAnswers}</span>
-    </div>))
+  constructor (props) {
+    super(props)
+  }
+  
+  render (props) {
+    let sessionAnswers = this.props.sessionAnswers
+    return <table>
+      <th>interval</th>
+      <th>Right Answers</th>
+      <th>False Answers</th>
+      {this.props.sessionAnswers.map((el, idx) => (
+        <tr className='result-stats'>
+          <td>{el.name}:</td>
+          <td className='data-field'>{el.trueAnswers}</td>
+          <td className='data-field'>{el.falseAnswers}</td>
+        </tr>))}
+    </table>
   }
 }
 
