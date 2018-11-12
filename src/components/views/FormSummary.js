@@ -7,6 +7,7 @@ import jquery from 'jquery'
 import ConditionArea from './ConditionArea'
 import eventWorker from '../../appWorkers/eventWorker'
 import * as actions from '../../redux/actions/indexActions'
+import resultsHandler from '../../appWorkers/resultHandler'
 
 let $ = jquery
 
@@ -16,9 +17,9 @@ class FormSummary extends Component {
     this.state = {
       timeRemaining: this.props.testIntervalData.timeForAnswer,
       tasksRemaining: this.props.testArr.length,
-      testInterval: this.props.testArr[0]
+      testRendered: false
     }
-  
+    
     this.timer = () => setTimeout(
       () => {
         let timeRemaining = this.state.timeRemaining
@@ -35,68 +36,53 @@ class FormSummary extends Component {
   
   onTestButtonClick (e) {
     e.preventDefault()
-    let answerBase = this.state.testInterval.baseTone
-    eventWorker.baseKeyColorize(this.state.testInterval)
-    this.testRendered = true
-    
+    // let testInterval = this.props.currentInterval
+    // let answerBase = testInterval.baseTone
+    this.setState({testRendered: true})
+    // this.props.setCurrentIntervalIdx(eventWorker.passIndex)
     this.props.changeTasksRemaining(this.props.tasksRemaining)
     this.timer()
   }
   
-  // nextQuestionClicked (e) {
-  //   e.preventDefault()
-  //   console.log('next question clicked')
-  //   $('#testedAnswer').val('Не знам')
-  //   this.setState({
-  //     answerVisible: false,
-  //     tasksRemaining: this.state.tasksRemaining - 1,
-  //     answeringDisabled: false
-  //   })
-  //   let idxClicked = eventWorker.passIndex()
-  //   if (idxClicked === this.props.testArr.length) {
-  //     // alert('test finished')
-  //     this.setState({testFinished: true})
-  //   }
-  //   let interval = this.props.testArr[idxClicked]
-  //   this.setState({
-  //     testInterval: interval,
-  //     answerVisible: false,
-  //     timeRemaining: this.props.testIntervalData.timeForAnswer
-  //   })
-  //   this.timer()
-  //   eventWorker.baseKeyColorize(interval)
-  // }
+  componentDidMount () {
+    let idx = this.props.currentIntervalIdx
+    let testArr = this.props.testArr
+  }
   
   render () {
+    let idx = this.props.currentIntervalIdx
     let testArr = this.props.testArr
     let intervalData = this.props.testIntervalData
+    eventWorker.baseKeyColorize(this.props.testInterval)
     let testRendered = this.testRendered
     console.log(testRendered)
     return (
       <div className='summary'>
-        <ConditionArea timeRemaining={this.state.timeRemaining} text1={this.state.tasksRemaining}
+        <ConditionArea timeRemaining={this.state.timeRemaining} tasksRenaining={this.state.tasksRemaining}
                        intervalData={intervalData}
                        onClick={this.onTestButtonClick.bind(this)}/>
         <TestArea
-          testRendered={testRendered}
-          testArr={testArr}
-          testInterval={this.state.testInterval}
+          testRendered={this.state.testRendered}
           answerVisible={this.state.answerVisible}
           testFinished={this.state.testFinished}
           timer={this.timer}
-          
+        
         />
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({testArr: state.testArr,
+const mapStateToProps = state => ({
+  testArr: state.testArr,
   tasksRemaining: state.tasksRemaining,
-  testIntervalData: state.testIntervalData
+  testIntervalData: state.testIntervalData,
+  intervalIdx: state.currentIntervalIdx,
+  testInterval: state.currentInterval
 })
-const mapDispatchToProps = (dispatch,state) => ({
-  changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number))
+const mapDispatchToProps = (dispatch, state) => ({
+  changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),
+  setCurrentIntervalIdx: number => dispatch(actions.setCurrentIntervalIdx(number))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormSummary)

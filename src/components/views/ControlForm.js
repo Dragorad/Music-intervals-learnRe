@@ -29,12 +29,8 @@ class ControlForm extends Component {
   handleInputChange (event) {
     event.preventDefault()
     let target = event.target
-    // if (target.type === 'checkbox') {
-    //   console.log(this)
-    // }
     let field = target.type === 'checkbox' ? target.checked : target.value
     let value = target.value
-    
     testIntervalData[target.name] = Number(target.value)
     this.setState({[target]: value})
   }
@@ -55,16 +51,15 @@ class ControlForm extends Component {
     }
     console.log(testIntervalData.intervalsForTest)
     testIntervalData['intervalsForTest'] = intervalsForTest.serializeArray()
-    .map(function (el) {
-      let elNew = {
-        name: el.name,
-        trueAnswers:0,
-        falseAnswers: 0
-      }
-        return elNew
-    }
-    )
-    console.log(testIntervalData)
+      .map(function (el) {
+          return {
+            name: el.name,
+            trueAnswers: 0,
+            falseAnswers: 0
+          }
+          
+        }
+      )
     if (intervalsForTest.length === 0) {
       alert('You have to select at last one interval for test')
     } else {
@@ -74,6 +69,8 @@ class ControlForm extends Component {
       )
       this.props.setTestIntervalData(testIntervalData)
       this.props.setPointsPerAnswer(testIntervalData)
+      let newTestArr = this.props.testArr
+      console.log('new test Arr' + newTestArr)
       window.localStorage.setItem(
         'testIntervalData',
         JSON.stringify(testIntervalData)
@@ -145,6 +142,9 @@ class ControlForm extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  testArr: state.testArr
+})
 const mapDispatchToProps = dispatch => ({
   setTestIntervalData: testIntervalData =>
     dispatch(actions.setTestIntervalData(testIntervalData)),
@@ -152,9 +152,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.generateTestArr(intervalsForTest, numberOfTasks)),
   setPointsPerAnswer: testIntervalData =>
     dispatch(actions.setPointsPerAnswer(testIntervalData))
+  
 })
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(ControlForm)

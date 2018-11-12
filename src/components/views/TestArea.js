@@ -15,8 +15,6 @@ class TestArea extends Component {
     this.state = {
       idxClick: 0,
       answerVisible: false,
-      testInterval: this.props.testArr[0],
-      testFinished: false,
       answeringDisabled: false
     }
   }
@@ -24,25 +22,26 @@ class TestArea extends Component {
   nextQuestionClicked (e) {
     e.preventDefault()
     console.log('next question clicked')
-    $('#testedAnswer').val('Не знам')
-    this.props.changeTasksRemaining(this.props.tasksRemaining - 1)
-    this.setState({
-      answerVisible: false,
-      answeringDisabled: false
-    })
-    let idxClicked = eventWorker.passIndex()
-    if (idxClicked === this.props.testArr.length) {
-      // alert('test finished')
+    if (this.props.tasksRemaining >= 0) {
+      $('#testedAnswer').val('Не знам')
+      this.props.changeTasksRemaining(this.props.tasksRemaining)
+      this.setState({
+        answerVisible: false,
+        answeringDisabled: false
+      })
+      let testArr = this.props.testArr
+      this.props.setCurrentInterval(testArr)
+      this.setState({
+        // testInterval: this.props.interval,
+        answerVisible: false,
+        timeRemaining: this.props.testIntervalData.timeForAnswer
+      })
+      this.props.timer()
+      eventWorker.baseKeyColorize(this.props.testInterval)
+    }
+    else {
       this.setState({testFinished: true})
     }
-    let interval = this.props.testArr[idxClicked]
-    this.setState({
-      testInterval: interval,
-      answerVisible: false,
-      timeRemaining: this.props.testIntervalData.timeForAnswer
-    })
-    this.props.timer()
-    eventWorker.baseKeyColorize(interval)
   }
   
   answeringClicked (e) {
@@ -67,11 +66,10 @@ class TestArea extends Component {
   }
   
   render () {
-    let testArr = this.props.testArr
-    let interval = {...this.state.testInterval}
-    
-    if (this.props.testRendered) {
+       if (this.props.testRendered) {
       if (!this.props.testFinished) {
+        let interval = this.props.testInterval
+        let testArr = this.props.testArr
         return (
           <div className="test-area">
             
@@ -127,16 +125,19 @@ class TestArea extends Component {
       }
       else {
         return (
-          <div className={'testFinished'}>
+          <React.Fragment>
             <p>Test finished!</p>
             <p>Please choose:</p>
             <Link to='/index' className='summary-field' onClick={() => window.localStorage.clear()}>НОВ ТЕСТ
               ОТНАЧАЛО</Link>
             
             <Link to='/work-pane' className='summary-field'
-                  onClick={this.props.generateNewTest.bind(this)}>
+                  onClick={this.props.generateNewTest(
+                    this.props.testIntervalData.intervalsForTest,
+                    this.props.testIntervalData.numberOfTasks
+                  ).bind(this)}>
               НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ</Link>
-          </div>
+          </React.Fragment>
         )
       }
     } else {
@@ -155,7 +156,10 @@ const mapStateToProps = store => {
     sessionAnswers: store.sessionAnswers,
     pointsPerAnswer: store.pointsPerAnswer,
     userAnswer: store.userAnswer,
-    tasksRemaining: store.tasksRemaining
+    tasksRemaining: store.tasksRemaining,
+    testInterval: store.currentInterval,
+    testArr: store.testArr,
+    currentIntervalIdx: store.currentIntervalIdx
     
   }
 }
@@ -163,6 +167,7 @@ const mapDispatchToProps = (dispatch, state) => ({
   generateNewTest: (intervalsForTest, numberOfTasks) => dispatch(actions.generateTestArr(intervalsForTest, numberOfTasks)),
   addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),
   changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),
+  setCurrentInterval: testArr => dispatch(actions.setCurrentInterval(testArr)),
   addAnswerToResult: (sessionAnswers, intervalName, boolean) => dispatch(actions.addAnswerToResult(sessionAnswers, intervalName, boolean))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(TestArea)

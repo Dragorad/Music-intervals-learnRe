@@ -5,16 +5,11 @@ import Keyboard from '../views/Keyboard'
 import * as actions from '../../redux/actions/indexActions'
 import jQuery from 'jquery'
 import { connect } from 'react-redux'
-
+import eventWorker from '../../appWorkers/eventWorker'
 
 let $ = jQuery
 
 class WorkPaneRedux extends Component {
-  // generateNewTest () {
-  //   let testData = this.state.testIntervalData
-  //   let newTest = muzWorker.generateTestArr(testData.intervalsForTest, testData.numberOfTasks)
-  //   console.log(newTest)
-  //   window.localStorage.setItem('testArr', JSON.stringify(newTest))
   constructor (props) {
     super(props)
     this.state = {
@@ -26,15 +21,27 @@ class WorkPaneRedux extends Component {
   componentDidMount () {
     let that = this
     let path = $('path')
-    path.on('click', function () {
-      console.log($(this))
+    
+    function pathClicked () {
       let targetId = this.id.split('-').join(' - ')
       console.log(targetId)
       that.props.setUserAnswer(targetId)
       $('#testedAnswer').val(targetId)
       $('.clicked-key').toggleClass()
+     that.props.setUserAnswer(targetId)
       $(this).toggleClass('clicked-key')
-    })
+    }
+    
+    path.on('click', pathClicked)
+    //   function () {
+    //   console.log($(this))
+    //   let targetId = this.id.split('-').join(' - ')
+    //   console.log(targetId)
+    //   $('#testedAnswer').val(targetId)
+    //   $('.clicked-key').toggleClass()
+    //   $(this).toggleClass('clicked-key')
+    // })
+    path.on('dblClick, ')
     
   }
   
@@ -42,7 +49,7 @@ class WorkPaneRedux extends Component {
     let testIntervalData = this.props.testIntervalData
     let testArr = this.props.testArr
     return (
-      <div className='all-work'>
+      <React.Fragment >
         <WorkHeader
           testIntervalData={testIntervalData}
           testArr={testArr}
@@ -52,9 +59,9 @@ class WorkPaneRedux extends Component {
             testIntervalData={testIntervalData}
             testArr={testArr}
           />
-          <Keyboard />
+          <Keyboard/>
         </div>
-      </div>
+      </React.Fragment>
     
     )
   }
