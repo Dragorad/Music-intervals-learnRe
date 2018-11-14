@@ -1,4 +1,7 @@
 import jquery from 'jquery'
+import { generateNewTest } from '../redux/actions/indexActions'
+import muzWorker from './intervalWorker'
+import { Redirect } from 'react-router-dom'
 
 let $ = jquery
 const eventWorker = (() => {
@@ -17,6 +20,18 @@ const eventWorker = (() => {
       let baseToneId = testInterval.baseTone.split(' ').join('')
       let baseKey = $(`path#${baseToneId}`)
       baseKey.addClass('base-key')
+    }
+    
+    function generateNewTestLink (e) {
+      console.log(this.props.intervalsForTest)
+      let intervalsForTest = this.props.intervalsForTest
+      // .map(el => el.name)
+      console.log(intervalsForTest)
+      let numberOfTasks = this.props.numberOfTasks
+      e.preventDefault()
+      let testIntervalData = this.props.generateNewTest(intervalsForTest, numberOfTasks)
+      console.log(testIntervalData)
+      
     }
     
     const passIndex = (() => {
@@ -38,6 +53,13 @@ const eventWorker = (() => {
         }
       }, 500)
     
+    function newTestLink () {
+      this.props.generateNewTest(this.props.intervalsForTest,
+        this.props.numberOfTasks)
+      this.props.setTestRendered.bind(this)
+      this.setState({testFinished: false})
+    }
+    
     // function setCurrentInterval (stateObj) {
     //   let currentInterval = stateObj.currentInterval
     //   let idx = stateObj.currentIntervalIdx
@@ -53,10 +75,19 @@ const eventWorker = (() => {
       pathClicked,
       baseKeyColorize,
       passIndex,
+      generateNewTestLink,
+      newTestLink
       // setCurrentInterval
     }
   }
 
 )()
 
+// let props = {
+//   intervalsForTest: ['голяма секунда'],
+//   numberOfTasks: 4
+// }
+// console.log(eventWorker.generateNewTestLink(props))
+
 export default eventWorker
+

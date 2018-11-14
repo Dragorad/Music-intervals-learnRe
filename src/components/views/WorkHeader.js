@@ -1,78 +1,52 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import jquery from 'jquery'
-import muzWorker from '../../appWorkers/intervalWorker'
-import { generateNewTest } from '../../redux/actions/indexActions'
 import TestField from './TestField'
+import eventWorker from '../../appWorkers/eventWorker'
+import * as actions from '../../redux/actions/indexActions'
 
-let $ = jquery
-
-const WorkHeader = (props) => {
+class WorkHeader extends Component {
   
-  function componentDidMount (props) {
+  componentDidMount (props) {
     console.log('mounting work-pane')
-    console.log(props.testIntervalData)
+    console.log(this.props.testIntervalData)
   }
   
-  function componentWillUnmount () {
+  componentWillUnmount () {
     window.localStorage.clear()
   }
   
-  let intervalData = props.testIntervalData
-  
-  console.log(props.testArr)
-  
-  function setNewTest (intervalData) {
-    let newTest = muzWorker.generateTestArr(intervalData.intervalsForTest, intervalData.numberOfTasks)
-    console.log(newTest)
-    return newTest
+  render () {
+    return (
+      <header>
+        <Link to='/index' className='summary-field' onClick={() => window.localStorage.clear()}>НОВ ТЕСТ ОТНАЧАЛО</Link>
+        <button className='summary-field link'
+                onClick={eventWorker.newTestLink.bind(this)
+                }>НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ
+        </button>
+        
+        
+        <TestField
+          label={'точки за верен отговор'}
+          text={this.props.pointsPerAnswer}/>
+      
+      
+      </header>
+    )
   }
-  
-  return (
-    <header>
-      <Link to='/index' className='summary-field' onClick={() => window.localStorage.clear()}>НОВ ТЕСТ ОТНАЧАЛО</Link>
-      <Link to='/work-pane' className='summary-field'
-            onClick={(e) => {
-              e.preventDefault()
-              props.generateNewTest(props.testIntervalData.intervalsForTest,
-                props.testIntervalData.numberOfTasks)
-            }
-            }
-      >НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ</Link>
-      
-      
-      <TestField
-        label={'точки за верен отговор'}
-        text={props.pointsPerAnswer}/>
-  
-      {/*<p> включени интервали: <br/>*/}
-        {/*<span>{intervalData.intervalsForTest.map(el => el.name).join(', ')}</span>*/}
-      {/*</p>*/}
-      {/*<p>общ брой задачи: <br/>*/}
-        {/*<span>{intervalData.numberOfTasks} </span>*/}
-      {/*</p>*/}
-      {/*<p>максимално време за задача: <br/>*/}
-        {/*<span>*/}
-            {/*{intervalData.timeForAnswer}*/}
-          {/*</span>*/}
-      {/*</p>*/}
-      
-    </header>
-  )
-  
 }
 
-function mapStateToProps (state) {
-  return {testIntervalData: state.testIntervalData,
-  pointsPerAnswer: state.pointsPerAnswer,
-  sessionPoints: state.sessionPoints}
-}
-
-function mapDispatchToProps (dispatch) {
+const mapStateToProps  = store => {
   return {
-    generateNewTest: (intervalsForTest, numberOfTasks) => {dispatch(generateNewTest(intervalsForTest, numberOfTasks))}
+    testIntervalData: store.testIntervalData,
+    pointsPerAnswer: store.pointsPerAnswer,
+    sessionPoints: store.sessionPoints,
+    intervalsForTest: store.testIntervalData.intervalsForTest,
+    numberOfTasks: store.testIntervalData.numberOfTasks
   }
 }
-
+const mapDispatchToProps  = (dispatch, state) =>({
+  generateNewTest: (intervalsForTest, numberOfTasks) =>
+    dispatch(actions.generateTestArr(intervalsForTest, numberOfTasks))
+})
 export default connect(mapStateToProps, mapDispatchToProps)(WorkHeader)

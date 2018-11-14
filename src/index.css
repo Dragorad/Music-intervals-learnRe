@@ -341,6 +341,9 @@ td, th {
     text-align: center;
     font-weight: bold;
 }
+button {
+    cursor: pointer;
+}
 .summary p, .summary-field {
     color: darkcyan;
     font-style: italic;

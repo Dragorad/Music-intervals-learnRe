@@ -33,7 +33,9 @@ class FormSummary extends Component {
         }
       }, 500)
   }
-  
+  setTestRendered() {
+    return this.setState({testRendered: !this.testRendered})
+  }
   onTestButtonClick (e) {
     e.preventDefault()
     // let testInterval = this.props.currentInterval
@@ -58,7 +60,8 @@ class FormSummary extends Component {
     console.log(testRendered)
     return (
       <div className='summary'>
-        <ConditionArea timeRemaining={this.state.timeRemaining} tasksRenaining={this.state.tasksRemaining}
+        <ConditionArea timeRemaining={this.state.timeRemaining}
+                       testRendered={this.state.testRendered}
                        intervalData={intervalData}
                        onClick={this.onTestButtonClick.bind(this)}/>
         <TestArea
@@ -66,6 +69,7 @@ class FormSummary extends Component {
           answerVisible={this.state.answerVisible}
           testFinished={this.state.testFinished}
           timer={this.timer}
+          setTestRendered={this.setTestRendered}
         
         />
       </div>

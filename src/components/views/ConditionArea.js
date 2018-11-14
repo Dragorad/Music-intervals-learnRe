@@ -17,20 +17,15 @@ class ConditionArea extends Component {
       label={'време за отгатване'}
       text={this.props.timeRemaining}/>
       
-      <button className='summary-field' name='test-start-button'
+      <button className='summary-field'
+              disabled={this.props.testRendered}
+              name='test-start-button'
               onClick={this.props.onClick}>Начало на теста
       </button>
     </div>
   }
 }
 
-//
-// ConditionArea.propTypes = {
-//   text: PropTypes.any,
-//   text1: PropTypes.any,
-//   intervalData: PropTypes.any,
-//   onClick: PropTypes.any
-// }
 const mapStateToProps = state => ({
   timeForAnswer: state.timeForAnswer,
   pointsPerAnswer: state.pointsPerAnswer,
