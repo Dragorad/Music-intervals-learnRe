@@ -31,10 +31,44 @@ body {
 #infoBox {
     display: none;
 }
-
-.welcome-screen {
-    height: 100%;
+#root {
+    text-align: center;
 }
+.welcome-screen {
+    height: 95%;
+    text-align: center;
+}
+.landing {
+    height: 100%;
+    width: 97%;
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: #666666;
+    justify-content: center;
+}
+.landing-buttons {
+    width: 40%;
+    display: inline-block;
+    text-align: center;
+}
+.lang-buttons {
+    width: 15%;
+}
+.landing-buttons button, header button{
+    margin: 2%;
+    padding: 3%;
+    width: 40%;
+    border-radius: 8px;
+    background-color: #c10413;
+    color: #e7f6e7;
+}
+.welcome-text {
+    padding: 3%;
+    font-size: 1rem;
+    font-style: italic;
+    color: #e7f6e7;
+}
+
 
 .control-form p {
     font-size: 0.8rem;

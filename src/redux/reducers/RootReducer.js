@@ -18,6 +18,9 @@ import initialState from '../initialState/initialState'
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.SET_LANGUAGE:
+      return {
+        ...state,languageSelected: action.payload}
     case types.TEST_INTERVAL_DATA:
       return {
         ...state, testIntervalData: action.payload,

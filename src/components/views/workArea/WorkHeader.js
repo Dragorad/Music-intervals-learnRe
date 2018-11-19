@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import TestField from './TestField'
-import eventWorker from '../../appWorkers/eventWorker'
-import * as actions from '../../redux/actions/indexActions'
+import eventWorker from '../../../appWorkers/eventWorker'
+import * as actions from '../../../redux/actions/indexActions'
 
 class WorkHeader extends Component {
   

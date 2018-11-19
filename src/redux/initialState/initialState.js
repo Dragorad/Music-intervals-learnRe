@@ -1,4 +1,5 @@
 const initialState = {
+  languageSelected:'bg',
   testIntervalData: {},
   testArr: {},
   pointsPerAnswer: 0,

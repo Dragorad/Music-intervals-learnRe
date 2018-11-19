@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import FormInput from './Form-input.js'
-import muzWorker from '../../appWorkers/intervalWorker.js'
+import FormInput from './FormInput.js'
+import muzWorker from '../../../appWorkers/intervalWorker.js'
+import { connect } from 'react-redux'
+import { setLanguage } from '../../../redux/actions/indexActions'
 
 let {intervals} = muzWorker
 
@@ -20,6 +22,8 @@ class IntervalGroup extends Component {
   }
   
   render () {
+    let labelLang = this.props.language
+    console.log(labelLang)
     return (
       <div className='little-big-intervals'>
         
@@ -30,13 +34,22 @@ class IntervalGroup extends Component {
               classString='interval-button-medium'
               typeStr='checkbox'
               inputId={obj.name.en}
-              inputName={obj.name.bg}
+              inputName={obj.name[labelLang]}
               idx={obj.idx}
-              labelText={obj.name.bg}
+              labelText={obj.name[labelLang]}
             />
           )
         })
         }      </div>)  }
 }
 
-export default IntervalGroup
+const mapStateToProps  = store => {
+  return {
+    language: store.languageSelected
+  }
+}
+const mapDispatchToProps  = (dispatch, state) =>({
+  setLanguage: language => dispatch(setLanguage(language))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(IntervalGroup)
+

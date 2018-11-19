@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import WorkHeader from '../views/WorkHeader'
-import FormSummary from '../views/FormSummary'
-import Keyboard from '../views/Keyboard'
+import WorkHeader from '../views/workArea/WorkHeader'
+import FormSummary from '../views/workArea/FormSummary'
+import Keyboard from '../views/workArea/Keyboard'
 import * as actions from '../../redux/actions/indexActions'
 import jQuery from 'jquery'
 import { connect } from 'react-redux'
@@ -18,6 +18,10 @@ class WorkPaneRedux extends Component {
     }
   }
   
+  setTestRendered () {
+    return this.setState({testRendered: !this.testRendered})
+  }
+  
   componentDidMount () {
     let that = this
     let path = $('path')
@@ -28,36 +32,28 @@ class WorkPaneRedux extends Component {
       that.props.setUserAnswer(targetId)
       $('#testedAnswer').val(targetId)
       $('.clicked-key').toggleClass()
-     that.props.setUserAnswer(targetId)
+      that.props.setUserAnswer(targetId)
       $(this).toggleClass('clicked-key')
     }
     
     path.on('click', pathClicked)
-    //   function () {
-    //   console.log($(this))
-    //   let targetId = this.id.split('-').join(' - ')
-    //   console.log(targetId)
-    //   $('#testedAnswer').val(targetId)
-    //   $('.clicked-key').toggleClass()
-    //   $(this).toggleClass('clicked-key')
-    // })
-    path.on('dblClick, ')
-    
   }
   
   render () {
     let testIntervalData = this.props.testIntervalData
     let testArr = this.props.testArr
     return (
-      <React.Fragment >
+      <React.Fragment>
         <WorkHeader
           testIntervalData={testIntervalData}
           testArr={testArr}
+          setTestRendered={this.setTestRendered}
         />
         <div className='work-pane'>
           <FormSummary
             testIntervalData={testIntervalData}
             testArr={testArr}
+            setTestRendered={this.setTestRendered}
           />
           <Keyboard/>
         </div>

@@ -6,7 +6,10 @@ export const sayMamata = text => ({
   type: types.SAY_MAMATA,
   payload: text + 'Mamata!'
 })
-
+export const setLanguage = language => ({
+  type: types.SET_LANGUAGE,
+  payload:language
+})
 export const generateTestArr = (intervalsForTest, numberOfTasks) => ({
   type: types.GENERATE_TEST_ARR,
   payload: {

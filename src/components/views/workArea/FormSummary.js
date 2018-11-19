@@ -5,9 +5,9 @@ import TestArea from './TestArea'
 import TestField from './TestField'
 import jquery from 'jquery'
 import ConditionArea from './ConditionArea'
-import eventWorker from '../../appWorkers/eventWorker'
-import * as actions from '../../redux/actions/indexActions'
-import resultsHandler from '../../appWorkers/resultHandler'
+import eventWorker from '../../../appWorkers/eventWorker'
+import * as actions from '../../../redux/actions/indexActions'
+import resultsHandler from '../../../appWorkers/resultHandler'
 
 let $ = jquery
 
@@ -28,20 +28,20 @@ class FormSummary extends Component {
           this.setState({'timeRemaining': this.state.timeRemaining - 1})
         } else {
           this.setState({answerVisible: true})
+          //   answeringDisabled: true
+          // })
+          // this.props.style = {color: 'yellow'}
           $('#testedAnswer').val('Не знам')
           clearTimeout(this.timer)
         }
       }, 500)
   }
-  setTestRendered() {
-    return this.setState({testRendered: !this.testRendered})
-  }
+  
   onTestButtonClick (e) {
     e.preventDefault()
     // let testInterval = this.props.currentInterval
     // let answerBase = testInterval.baseTone
     this.setState({testRendered: true})
-    // this.props.setCurrentIntervalIdx(eventWorker.passIndex)
     this.props.changeTasksRemaining(this.props.tasksRemaining)
     this.timer()
   }

@@ -5,16 +5,18 @@ import Footer from './components/views/Footer'
 import Routes from './Routes'
 import store from './redux/store/indexStore'
 import { Provider } from 'react-redux'
+import Navbar from './components/views/Navbar'
 
 class App extends Component {
   render () {
     return (
       <Provider store={store}>
         <BrowserRouter>
-          <div>
+          <React.Fragment>
+            <Navbar/>
             <Routes />
             <Footer />
-          </div>
+          </React.Fragment>
         </BrowserRouter>
       </Provider>
     )

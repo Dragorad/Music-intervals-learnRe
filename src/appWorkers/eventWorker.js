@@ -57,9 +57,18 @@ const eventWorker = (() => {
       this.props.generateNewTest(this.props.intervalsForTest,
         this.props.numberOfTasks)
       this.props.setTestRendered.bind(this)
-      this.setState({testFinished: false})
+      this.setState({
+        testFinished: false,
+        answeringDisabled: false
+      })
     }
-    
+    function onLangButtonClick (el){
+      el.preventDefault()
+      let payload = el.target.textContent
+      console.log(payload)
+      this.props.setLanguage(el.target.textContent ==='ENGLISH' || el.target.textContent ==='EN' ?
+        'en' : 'bg')
+    }
     // function setCurrentInterval (stateObj) {
     //   let currentInterval = stateObj.currentInterval
     //   let idx = stateObj.currentIntervalIdx
@@ -74,6 +83,7 @@ const eventWorker = (() => {
     return {
       pathClicked,
       baseKeyColorize,
+      onLangButtonClick,
       passIndex,
       generateNewTestLink,
       newTestLink

@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import TestField from './TestField'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import * as actions from '../../redux/actions/indexActions'
+import * as actions from '../../../redux/actions/indexActions'
 import jquery from 'jquery'
 import ResultStats from './ResultStats'
-import eventWorker from '../../appWorkers/eventWorker'
-import initialState from '../../redux/initialState/initialState'
+import eventWorker from '../../../appWorkers/eventWorker'
+import initialState from '../../../redux/initialState/initialState'
 
 let $ = jquery
 
@@ -27,10 +27,8 @@ class TestArea extends Component {
     if (this.props.tasksRemaining > 0) {
       $('#testedAnswer').val('Не знам')
       this.props.changeTasksRemaining(this.props.tasksRemaining)
-      this.setState({
-        answerVisible: false,
-        answeringDisabled: false
-      })
+      this.setState({answerVisible: false})
+      this.setState({answeringDisabled: false})
       let testArr = this.props.testArr
       this.props.setCurrentInterval(testArr)
       this.setState({
@@ -45,10 +43,10 @@ class TestArea extends Component {
     }
   }
   
-  answeringClicked (e) {
+  answering () {
     let pointsPerAnswer = this.props.pointsPerAnswer
     console.log('redux points per answer ' + pointsPerAnswer)
-    e.preventDefault()
+    
     console.log('answering clicked ' + this.props.testInterval.answer)
     let userAnswer = this.props.userAnswer
     let isAnswerTrue = userAnswer === this.props.testInterval.answer
@@ -56,10 +54,15 @@ class TestArea extends Component {
     console.log(intervalName)
     this.props.addAnswerToResult(intervalName, isAnswerTrue)
     this.props.addPointsToResult(pointsPerAnswer, isAnswerTrue)
-    this.setState({answeringDisabled: true})
   }
   
-  // newTestLink () {
+  answeringClicked (e) {
+    e.preventDefault()
+    this.answering()
+    this.setState({answeringDisabled: true})
+  }
+
+// newTestLink () {
   //   this.props.generateNewTest(this.props.intervalsForTest,
   //     this.props.numberOfTasks)
   //   this.props.setTestRendered.bind(this)
@@ -132,13 +135,10 @@ class TestArea extends Component {
               НОВ ТЕСТ ОТНАЧАЛО</Link>
             
             <button className='summary-field link'
-                 onClick={eventWorker.newTestLink.bind(this)}>
-              New New Test Generate
+                    onClick={eventWorker.newTestLink.bind(this)}>
+              НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ
             </button>
-            <Link to='/work-pane' className='summary-field'
-              // OnClick={
-              //   eventWorker.generateNewTestLink.bind(this)}
-            > НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ</Link>
+          
           </div>
         )
       }

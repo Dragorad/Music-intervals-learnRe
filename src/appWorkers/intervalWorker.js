@@ -168,24 +168,24 @@ const muzWorker = (() => {
     }
   }
   
-  // function findByName (obj, propString) {
-  //   let result = []
-  //   for (let p in obj) {
-  //     if (obj[p] === propString) {
-  //       result = [p, obj[p]]
-  //       return result
-  //     } else {
-  //       if (Array.isArray(obj[p]) && obj[p].includes(propString)) {
-  //         result = [p, obj[p]]
-  //         return result
-  //       }
-  //       if (typeof (obj[p]) === 'object') {
-  //         result = findByName(obj[p], propString)
-  //       }
-  //     }
-  //   }
-  //   return result
-  // }
+  function findByName (obj, propString) {
+    let result = []
+    for (let p in obj) {
+      if (obj[p] === propString) {
+        result = [p, obj[p]]
+        return result
+      } else {
+        if (Array.isArray(obj[p]) && obj[p].includes(propString)) {
+          result = [p, obj[p]]
+          return result
+        }
+        if (typeof (obj[p]) === 'object') {
+          result = findByName(obj[p], propString)
+        }
+      }
+    }
+    return result
+  }
   
   function generateAnswer (intervalObj) {
     let toneStr = intervalObj.baseTone
@@ -259,12 +259,13 @@ const muzWorker = (() => {
     let currentInterval = 'hack'
     let directions = ['down', 'up']
     let intervalsKeys = Object.values(muzWorker.intervals)
-    targetIntervals = targetIntervals
-      .map(element => intervalsKeys.find(e => e.name.bg === element.name))
+    targetIntervals = targetIntervals.map(element => intervalsKeys.
+    find(e => e.name.bg === element))
     for (let i = 0; i < testCount; i++) {
       let idx = _getRandomInt(0, targetIntervals.length)
       console.log(targetIntervals)
       currentInterval = targetIntervals.splice(idx, 1)[0]
+      console.log(currentInterval)
       currentInterval.direction = directions[ _getRandomInt(0, 2) ]
       tested.push(currentInterval)
       currentInterval.baseToneIdx = generateBasePos(currentInterval)
@@ -297,6 +298,7 @@ const muzWorker = (() => {
     generateTestArr,
     generateTones,
     baseTonsArr,
+    findByName,
     generateAnswer,
     intervals,
     _getRandomInt
