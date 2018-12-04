@@ -18,18 +18,51 @@ const languagesText = {
       startButton: 'започваме !!!'
     },
     controlForm: {
-      inputs: [['timeForAnswer','време за отговор'], ['numberOfTasks','брой задачи']],
+      inputs: [['timeForAnswer', 'време за отговор'], ['numberOfTasks', 'брой задачи']],
       regimes: {
         title: 'режими',
         options: ['само генериране', 'локално самообучение', 'изпит онлайн игра']
       }
     },
-    alerts:{
-      alertTime:'Времето за отговор трябва да е между 2 и 20 секунди!',
-      alertTasks:'Задачите трябва да са поне 2!',
-      alertIntervals:'Трябва да изберете поне един интервал!'
+    alerts: {
+      alertTime: 'Времето за отговор трябва да е между 2 и 20 секунди!',
+      alertTasks: 'Задачите трябва да са поне 2!',
+      alertIntervals: 'Трябва да изберете поне един интервал!'
+    },
+    workPane: {
+      workHeader: {
+        fromBeginning: 'НОВ ТЕСТ ОТНАЧАЛО',
+        sameIntervals: 'НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ',
+        pointsPerAnswer: 'точки за верен отговор'
+      },
+      formSummary: {
+        userAnswer: 'Не знам'
+      },
+      conditionArea: {
+        taskRemaining: 'Задачи до края',
+        pointsAccum: 'Натрупани точки',
+        timeRemaining: 'Оставащо време',
+        testBegin:'начало на теста'
+      },
+      testArea: {
+        interval:'нтервал',
+        direction:'посока',
+        baseTon:'начален тон',
+        nextQuest:'следващ въпрос'
+      },
+      answerArea:{
+        answer:'отговор',
+        sendAnswer:'изпращам отговор',
+        rightAnswer:'правилен отговор',
+        dontKnow:'не знам'
+      },
+      resultStats: {
+        interval: 'интервал',
+        rightAnsw: 'Правилни отговори',
+        falseAnsw: 'Грешни отговори'
+      }
+      
     }
-    
   },
   en: {
     welcomePage: {
@@ -49,7 +82,7 @@ const languagesText = {
       startButton: 'Let\'s Go!!!'
     },
     controlForm: {
-      inputs: [['timeForAnswer','time for answer'], ['numberOfTasks','number of tasks']],
+      inputs: [['timeForAnswer', 'time for answer'], ['numberOfTasks', 'number of tasks']],
       regimes: {
         regimes: {
           title: 'regimes',
@@ -57,10 +90,44 @@ const languagesText = {
         }
       }
     },
-    alerts:{
-      alertTime:'Time for answer must be between 2 and 20 seconds!',
-      alertTasks:'Number of tasks must be at last 2!',
-      alertIntervals:'You have to select at last one interval for test!'
+    alerts: {
+      alertTime: 'Time for answer must be between 2 and 20 seconds!',
+      alertTasks: 'Number of tasks must be at last 2!',
+      alertIntervals: 'You have to select at last one interval for test!'
+    },
+    workPane: {
+      workHeader: {
+        fromBeginning: 'New Test From Beginning',
+        sameIntervals: 'new test with same intervals',
+        pointsPerAnswer: 'points per true answer'
+      },
+      formSummary: {
+        userAnswer: 'Don\'t know'
+      },
+      conditionArea: {
+        taskRemaining: 'Tasks Remaining',
+        pointsAccum: 'Accumulated Points',
+        timeRemaining: 'Time Remaining',
+        testBegin:'Begin The Test'
+      },
+      testArea: {
+        interval:'Interval',
+        direction:'Direction',
+        baseTon:'Base Ton',
+        nextQuest:'Next Question'
+      },
+      answerArea:{
+        answer:'answer',
+        sendAnswer:'send answer',
+        rightAnswer:'Right Answer',
+        dontKnow:'Don\'t know'
+      },
+      resultStats: {
+        interval: 'interval',
+        rightAnsw: 'Right Answers',
+        falseAnsw: 'False Answers'
+      }
+      
     }
   }
 }

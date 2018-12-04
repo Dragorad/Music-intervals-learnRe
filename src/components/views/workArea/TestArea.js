@@ -6,7 +6,8 @@ import * as actions from '../../../redux/actions/indexActions'
 import jquery from 'jquery'
 import ResultStats from './ResultStats'
 import eventWorker from '../../../appWorkers/eventWorker'
-import initialState from '../../../redux/initialState/initialState'
+import languagesText from '../../../LanguagesData/LanguagesText'
+import AnswerArea from './AnswerArea'
 
 let $ = jquery
 
@@ -18,6 +19,7 @@ class TestArea extends Component {
       answerVisible: false,
       answeringDisabled: false,
       testFinished: false
+      
     }
   }
   
@@ -61,73 +63,47 @@ class TestArea extends Component {
     this.answering()
     this.setState({answeringDisabled: true})
   }
-
-// newTestLink () {
-  //   this.props.generateNewTest(this.props.intervalsForTest,
-  //     this.props.numberOfTasks)
-  //   this.props.setTestRendered.bind(this)
-  //   this.setState({testFinished: false})
-  // }
   
   render () {
+    let language = this.props.language
     if (this.props.testRendered) {
       if (!this.state.testFinished) {
         let interval = this.props.testInterval
         let testArr = this.props.testArr
+  
+        let texts = languagesText[language].workPane.testArea
         return (
           <div className='test-area'>
-            
+  
             <div className='condition'>
               <TestField
                 key='0'
-                label={'интервал'}
-                text={interval.name.bg}/>
+                label={texts.interval}
+                text={interval.name[language]}/>
               <TestField
                 key='1'
-                label={'посока'}
+                label={texts.direction}
                 text={interval.direction === 'up'
                   ? String.fromCharCode(8593) : String.fromCharCode(8595)}/>
               <TestField
                 key='2'
-                label={'начален тон'}
+                label={texts.baseTon}
                 text={interval.baseTone}/>
             </div>
-            
-            <div className='answer-area'>
-              <div className='summary-field ' style={{display: 'block'}}>
-                <label htmlFor='testedAnswer '> отговор </label>
-                <input id='testedAnswer' type='text' name='testedAnswer' placeholder='Не знам'/>
-              </div>
-              <button id='answering'
-                      disabled={this.state.answeringDisabled}
-                      className='summary-field' style={{
-                margin: 'auto',
-                backgroundColor: '#f9f9f9',
-                color: 'crimson'
-              }}
-                      onClick={this.answeringClicked.bind(this)}>
-                ИЗПРАЩАМ ОТГОВОР
-              </button>
-              <div className='summary-field right-answer' style={
-                this.props.answerVisible ? {display: 'block'} : {display: 'none'}}>
-                Верен отговор <p style={{color: 'red'}}>{interval.answer}</p>
-              </div>
-            </div>
+  
+            <AnswerArea disabled={this.state.answeringDisabled} onClick={this.answeringClicked.bind(this)}
+                        answerVisible={this.props.answerVisible} interval={interval}/>
             <button id='next-question' className='summary-field'
                     onClick={this.nextQuestionClicked.bind(this)}>
-              СЛЕДВАЩ ВЪПРОС
+              {texts.nextQuest}
             </button>
-            <table>
-              <ResultStats/>
-            </table>
+  
+            <ResultStats/>
+
           </div>
         )
       } else {
-        // let intervalsForTest = this.props.testIntervalData.intervalsForTest
-        // let numberOfTasks = this.props.numberOfTasks
-        // let generateNewTest = this.props.generateNewTest(intervalsForTest, numberOfTasks)
         return (
-          
           <div className='testFinished'>
             <p>Test finished!</p>
             <p>Please choose:</p>
@@ -150,6 +126,8 @@ class TestArea extends Component {
 
 const mapStateToProps = store => {
   return {
+    language: store.languageSelected,
+    testRendered: store.testRendered,
     testIntervalData: store.testIntervalData,
     intervalsForTest: store.testIntervalData.intervalsForTest,
     numberOfTasks: store.testIntervalData.numberOfTasks,

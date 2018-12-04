@@ -50,6 +50,10 @@ export const changeTasksRemaining = number => ({
   type: types.CHANGE_TASKS_REMAINING,
   payload: number - 1
 })
+export const setTestRendered = () => ({
+  type: types.SET_TEST_RENDERED,
+  payload: true
+})
 export const setPointsPerAnswer = intervalData => ({
   type: types.SET_POINTS_PER_ANSWER,
   payload: intervalData.intervalsForTest.length * 20 - Number(intervalData.timeForAnswer)

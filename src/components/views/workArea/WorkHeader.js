@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import TestField from './TestField'
 import eventWorker from '../../../appWorkers/eventWorker'
 import * as actions from '../../../redux/actions/indexActions'
+import languagesText from '../../../LanguagesData/LanguagesText'
 
 class WorkHeader extends Component {
   
@@ -17,17 +18,18 @@ class WorkHeader extends Component {
   }
   
   render () {
+    let texts = languagesText[this.props.language].workPane.workHeader
     return (
       <header>
-        <Link to='/index' className='summary-field' onClick={() => window.localStorage.clear()}>НОВ ТЕСТ ОТНАЧАЛО</Link>
+        <Link to='/index' className='summary-field' onClick={() => window.localStorage.clear()}>{texts.fromBeginning.toLocaleUpperCase()}
+        </Link>
         <button className='summary-field link'
                 onClick={eventWorker.newTestLink.bind(this)
-                }>НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ
-        </button>
+                }>{texts.sameIntervals.toUpperCase()}</button>
         
         
         <TestField
-          label={'точки за верен отговор'}
+          label={texts.pointsPerAnswer}
           text={this.props.pointsPerAnswer}/>
       
       
@@ -42,7 +44,8 @@ const mapStateToProps  = store => {
     pointsPerAnswer: store.pointsPerAnswer,
     sessionPoints: store.sessionPoints,
     intervalsForTest: store.testIntervalData.intervalsForTest,
-    numberOfTasks: store.testIntervalData.numberOfTasks
+    numberOfTasks: store.testIntervalData.numberOfTasks,
+    language:store.languageSelected
   }
 }
 const mapDispatchToProps  = (dispatch, state) =>({

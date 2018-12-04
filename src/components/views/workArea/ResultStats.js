@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import TestStatsField from './TestStatsField'
+import languagesText from '../../../../src/LanguagesData/LanguagesText'
 
 class ResultStats extends Component {
   constructor (props) {
@@ -9,13 +9,17 @@ class ResultStats extends Component {
   
   render (props) {
     let sessionAnswers = this.props.sessionAnswers
+    let language = this.props.language
+    let texts = languagesText[language].workPane.resultStats
     return <table>
-      <th>interval</th>
-      <th>Right Answers</th>
-      <th>False Answers</th>
+      
+        <th>{texts.interval}</th>
+        <th>{texts.rightAnsw}</th>
+        <th>{texts.falseAnsw}</th>
+      
       {this.props.sessionAnswers.map((el, idx) => (
         <tr className='result-stats'>
-          <td>{el.name}:</td>
+          <td>{el.name[language]}:</td>
           <td className='data-field'>{el.trueAnswers}</td>
           <td className='data-field'>{el.falseAnswers}</td>
         </tr>))}
@@ -24,6 +28,7 @@ class ResultStats extends Component {
 }
 
 const mapStateToProps = store => ({
+  language: store.languageSelected,
   sessionAnswers: store.sessionAnswers
 })
 export default connect(

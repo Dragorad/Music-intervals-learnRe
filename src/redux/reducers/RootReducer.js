@@ -1,6 +1,5 @@
 import * as types from '../actions/types'
 import resultsHandler from '../../appWorkers/resultHandler'
-import eventWorker from '../../appWorkers/eventWorker'
 import initialState from '../initialState/initialState'
 
 // const initialState = {
@@ -32,6 +31,8 @@ const rootReducer = (state = initialState, action) => {
       currentInterval: action.payload.currentInterval}
     case types.SET_USER_ANSWER:
       return {...state, userAnswer: action.payload}
+      case types.SET_TEST_RENDERED:
+      return {...state, testRendered: action.payload}
     case types.CHANGE_TASKS_REMAINING:
       return {...state, tasksRemaining: action.payload}
     case types.SET_POINTS_PER_ANSWER:
