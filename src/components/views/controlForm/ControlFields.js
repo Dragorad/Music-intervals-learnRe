@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import NumericControlField from './NumericControlField.js'
 import FormInput from './FormInput.js'
-import muzWorker from '../../../appWorkers/intervalWorker'
 import { setLanguage } from '../../../redux/actions/indexActions'
 import connect from 'react-redux/es/connect/connect'
-import languagesText  from '../../../LanguagesData/LanguagesText'
+import languagesText from '../../../LanguagesData/LanguagesText'
 
 let regimes = [
   ['only-generate', 'само генериране'],
@@ -24,8 +23,8 @@ class ControlFields extends Component {
       
       <div className="controls-wrap">
         {texts.inputs.map((el, idx) => {
-          console.log(languagesText.en.controlForm.inputs.idx)
-          return (<NumericControlField
+            console.log(languagesText.en.controlForm.inputs.idx)
+            return (<NumericControlField
               key={idx}
               handleInputChange={this.handleInputChange.bind(this)}
               fieldName={languagesText.en.controlForm.inputs[idx][0]}
@@ -35,12 +34,11 @@ class ControlFields extends Component {
         )}
         
         <div className="regimes">
-          <p>Режими на ползване</p>
+          <p>Under Construction Режими на ползване</p>
           <div className="radio-inputs">
             {regimes.map((obj, i) => {
                 return (<FormInput
                   key={i}
-                  // onClick={this.props.handleInputChange}
                   classString='radio-input'
                   typeStr='radio'
                   inputId={obj[0]}

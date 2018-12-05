@@ -22,6 +22,27 @@ export const setTestIntervalData = intervalData => ({
   type: types.TEST_INTERVAL_DATA,
   payload: intervalData
 })
+export const setTimeForAnswer = time => ({
+  type: types.SET_TIME_FOR_ANSWER,
+  payload: time
+})
+export const setTimeRemaining = time => ({
+  type: types.SET_TIME_REMAINING,
+  payload: time
+})
+export const timerDecrease = time => ({
+  type: types.TIMER_DECREASE,
+  payload: time -1
+})
+export const timerNull = () => ({
+  type: types.TIMER_DECREASE,
+  payload: 0
+})
+export const answerVisible = boolean => ({
+  type: types.SET_ANSWER_VISIBLE,
+  payload: boolean
+})
+
 export const fillAnswerInput = text => ({
   type: types.FILL_ANSWER_INPUT,
   payload: text

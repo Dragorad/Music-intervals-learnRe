@@ -13,11 +13,6 @@ let testIntervalData = {
   numberOfTasks: 0
 }
 let testArr = {}
-let regimes = [
-  ['only-generate', 'само генериране'],
-  ['local-store', 'генериране и запазване локално'],
-  ['exam', 'изпит']
-]
 
 class ControlForm extends Component {
   constructor (props) {
@@ -53,20 +48,17 @@ class ControlForm extends Component {
       alert(alerts.alertTime)
       return
     }
-    // let numberOfTasks = testIntervalData.numberOfTasks
     if (numberOfTasks < 2) {
       alert(alerts.alertTasks)
       return
     }
     console.log(testIntervalData.intervalsForTest)
     let language = this.props.language
-    // console.log(Object.values(muzWorker.intervals))
-    
     testIntervalData['intervalsForTest'] = intervalsForTest.serializeArray()
       .map(function (el) {
-        console.log(el)
-        let elName = Object.values(muzWorker.intervals).find(elem => elem.name[language] === el.name)
-        return {
+          console.log(el)
+          let elName = Object.values(muzWorker.intervals).find(elem => elem.name[language] === el.name)
+          return {
             name: elName.name,
             trueAnswers: 0,
             falseAnswers: 0
@@ -101,6 +93,7 @@ class ControlForm extends Component {
     let selectAllBox = $('#select-all')
     let deselectAllBox = $('#deselect-all')
     let simpleBoxes = boxes.filter((i, el) => Number(el.value) < 13)
+    console.log(selectAllBox)
     selectAllBox.on('click', function () {
       simpleBoxes.prop('checked', true)
     })

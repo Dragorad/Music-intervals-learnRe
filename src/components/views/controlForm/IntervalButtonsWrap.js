@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import muzWorker from '../../../appWorkers/intervalWorker'
-import FormInput from './FormInput'
 import IntervalGroup from './IntervalGroup'
 
 let {intervals} = muzWorker
@@ -16,13 +15,13 @@ let fourthIntervals = [intervals.octave,
   idx: 13,
   name: {
     bg: 'избери всички',
-    en: 'select all'
+    en: 'select-all'
   }
 },
   {  idx: 13,
   name: {
     bg: 'освободи всички',
-    en: 'deselect all'
+    en: 'deselect-all'
   }
 },]
 

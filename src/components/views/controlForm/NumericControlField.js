@@ -6,8 +6,6 @@ class NumericControlField extends Component {
     this.handleInputChange = this.props.handleInputChange.bind(this)
   }
   
- 
-  
   render () {
     return (
       <div className="control-field">
@@ -16,7 +14,7 @@ class NumericControlField extends Component {
                  onChange={this.handleInputChange.bind(this)}
                  name={this.props.fieldName}
                  placeholder={this.props.placeholder}
-                 >
+          >
           </input>
         </label>
         <span className='error'></span>

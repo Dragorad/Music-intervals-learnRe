@@ -13,62 +13,20 @@ const resultsHandler = (() => {
     console.log(resultObj)
     return resultObj
   }
-  
-  // function handleIntervalInResult (storeArr, intervalObj) {
-  //   // console.log(storeArr)
-  //   let targetInt = storeArr.find(el => el.name === intervalObj.name)
-  //   let pushInt = {}
-  //
-  //   if (targetInt === undefined) {
-  //     if (intervalObj.isCorrect === true) {
-  //       pushInt = {
-  //         name: intervalObj.name,
-  //         rightAnswers: 1,
-  //         falseAnswers: 0
-  //       }
-  //     }
-  //     else {
-  //       pushInt = {
-  //         name: intervalObj.name,
-  //         rightAnswers: 0,
-  //         falseAnswers: 1
-  //       }
-  //     }
-  //     return [...storeArr, pushInt]
-  //   } else {
-  //     if (intervalObj.isCorrect === true) {
-  //       pushInt = {
-  //         name: intervalObj.name,
-  //         rightAnswers: targetInt.rightAnswers + 1,
-  //         falseAnswers: targetInt.falseAnswers
-  //       }
-  //     }
-  //     else {
-  //       pushInt = {
-  //         name: intervalObj.name,
-  //         rightAnswers: targetInt.rightAnswers,
-  //         falseAnswers: targetInt.falseAnswers + 1
-  //       }
-  //     }
-  //   }
-  //
-  //   return [...storeArr.map(el => el.name === intervalObj.name ?
-  //     pushInt : el)]
-  // }
-  //
-  // function storeResult (testedInterval, answer) {
-  //   // totalQuestions += 1
-  //
-  //   if (testedInterval.answer === answer) {
-  //     sessionResults[`${testedInterval.name}`].hits++
-  //     sessionResults.rightAnswers++
-  //   }
-  //   sessionResults[`${testedInterval.name}`].misses++
-  //   sessionResults.falseAnswers++
-  // }
-  //
+  function answering(props){
+    let pointsPerAnswer = props.pointsPerAnswer
+    console.log('answering clicked ' + props.testInterval.answer)
+    let userAnswer = props.userAnswer
+    let isAnswerTrue = userAnswer === props.testInterval.answer
+    let intervalName = props.testInterval.name
+    console.log(intervalName)
+    props.addAnswerToResult(intervalName, isAnswerTrue)
+    props.addPointsToResult(pointsPerAnswer, isAnswerTrue)
+  }
+ 
   return {
-    handleSingleResult
+    handleSingleResult,
+    answering
   }
 })()
 // let state = {

@@ -1,7 +1,4 @@
 import jquery from 'jquery'
-import { generateNewTest } from '../redux/actions/indexActions'
-import muzWorker from './intervalWorker'
-import { Redirect } from 'react-router-dom'
 
 let $ = jquery
 const eventWorker = (() => {
@@ -20,6 +17,14 @@ const eventWorker = (() => {
       let baseToneId = testInterval.baseTone.split(' ').join('')
       let baseKey = $(`path#${baseToneId}`)
       baseKey.addClass('base-key')
+    }
+    
+    function redirectPageWithNullTestData (pathString) {
+      let testIntervalData = {
+        timeForAnswer: 0,
+        numberOfTasks: 0
+      }
+      this.props.push(pathString, testIntervalData)
     }
     
     function generateNewTestLink (e) {
@@ -41,17 +46,27 @@ const eventWorker = (() => {
         return idx
       }
     })()
-    const timer = () => setTimeout(
-      () => {
-        let timeRemaining = this.state.timeRemaining
-        if (timeRemaining > 0) {
-          setTimeout(this.timer)
-          this.setState({'timeRemaining': this.state.timeRemaining - 1})
-        } else {
-          this.setState({answerVisible: true})
-          clearTimeout(this.timer)
-        }
-      }, 500)
+    
+    function onTestButtonClick (e, props) {
+      e.preventDefault()
+      this.setState({testRendered: true})
+      this.props.changeTasksRemaining(this.props.tasksRemaining)
+      // eventWorker.timer(this.props.timeForAnswer)
+    }
+    
+    const timer = (store, props) => {
+      setTimeout(
+        function () {
+          let timeRemaining = props.timeRemaining
+          if (timeRemaining > 0) {
+            setTimeout(this.timer)
+            props.timerDecrease(props.timeRemaining)
+          } else {
+            props.setAnswerVisible(true)
+            clearTimeout(this.timer)
+          }
+        }.bind(this), 500)
+    }
     
     function newTestLink () {
       this.props.generateNewTest(this.props.intervalsForTest,
@@ -62,13 +77,15 @@ const eventWorker = (() => {
         answeringDisabled: false
       })
     }
-    function onLangButtonClick (el){
+    
+    function onLangButtonClick (el) {
       el.preventDefault()
       let payload = el.target.textContent
       console.log(payload)
-      this.props.setLanguage(el.target.textContent ==='ENGLISH' || el.target.textContent ==='EN' ?
+      this.props.setLanguage(el.target.textContent === 'ENGLISH' || el.target.textContent === 'EN' ?
         'en' : 'bg')
     }
+    
     // function setCurrentInterval (stateObj) {
     //   let currentInterval = stateObj.currentInterval
     //   let idx = stateObj.currentIntervalIdx
@@ -79,15 +96,21 @@ const eventWorker = (() => {
     //     currentIntervalIdx: idx
     //   }
     // }
+    function setTestRendered () {
+      return this.setState({testRendered: !this.testRendered})
+    }
     
     return {
+      setTestRendered,
       pathClicked,
       baseKeyColorize,
       onLangButtonClick,
       passIndex,
+      // timer,
       generateNewTestLink,
-      newTestLink
-      // setCurrentInterval
+      newTestLink,
+      onTestButtonClick,
+      redirectPageWithNullTestData
     }
   }
 

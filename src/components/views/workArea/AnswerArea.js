@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import languagesText from '../../../LanguagesData/LanguagesText'
 import { connect } from 'react-redux'
+import * as actions from '../../../redux/actions/indexActions'
 
 class AnswerArea extends Component {
   render () {
@@ -19,7 +20,7 @@ class AnswerArea extends Component {
         backgroundColor: '#f9f9f9',
         color: 'crimson'
       }}
-              onClick={this.props.onClick}>{texts.sendAnswer.toUpperCase()} </button>
+              onClick={this.props.onSendAnswClick.bind(this)}>{texts.sendAnswer.toUpperCase()} </button>
       <div className='summary-field right-answer' style={
         this.props.answerVisible ? {display: 'block'} : {display: 'none'}}>
         {texts.rightAnswer.toUpperCase()} <p style={{color: 'red'}}>{this.props.interval.answer}</p>
@@ -29,7 +30,14 @@ class AnswerArea extends Component {
 }
 
 const mapStateToProps = store => ({
+  userAnswer: store.userAnswer,
+  pointsPerAnswer: store.pointsPerAnswer,
+  testInterval: store.currentInterval,
   language: store.languageSelected
 })
+const mapDispatchToProps = (dispatch, state) => ({
+  addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),
+  addAnswerToResult: (sessionAnswers, intervalName, boolean) => dispatch(actions.addAnswerToResult(sessionAnswers, intervalName, boolean))
+})
 
-export default connect(mapStateToProps)(AnswerArea)
+export default connect(mapStateToProps, mapDispatchToProps)(AnswerArea)

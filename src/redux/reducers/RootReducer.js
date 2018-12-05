@@ -19,7 +19,8 @@ const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_LANGUAGE:
       return {
-        ...state,languageSelected: action.payload}
+        ...state, languageSelected: action.payload
+      }
     case types.TEST_INTERVAL_DATA:
       return {
         ...state, testIntervalData: action.payload,
@@ -27,20 +28,32 @@ const rootReducer = (state = initialState, action) => {
         sessionAnswers: action.payload.intervalsForTest
       }
     case types.GENERATE_TEST_ARR:
-      return {...state, testArr: action.payload.testArr,
-      currentInterval: action.payload.currentInterval}
+      return {
+        ...state, testArr: action.payload.testArr,
+        currentInterval: action.payload.currentInterval
+      }
     case types.SET_USER_ANSWER:
       return {...state, userAnswer: action.payload}
-      case types.SET_TEST_RENDERED:
+    case types.SET_TEST_RENDERED:
       return {...state, testRendered: action.payload}
+    case types.SET_ANSWER_VISIBLE:
+      return {...state, answerVisible: action.payload}
+    case types.SET_TIME_REMAINING:
+      return {...state, timeRemaining: action.payload}
+      case types.TIMER_DECREASE:
+      return {...state, timeRemaining: action.payload}
+    case types.TIMER_NULL:
+      return {...state, timeRemaining: action.payload}
     case types.CHANGE_TASKS_REMAINING:
       return {...state, tasksRemaining: action.payload}
     case types.SET_POINTS_PER_ANSWER:
       return {...state, pointsPerAnswer: action.payload}
     case types.SET_CURRENT_INTERVAL:
-      return {...state, currentInterval: action.payload.currentInterval,
-      currentIntervalIdx: action.payload.idx}
-      case types.SET_CURRENT_INTERVAL_IDX:
+      return {
+        ...state, currentInterval: action.payload.currentInterval,
+        currentIntervalIdx: action.payload.idx
+      }
+    case types.SET_CURRENT_INTERVAL_IDX:
       return {
         ...state, currentIntervalIdx: action.payload
       }

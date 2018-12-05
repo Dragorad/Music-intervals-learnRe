@@ -8,7 +8,7 @@ let {intervals} = muzWorker
 
 let {secondMinor, secondMajor, thirdMinor, thirdMajor, ...rest} = intervals
 let {fourthPerfect, fourthAug, fifthDiminished, fifthPerfect, ...rest1} = rest
-let {sixthMinor, sixthMajor, seventhMinor, seventhMajor, ...rest2} = rest1
+let {sixthMinor, sixthMajor, seventhMinor, seventhMajor} = rest1
 
 let firstIntervals = [secondMinor, secondMajor, thirdMinor, thirdMajor]
 let secondIntervals = [fourthPerfect, fourthAug, fifthDiminished, fifthPerfect]
@@ -17,11 +17,7 @@ let thirdIntervals = [sixthMinor, sixthMajor, seventhMinor, seventhMajor]
 let intervalsGroups = [firstIntervals, secondIntervals, thirdIntervals]
 
 class IntervalGroup extends Component {
-  constructor (props) {
-    super(props)
-  }
-  
-  render () {
+   render () {
     let labelLang = this.props.language
     console.log(labelLang)
     return (
@@ -48,7 +44,7 @@ const mapStateToProps  = store => {
     language: store.languageSelected
   }
 }
-const mapDispatchToProps  = (dispatch, state) =>({
+const mapDispatchToProps  = dispatch =>({
   setLanguage: language => dispatch(setLanguage(language))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(IntervalGroup)

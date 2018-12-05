@@ -8,6 +8,7 @@ import ResultStats from './ResultStats'
 import eventWorker from '../../../appWorkers/eventWorker'
 import languagesText from '../../../LanguagesData/LanguagesText'
 import AnswerArea from './AnswerArea'
+import resultsHandler from '../../../appWorkers/resultHandler'
 
 let $ = jquery
 
@@ -19,15 +20,15 @@ class TestArea extends Component {
       answerVisible: false,
       answeringDisabled: false,
       testFinished: false
-      
     }
   }
   
   nextQuestionClicked (e) {
     e.preventDefault()
     console.log('next question clicked')
+    let language = this.props.language
     if (this.props.tasksRemaining > 0) {
-      $('#testedAnswer').val('Не знам')
+      $('#testedAnswer').val(`${languagesText[language].workPane.answerArea.dontKnow}`)
       this.props.changeTasksRemaining(this.props.tasksRemaining)
       this.setState({answerVisible: false})
       this.setState({answeringDisabled: false})
@@ -35,32 +36,20 @@ class TestArea extends Component {
       this.props.setCurrentInterval(testArr)
       this.setState({
         // testInterval: this.props.interval,
-        answerVisible: false,
-        timeRemaining: this.props.testIntervalData.timeForAnswer
+        answerVisible: false
       })
       this.props.timer()
+      this.props.updateFormState()
       eventWorker.baseKeyColorize(this.props.testInterval)
     } else {
       this.setState({testFinished: true})
     }
   }
   
-  answering () {
-    let pointsPerAnswer = this.props.pointsPerAnswer
-    console.log('redux points per answer ' + pointsPerAnswer)
-    
-    console.log('answering clicked ' + this.props.testInterval.answer)
-    let userAnswer = this.props.userAnswer
-    let isAnswerTrue = userAnswer === this.props.testInterval.answer
-    let intervalName = this.props.testInterval.name.bg
-    console.log(intervalName)
-    this.props.addAnswerToResult(intervalName, isAnswerTrue)
-    this.props.addPointsToResult(pointsPerAnswer, isAnswerTrue)
-  }
-  
   answeringClicked (e) {
     e.preventDefault()
-    this.answering()
+    resultsHandler.answering(this.props)
+    clearTimeout(this.props.timer)
     this.setState({answeringDisabled: true})
   }
   
@@ -70,11 +59,11 @@ class TestArea extends Component {
       if (!this.state.testFinished) {
         let interval = this.props.testInterval
         let testArr = this.props.testArr
-  
+        
         let texts = languagesText[language].workPane.testArea
         return (
           <div className='test-area'>
-  
+            
             <div className='condition'>
               <TestField
                 key='0'
@@ -90,16 +79,18 @@ class TestArea extends Component {
                 label={texts.baseTon}
                 text={interval.baseTone}/>
             </div>
-  
-            <AnswerArea disabled={this.state.answeringDisabled} onClick={this.answeringClicked.bind(this)}
-                        answerVisible={this.props.answerVisible} interval={interval}/>
+            
+            <AnswerArea disabled={this.state.answeringDisabled}
+                        onSendAnswClick={this.answeringClicked}
+                        answerVisible={this.props.answerVisible}
+                        interval={interval}/>
             <button id='next-question' className='summary-field'
                     onClick={this.nextQuestionClicked.bind(this)}>
               {texts.nextQuest}
             </button>
-  
+            
             <ResultStats/>
-
+          
           </div>
         )
       } else {
@@ -126,6 +117,7 @@ class TestArea extends Component {
 
 const mapStateToProps = store => {
   return {
+    timeForAnswer: store.testIntervalData.timeForAnswer,
     language: store.languageSelected,
     testRendered: store.testRendered,
     testIntervalData: store.testIntervalData,

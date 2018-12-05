@@ -10,7 +10,9 @@ const initialState = {
   tasksRemaining: 0,
   currentIntervalIdx: 0,
   currentInterval: {},
-  testRendered: false
+  testRendered: false,
+  answerVisible: false,
+  timeRemaining:0
 }
 
 export default initialState

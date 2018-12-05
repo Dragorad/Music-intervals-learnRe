@@ -21,10 +21,20 @@ class WorkHeader extends Component {
     let texts = languagesText[this.props.language].workPane.workHeader
     return (
       <header>
-        <Link to='/index' className='summary-field' onClick={() => window.localStorage.clear()}>{texts.fromBeginning.toLocaleUpperCase()}
+        <Link to={'/control-form'} className='summary-field link' onClick={() => {
+        eventWorker.redirectPageWithNullTestData('/control-form')
+         window.localStorage.clear()}
+        }>{texts.fromBeginning.toLocaleUpperCase()}
         </Link>
         <button className='summary-field link'
-                onClick={eventWorker.newTestLink.bind(this)
+                onClick={(e)=>{
+                  e.preventDefault()
+                  let intervalsForTest = this.props.intervalsForTest.map(el => el.name.bg)
+                  let numberOfTasks = this.props.numberOfTasks
+                  this.props.generateNewTest(intervalsForTest, numberOfTasks)
+                  console.log(intervalsForTest)
+                }
+                  // eventWorker.newTestLink.bind(this)
                 }>{texts.sameIntervals.toUpperCase()}</button>
         
         

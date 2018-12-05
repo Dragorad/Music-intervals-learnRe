@@ -4,10 +4,6 @@ import jquery from 'jquery'
 let $ = jquery
 
 class FormInput extends Component {
-  constructor (props) {
-    super(props)
-    // this.onClick = this.onClick.bind(this)
-  }
   
   onClickEvent (e) {
     console.log('new event')
