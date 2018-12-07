@@ -4,6 +4,7 @@ import TestField from './TestField'
 import * as actions from '../../../redux/actions/indexActions'
 import jquery from 'jquery'
 import languagesText from '../../../LanguagesData/LanguagesText'
+import eventWorker from '../../../appWorkers/eventWorker'
 
 let $ = jquery
 
@@ -12,14 +13,16 @@ class ConditionArea extends Component {
   
   componentDidMount () {
     let testArr = this.props.testArr
+    this.props.setTimeRemaining(this.props.timeForAnswer)
+    
   }
   
-  onTestButtonClick (e) {
-    e.preventDefault()
-    this.props.changeTasksRemaining(this.props.tasksRemaining)
-    this.props.setTestRendered()
-    this.props.timer()
-  }
+  // onTestButtonClick (e) {
+  //   e.preventDefault()
+  //   this.props.changeTasksRemaining(this.props.tasksRemaining)
+  //   this.props.setTestRendered()
+  //   this.props.timer()
+  // }
   
   render () {
     let language = this.props.language
@@ -38,13 +41,15 @@ class ConditionArea extends Component {
       <button className='summary-field'
               disabled={this.props.testRendered}
               name='test-start-button'
-              onClick={this.onTestButtonClick.bind(this)}>{texts.testBegin}
+              onClick={eventWorker.onTestButtonClick.bind(this)}>{texts.testBegin}
       </button>
     </div>
   }
 }
 
 const mapStateToProps = state => ({
+  timerId: state.timerId,
+  timeRemaining: state.timeRemaining,
   language: state.languageSelected,
   timeForAnswer: state.testIntervalData.timeForAnswer,
   testArr: state.testArr,
@@ -57,6 +62,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),
+  setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),
+  setTimerId: Id => dispatch(actions.setTimerId(Id)),
+  setAnswerVisible: boolean => dispatch(actions.setAnswerVisible(boolean)),
   setTestRendered: () => dispatch(actions.setTestRendered())
 })
 export default connect(mapStateToProps, mapDispatchToProps)

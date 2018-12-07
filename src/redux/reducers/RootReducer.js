@@ -1,8 +1,9 @@
 import * as types from '../actions/types'
 import resultsHandler from '../../appWorkers/resultHandler'
+// import initialStore from '../initialStore/initialStore'
 import initialState from '../initialState/initialState'
 
-// const initialState = {
+// const initialStore = {
 //   testIntervalData: {},
 //   testArr: {},
 //   pointsPerAnswer: 0,
@@ -44,6 +45,8 @@ const rootReducer = (state = initialState, action) => {
       return {...state, timeRemaining: action.payload}
     case types.TIMER_NULL:
       return {...state, timeRemaining: action.payload}
+      case types.SET_TIMER_ID:
+      return {...state, timerId: action.payload}
     case types.CHANGE_TASKS_REMAINING:
       return {...state, tasksRemaining: action.payload}
     case types.SET_POINTS_PER_ANSWER:

@@ -12,7 +12,8 @@ const initialState = {
   currentInterval: {},
   testRendered: false,
   answerVisible: false,
-  timeRemaining:0
+  timeRemaining:0,
+  timerId:null
 }
 
 export default initialState

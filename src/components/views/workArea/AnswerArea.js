@@ -30,12 +30,15 @@ class AnswerArea extends Component {
 }
 
 const mapStateToProps = store => ({
+  answerVisible: store.answerVisible,
   userAnswer: store.userAnswer,
   pointsPerAnswer: store.pointsPerAnswer,
   testInterval: store.currentInterval,
   language: store.languageSelected
 })
 const mapDispatchToProps = (dispatch, state) => ({
+  setAnswerVisible: boolean => dispatch(actions.setAnswerVisible(boolean)),
+  setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),
   addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),
   addAnswerToResult: (sessionAnswers, intervalName, boolean) => dispatch(actions.addAnswerToResult(sessionAnswers, intervalName, boolean))
 })

@@ -78,7 +78,7 @@ const testAction = (() => {
 
         let arrIdx = 0
 
-        function answering(testArr) {
+        function answeringTestArr(testArr) {
             return testArr[arrIdx++]
         }
 
@@ -89,7 +89,7 @@ const testAction = (() => {
 
         return {
             displayAnswer,
-            answering,
+            answeringTestArr,
             playBaseTone,
             displayBasetone,
             countdown,

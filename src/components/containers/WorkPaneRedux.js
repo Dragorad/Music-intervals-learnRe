@@ -5,22 +5,10 @@ import Keyboard from '../views/workArea/Keyboard'
 import * as actions from '../../redux/actions/indexActions'
 import jQuery from 'jquery'
 import { connect } from 'react-redux'
-import eventWorker from '../../appWorkers/eventWorker'
 
 let $ = jQuery
 
 class WorkPaneRedux extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      testRendered: false
-      
-    }
-  }
-  
-  setTestRendered () {
-    return this.setState({testRendered: !this.testRendered})
-  }
   
   componentDidMount () {
     let that = this
@@ -50,11 +38,7 @@ class WorkPaneRedux extends Component {
           setTestRendered={this.setTestRendered}
         />
         <div className='work-pane'>
-          <FormSummary
-            testIntervalData={testIntervalData}
-            testArr={testArr}
-            setTestRendered={this.setTestRendered}
-          />
+          <FormSummary />
           <Keyboard/>
         </div>
       </React.Fragment>

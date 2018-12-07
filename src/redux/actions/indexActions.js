@@ -35,10 +35,14 @@ export const timerDecrease = time => ({
   payload: time -1
 })
 export const timerNull = () => ({
-  type: types.TIMER_DECREASE,
+  type: types.TIMER_NULL,
   payload: 0
 })
-export const answerVisible = boolean => ({
+export const setTimerId = id => ({
+  type: types.SET_TIMER_ID,
+  payload: id
+})
+export const setAnswerVisible = boolean => ({
   type: types.SET_ANSWER_VISIBLE,
   payload: boolean
 })
@@ -119,14 +123,3 @@ export function defaultFunction () {
     payload: testVar
   }
 }
-
-// export const SELECT_ALL = {
-//   type: SELECT_ALL,
-//   foo: (e)=>{
-//
-//       $('input[type="checkbox"]').not(this).prop('checked', this.checked)
-//     }
-//   }
-// export const SAY_HELLO = 'Hi I am action'
-//
-// export

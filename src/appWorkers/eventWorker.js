@@ -1,4 +1,5 @@
 import jquery from 'jquery'
+import languagesText from '../LanguagesData/LanguagesText'
 
 let $ = jquery
 const eventWorker = (() => {
@@ -49,24 +50,62 @@ const eventWorker = (() => {
     
     function onTestButtonClick (e, props) {
       e.preventDefault()
-      this.setState({testRendered: true})
+      this.props.setTestRendered(true)
+      // this.props.setTimeRemaining(props.testIntervalData.timeForAnswer)
       this.props.changeTasksRemaining(this.props.tasksRemaining)
-      // eventWorker.timer(this.props.timeForAnswer)
+      eventWorker.timer(this.props)
     }
     
-    const timer = (store, props) => {
-      setTimeout(
-        function () {
-          let timeRemaining = props.timeRemaining
-          if (timeRemaining > 0) {
-            setTimeout(this.timer)
-            props.timerDecrease(props.timeRemaining)
-          } else {
-            props.setAnswerVisible(true)
-            clearTimeout(this.timer)
-          }
-        }.bind(this), 500)
+    function nextQuestionClicked (e, props) {
+      e.preventDefault()
+      console.log(this.props.timerId)
+      clearTimeout(this.props.timerId)
+      console.log('next question clicked')
+      let language = this.props.language
+      if (this.props.tasksRemaining > 0) {
+        $('#testedAnswer').val(`${languagesText[language].workPane.answerArea.dontKnow}`)
+        this.props.changeTasksRemaining(this.props.tasksRemaining)
+        this.props.setAnswerVisible(false)
+        this.setState({answeringDisabled: false})
+        let testArr = this.props.testArr
+        this.props.setCurrentInterval(testArr)
+        // this.props.setAnswerVisible(false)
+        eventWorker.baseKeyColorize(this.props.testInterval)
+        eventWorker.timer(this.props)
+        this.props.updateFormState()
+      } else {
+        this.setState({testFinished: true})
+      }
     }
+    
+    const timer = (props) => {
+      let timeForAnswer = props.timeForAnswer
+      let timerId = setTimeout(function inner (time) {
+      let reset = props.timeRemaining
+        if (props.timeRemaining === 0) {
+          return
+        }
+        time -= 1
+        props.setTimeRemaining(time)
+        
+        timerId = setTimeout(inner, 1500, time)
+        if (time === 0) {
+          props.setAnswerVisible(true)
+          console.log('HO')
+          clearTimeout(timerId)
+        }
+      }, 1500, timeForAnswer)
+    }
+    
+    // if (timeRemaining > 0) {
+    //   props.timerDecrease(props.timeRemaining)
+    // }
+    // else {
+    //   props.setAnswerVisible(true)
+    //   clearTimeout(timerId)
+    // }
+
+// setTimeout(inner, 500, props)
     
     function newTestLink () {
       this.props.generateNewTest(this.props.intervalsForTest,
@@ -85,17 +124,17 @@ const eventWorker = (() => {
       this.props.setLanguage(el.target.textContent === 'ENGLISH' || el.target.textContent === 'EN' ?
         'en' : 'bg')
     }
-    
-    // function setCurrentInterval (stateObj) {
-    //   let currentInterval = stateObj.currentInterval
-    //   let idx = stateObj.currentIntervalIdx
-    //   idx = (eventWorker.passIndex(idx))
-    //   let newInterval = {...stateObj.testArr[idx]}
-    //   return {
-    //     ...stateObj, currentInterval: newInterval,
-    //     currentIntervalIdx: idx
-    //   }
-    // }
+
+// function setCurrentInterval (stateObj) {
+//   let currentInterval = stateObj.currentInterval
+//   let idx = stateObj.currentIntervalIdx
+//   idx = (eventWorker.passIndex(idx))
+//   let newInterval = {...stateObj.testArr[idx]}
+//   return {
+//     ...stateObj, currentInterval: newInterval,
+//     currentIntervalIdx: idx
+//   }
+// }
     function setTestRendered () {
       return this.setState({testRendered: !this.testRendered})
     }
@@ -106,21 +145,22 @@ const eventWorker = (() => {
       baseKeyColorize,
       onLangButtonClick,
       passIndex,
-      // timer,
+      timer,
       generateNewTestLink,
       newTestLink,
       onTestButtonClick,
+      nextQuestionClicked,
       redirectPageWithNullTestData
     }
   }
-
 )()
 
 // let props = {
 //   intervalsForTest: ['голяма секунда'],
-//   numberOfTasks: 4
+//   numberOfTasks: 4,
+// timeForAnswer:4
 // }
 // console.log(eventWorker.generateNewTestLink(props))
-
+// eventWorker.timer(props)
 export default eventWorker
 

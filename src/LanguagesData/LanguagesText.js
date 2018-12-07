@@ -45,7 +45,7 @@ const languagesText = {
         testBegin:'начало на теста'
       },
       testArea: {
-        interval:'нтервал',
+        interval:'интервал',
         direction:'посока',
         baseTon:'начален тон',
         nextQuest:'следващ въпрос'

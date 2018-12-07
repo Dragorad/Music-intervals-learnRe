@@ -23,7 +23,10 @@ class TestArea extends Component {
     }
   }
   
-  nextQuestionClicked (e) {
+  language = this.props.language
+  texts = languagesText[this.language]
+  
+  nextQuestionClicked (e, props) {
     e.preventDefault()
     console.log('next question clicked')
     let language = this.props.language
@@ -38,7 +41,7 @@ class TestArea extends Component {
         // testInterval: this.props.interval,
         answerVisible: false
       })
-      this.props.timer()
+      eventWorker.timer(props)
       this.props.updateFormState()
       eventWorker.baseKeyColorize(this.props.testInterval)
     } else {
@@ -49,12 +52,13 @@ class TestArea extends Component {
   answeringClicked (e) {
     e.preventDefault()
     resultsHandler.answering(this.props)
-    clearTimeout(this.props.timer)
+    clearTimeout(eventWorker.timer)
     this.setState({answeringDisabled: true})
   }
   
   render () {
     let language = this.props.language
+    let texts = languagesText[this.props.language].workPane.workHeader
     if (this.props.testRendered) {
       if (!this.state.testFinished) {
         let interval = this.props.testInterval
@@ -82,10 +86,9 @@ class TestArea extends Component {
             
             <AnswerArea disabled={this.state.answeringDisabled}
                         onSendAnswClick={this.answeringClicked}
-                        answerVisible={this.props.answerVisible}
                         interval={interval}/>
             <button id='next-question' className='summary-field'
-                    onClick={this.nextQuestionClicked.bind(this)}>
+                    onClick={eventWorker.nextQuestionClicked.bind(this)}>
               {texts.nextQuest}
             </button>
             
@@ -94,16 +97,21 @@ class TestArea extends Component {
           </div>
         )
       } else {
+        // let language = this.props.language
+        //   let texts = languagesText[language]
         return (
           <div className='testFinished'>
             <p>Test finished!</p>
             <p>Please choose:</p>
-            <Link to='/index' className='summary-field' onClick={() => {window.localStorage.clear()}}>
-              НОВ ТЕСТ ОТНАЧАЛО</Link>
+            <Link to='/control-form' className='summary-field' onClick={() => {
+              eventWorker.redirectPageWithNullTestData('/control-form')
+              window.localStorage.clear()
+            }
+            }>{texts.fromBeginning.toUpperCase()}</Link>
             
             <button className='summary-field link'
                     onClick={eventWorker.newTestLink.bind(this)}>
-              НОВ ТЕСТ СЪС СЪЩИТЕ ИНТЕРВАЛИ
+              under construction {texts.sameIntervals}
             </button>
           
           </div>
@@ -117,6 +125,8 @@ class TestArea extends Component {
 
 const mapStateToProps = store => {
   return {
+    timerId: store.timerId,
+    timeRemaining: store.timeRemaining,
     timeForAnswer: store.testIntervalData.timeForAnswer,
     language: store.languageSelected,
     testRendered: store.testRendered,
@@ -139,6 +149,9 @@ const mapDispatchToProps = (dispatch, state) => ({
   generateNewTest: (intervalsForTest, numberOfTasks) => dispatch(actions.generateTestArr(intervalsForTest, numberOfTasks)),
   addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),
   changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),
+  setAnswerVisible: boolean => dispatch(actions.setAnswerVisible(boolean)),
+  setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),
+  setTimerId: id => dispatch(actions.setTimerId(id)),
   setCurrentInterval: testArr => dispatch(actions.setCurrentInterval(testArr)),
   addAnswerToResult: (sessionAnswers, intervalName, boolean) => dispatch(actions.addAnswerToResult(sessionAnswers, intervalName, boolean))
 })

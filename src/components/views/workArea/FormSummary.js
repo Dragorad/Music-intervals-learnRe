@@ -5,7 +5,6 @@ import ConditionArea from './ConditionArea'
 import eventWorker from '../../../appWorkers/eventWorker'
 import * as actions from '../../../redux/actions/indexActions'
 import jquery from 'jquery'
-import languagesText from '../../../LanguagesData/LanguagesText'
 
 let $ = jquery
 
@@ -27,24 +26,24 @@ class FormSummary extends Component {
     
   }
   
-  timer () {
-    setTimeout(
-      () => {
-        let timeRemaining = this.state.timeRemaining
-        if (timeRemaining > 0) {
-          setTimeout(this.timer)
-          this.setState({'timeRemaining': this.state.timeRemaining - 1})
-        } else {
-          this.setState({answerVisible: true})
-          this.answering()
-          let language = this.props.language
-          let dontKnowTxt = languagesText[language].workPane.answerArea.dontKnow
-          $('#testedAnswer').val(dontKnowTxt)
-          clearTimeout(this.timer)
-        }
-      }, 500)
-  }
-  
+  // timer () {
+  //   setTimeout(
+  //     () => {
+  //       let timeRemaining = this.state.timeRemaining
+  //       if (timeRemaining > 0) {
+  //         setTimeout(this.timer)
+  //         this.setState({'timeRemaining': this.state.timeRemaining - 1})
+  //       } else {
+  //         this.setState({setAnswerVisible: true})
+  //         this.answering()
+  //         let language = this.props.language
+  //         let dontKnowTxt = languagesText[language].workPane.answerArea.dontKnow
+  //         $('#testedAnswer').val(dontKnowTxt)
+  //         clearTimeout(this.timer)
+  //       }
+  //     }, 500)
+  // }
+  //
   answering () {
     let pointsPerAnswer = this.props.pointsPerAnswer
     console.log('answering clicked ' + this.props.testInterval.answer)
@@ -59,7 +58,7 @@ class FormSummary extends Component {
   componentDidMount () {
     let idx = this.props.currentIntervalIdx
     let testArr = this.props.testArr
-    this.timer()
+    // this.timer()
   }
   
   render () {
@@ -71,12 +70,11 @@ class FormSummary extends Component {
     return (
       <div className='summary'>
         <ConditionArea
-          timer={this.timer}
-          timeRemaining={this.state.timeRemaining}/>
+          // timer={this.timer}
+        />
         <TestArea
-          timer={this.timer}
+          // timer={this.timer}
           updateFormState={this.updateFormSummState}
-          answerVisible={this.state.answerVisible}
           answering={this.answering}/>
       </div>
     )
@@ -84,8 +82,9 @@ class FormSummary extends Component {
 }
 
 const mapStateToProps = state => ({
-  pointsPerAnswer: state.pointsPerAnswer,
+   pointsPerAnswer: state.pointsPerAnswer,
   language: state.languageSelected,
+  timeRemaining: state.timeRemaining,
   timeForAnswer: state.testIntervalData.timeForAnswer,
   testArr: state.testArr,
   tasksRemaining: state.tasksRemaining,
