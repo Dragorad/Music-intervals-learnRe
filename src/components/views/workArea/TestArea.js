@@ -125,7 +125,6 @@ class TestArea extends Component {
 
 const mapStateToProps = store => {
   return {
-    timerId: store.timerId,
     timeRemaining: store.timeRemaining,
     timeForAnswer: store.testIntervalData.timeForAnswer,
     language: store.languageSelected,
@@ -151,7 +150,6 @@ const mapDispatchToProps = (dispatch, state) => ({
   changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),
   setAnswerVisible: boolean => dispatch(actions.setAnswerVisible(boolean)),
   setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),
-  setTimerId: id => dispatch(actions.setTimerId(id)),
   setCurrentInterval: testArr => dispatch(actions.setCurrentInterval(testArr)),
   addAnswerToResult: (sessionAnswers, intervalName, boolean) => dispatch(actions.addAnswerToResult(sessionAnswers, intervalName, boolean))
 })

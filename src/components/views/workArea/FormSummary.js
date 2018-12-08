@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import TestArea from './TestArea'
 import ConditionArea from './ConditionArea'
-import eventWorker from '../../../appWorkers/eventWorker'
 import * as actions from '../../../redux/actions/indexActions'
 import jquery from 'jquery'
+import languagesText from '../../../LanguagesData/LanguagesText'
 
 let $ = jquery
 
@@ -23,27 +23,28 @@ class FormSummary extends Component {
         'answerVisible': false
       })
     }
+    this.timer  = () => {
     
+      setTimeout(
+        () => {
+          let timeRemaining = this.props.timeRemaining
+          if (timeRemaining > 0) {
+            setTimeout(this.timer)
+            this.setState({'timeRemaining': this.props.timeRemaining - 1})
+          } else {
+            this.setState({setAnswerVisible: true})
+            this.answering()
+            let language = this.props.language
+            let dontKnowTxt = languagesText[language].workPane.answerArea.dontKnow
+            $('#testedAnswer').val(dontKnowTxt)
+            clearTimeout(this.timer)
+          }
+        }, 500)
+    }
   }
   
-  // timer () {
-  //   setTimeout(
-  //     () => {
-  //       let timeRemaining = this.state.timeRemaining
-  //       if (timeRemaining > 0) {
-  //         setTimeout(this.timer)
-  //         this.setState({'timeRemaining': this.state.timeRemaining - 1})
-  //       } else {
-  //         this.setState({setAnswerVisible: true})
-  //         this.answering()
-  //         let language = this.props.language
-  //         let dontKnowTxt = languagesText[language].workPane.answerArea.dontKnow
-  //         $('#testedAnswer').val(dontKnowTxt)
-  //         clearTimeout(this.timer)
-  //       }
-  //     }, 500)
-  // }
-  //
+
+
   answering () {
     let pointsPerAnswer = this.props.pointsPerAnswer
     console.log('answering clicked ' + this.props.testInterval.answer)
@@ -65,15 +66,15 @@ class FormSummary extends Component {
     let idx = this.props.currentIntervalIdx
     let testArr = this.props.testArr
     let intervalData = this.props.testIntervalData
-    eventWorker.baseKeyColorize(this.props.testInterval)
     
     return (
       <div className='summary'>
         <ConditionArea
-          // timer={this.timer}
+          timer={this.timer}
         />
         <TestArea
-          // timer={this.timer}
+          timer={this.timer}
+          timeRemaining={this.state.timeRemaining}
           updateFormState={this.updateFormSummState}
           answering={this.answering}/>
       </div>
@@ -82,7 +83,7 @@ class FormSummary extends Component {
 }
 
 const mapStateToProps = state => ({
-   pointsPerAnswer: state.pointsPerAnswer,
+  pointsPerAnswer: state.pointsPerAnswer,
   language: state.languageSelected,
   timeRemaining: state.timeRemaining,
   timeForAnswer: state.testIntervalData.timeForAnswer,
@@ -93,6 +94,8 @@ const mapStateToProps = state => ({
   testInterval: state.currentInterval
 })
 const mapDispatchToProps = (dispatch, state) => ({
+  actionTimer:() => dispatch(actions.actionTimer()),
+  setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),
   changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),
   setCurrentIntervalIdx: number => dispatch(actions.setCurrentIntervalIdx(number)),
   addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),

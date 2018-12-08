@@ -12,8 +12,8 @@ const initialState = {
   currentInterval: {},
   testRendered: false,
   answerVisible: false,
-  timeRemaining:0,
-  timerId:null
+  timeRemaining:NaN,
+  timerWorking:false
 }
 
 export default initialState

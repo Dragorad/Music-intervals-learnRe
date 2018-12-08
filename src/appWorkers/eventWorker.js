@@ -48,18 +48,31 @@ const eventWorker = (() => {
       }
     })()
     
+    function testButtonsCommon () {
+      // eventWorker.baseKeyColorize(this.props.testInterval)
+      this.props.changeTasksRemaining(this.props.tasksRemaining)
+      this.props.setTimeRemaining(this.props.timeForAnswer)
+      this.props.setTimerWorking()
+      this.props.actionTimer()
+      // eventWorker.timer(this.props)
+      console.log('testButtonCommon started')
+    }
+    
     function onTestButtonClick (e, props) {
       e.preventDefault()
       this.props.setTestRendered(true)
-      // this.props.setTimeRemaining(props.testIntervalData.timeForAnswer)
-      this.props.changeTasksRemaining(this.props.tasksRemaining)
-      eventWorker.timer(this.props)
+      this.props.setTimerWorking(true)
+      testButtonsCommon.call(this)
     }
     
     function nextQuestionClicked (e, props) {
       e.preventDefault()
-      console.log(this.props.timerId)
-      clearTimeout(this.props.timerId)
+      this.props.setTimerWorking(false)
+      this.props.setCurrentInterval(this.props.testArr)
+      let timeForAnswer = this.props.timeForAnswer
+      let testInterval = {...this.props.testInterval}
+      this.props.setTimeRemaining(timeForAnswer)
+      // eventWorker.baseKeyColorize(testInterval)
       console.log('next question clicked')
       let language = this.props.language
       if (this.props.tasksRemaining > 0) {
@@ -67,12 +80,10 @@ const eventWorker = (() => {
         this.props.changeTasksRemaining(this.props.tasksRemaining)
         this.props.setAnswerVisible(false)
         this.setState({answeringDisabled: false})
-        let testArr = this.props.testArr
-        this.props.setCurrentInterval(testArr)
-        // this.props.setAnswerVisible(false)
-        eventWorker.baseKeyColorize(this.props.testInterval)
-        eventWorker.timer(this.props)
+        console.log(this.props.testInterval.baseTone)
+        // let testArr = this.props.testArr
         this.props.updateFormState()
+        this.props.timer()
       } else {
         this.setState({testFinished: true})
       }
@@ -81,13 +92,15 @@ const eventWorker = (() => {
     const timer = (props) => {
       let timeForAnswer = props.timeForAnswer
       let timerId = setTimeout(function inner (time) {
-      let reset = props.timeRemaining
-        if (props.timeRemaining === 0) {
-          return
-        }
+        // let reset = props.timeRemaining
+        // if (props.timeRemaining === 0) {
+        //   return
+        // }
         time -= 1
+        let timerWorking = props.timerWorking
+        console.log(timerWorking + ' timer ')
         props.setTimeRemaining(time)
-        
+        console.log(timerWorking)
         timerId = setTimeout(inner, 1500, time)
         if (time === 0) {
           props.setAnswerVisible(true)

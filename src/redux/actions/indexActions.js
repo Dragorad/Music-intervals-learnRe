@@ -8,16 +8,21 @@ export const sayMamata = text => ({
 })
 export const setLanguage = language => ({
   type: types.SET_LANGUAGE,
-  payload:language
+  payload: language
 })
-export const generateTestArr = (intervalsForTest, numberOfTasks) => ({
-  type: types.GENERATE_TEST_ARR,
-  payload: {
-    testArr: muzWorker.generateTestArr(intervalsForTest, numberOfTasks),
-    get currentInterval(){
-      return this.testArr[0]}
-  }
-})
+export const generateTestArr = (intervalsForTest, numberOfTasks) => (
+  function (dispatch) {
+    let testArr = muzWorker.generateTestArr(intervalsForTest, numberOfTasks)
+    let currentInterval = testArr[0]
+    
+    dispatch({
+      type: types.GENERATE_TEST_ARR,
+      payload: {
+        testArr,
+        currentInterval
+      }
+    })
+  })
 export const setTestIntervalData = intervalData => ({
   type: types.TEST_INTERVAL_DATA,
   payload: intervalData
@@ -30,18 +35,48 @@ export const setTimeRemaining = time => ({
   type: types.SET_TIME_REMAINING,
   payload: time
 })
-export const timerDecrease = time => ({
-  type: types.TIMER_DECREASE,
-  payload: time -1
+
+export const setTimerWorking = (boolean) => ({
+  type: types.SET_TIMER_WORKING,
+  payload: boolean
 })
-export const timerNull = () => ({
-  type: types.TIMER_NULL,
-  payload: 0
+export const timerStop = () => ({
+  type: types.TIMER_STOP,
+  payload: false
 })
-export const setTimerId = id => ({
-  type: types.SET_TIMER_ID,
-  payload: id
+export const timerReset = () => ({
+  type: types.TIMER_RESET,
+  payload: {
+    timeRemaining: 0,
+    timerWorking: false
+  }
 })
+export const actionTimer = () => (
+  function (dispatch) {
+    // let INTERVAL = 500
+    let runTimer = () => {
+      return (dispatch, getState) => {
+        // dispatch(start())
+        let timeForAnswer = getState().timeForAnswer
+        let timeRemaining = getState().timeRemaining
+        let timer0 = (setTimeout(
+            function inner (time) {
+              let timerWorking = getState().timerWorking
+              time -= 1
+              dispatch(setTimeRemaining(time))
+              console.log('timer Working' + time)
+              timer0 = setTimeout(inner, 500, time)
+              if (time === 0 || !timerWorking) {
+                dispatch(setAnswerVisible(true))
+                console.log('HO HO ho')
+                clearTimeout(timer0)
+              }
+            }, 1000, timeForAnswer)
+        )
+      }
+    }
+    runTimer()
+  })
 export const setAnswerVisible = boolean => ({
   type: types.SET_ANSWER_VISIBLE,
   payload: boolean
@@ -59,18 +94,32 @@ export const setCurrentIntervalIdx = () => ({
   type: types.SET_CURRENT_INTERVAL_IDX,
   payload: eventWorker.passIndex()
 })
-export const setCurrentInterval = (intervalArea) => ({
-  type: types.SET_CURRENT_INTERVAL,
-  payload: {
-    idx: eventWorker.passIndex(),
-    get currentInterval(){
-      return intervalArea[this.idx]
-    }}
-})
-export const generateNewTest = intervalData => ({
-  type: types.GENERATE_NEW_TEST,
-  payload: muzWorker.generateTestArr(intervalData.intervalsForTest, intervalData.numberOfTasks)
-})
+
+export const setCurrentInterval = intervalArea => (
+  function (dispatch) {
+    let idx = eventWorker.passIndex()
+    let currentInterval = intervalArea[idx]
+    eventWorker.baseKeyColorize(currentInterval)
+    dispatch({
+        type: types.SET_CURRENT_INTERVAL,
+        payload: {
+          idx,
+          currentInterval
+        }
+      }
+    )
+  }
+)
+
+export const generateNewTest = intervalData => (
+  function (dispatch) {
+    let newTestArr = muzWorker.generateTestArr(intervalData.intervalsForTest, intervalData.numberOfTasks)
+    
+    dispatch({
+      type: types.GENERATE_NEW_TEST,
+      payload: newTestArr
+    })
+  })
 export const changeTasksRemaining = number => ({
   type: types.CHANGE_TASKS_REMAINING,
   payload: number - 1

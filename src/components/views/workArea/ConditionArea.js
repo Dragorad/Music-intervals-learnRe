@@ -10,7 +10,6 @@ let $ = jquery
 
 class ConditionArea extends Component {
   
-  
   componentDidMount () {
     let testArr = this.props.testArr
     this.props.setTimeRemaining(this.props.timeForAnswer)
@@ -48,11 +47,12 @@ class ConditionArea extends Component {
 }
 
 const mapStateToProps = state => ({
+  timerWorking: state.timerWorking,
   timerId: state.timerId,
   timeRemaining: state.timeRemaining,
   language: state.languageSelected,
   timeForAnswer: state.testIntervalData.timeForAnswer,
-  testArr: state.testArr,
+  testInterval: state.currentInterval,
   pointsPerAnswer: state.pointsPerAnswer,
   sessionPoints: state.sessionPoints,
   sessionAnswers: state.sessionAnswers,
@@ -63,7 +63,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),
   setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),
-  setTimerId: Id => dispatch(actions.setTimerId(Id)),
+  setTimerWorking: (boolean) => dispatch(actions.setTimerWorking(boolean)),
   setAnswerVisible: boolean => dispatch(actions.setAnswerVisible(boolean)),
   setTestRendered: () => dispatch(actions.setTestRendered())
 })

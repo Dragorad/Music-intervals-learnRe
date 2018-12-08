@@ -41,12 +41,12 @@ const rootReducer = (state = initialState, action) => {
       return {...state, answerVisible: action.payload}
     case types.SET_TIME_REMAINING:
       return {...state, timeRemaining: action.payload}
-      case types.TIMER_DECREASE:
-      return {...state, timeRemaining: action.payload}
-    case types.TIMER_NULL:
-      return {...state, timeRemaining: action.payload}
-      case types.SET_TIMER_ID:
-      return {...state, timerId: action.payload}
+    // case types.SET_TIMER_WORKING:
+    //   return {...state, timerWorking: action.payload}
+    // case types.TIMER_RESET:
+    //   return {...state, timerWorking: action.payload}
+    // case types.SET_TIMER_ID:
+    //   return {...state, timerId: action.payload}
     case types.CHANGE_TASKS_REMAINING:
       return {...state, tasksRemaining: action.payload}
     case types.SET_POINTS_PER_ANSWER:

@@ -4,6 +4,12 @@ import { connect } from 'react-redux'
 import * as actions from '../../../redux/actions/indexActions'
 
 class AnswerArea extends Component {
+  constructor (props){
+    super(props)
+    this.state = {
+      answeringDisabled: false
+    }
+  }
   render () {
     let language = this.props.language
     let texts = languagesText[language].workPane.answerArea
@@ -14,7 +20,7 @@ class AnswerArea extends Component {
         <input id='testedAnswer' type='text' name='testedAnswer' placeholder={texts.dontKnow}/>
       </div>
       <button id='answering'
-              disabled={this.props.disabled}
+              disabled={this.state.disabled}
               className='summary-field' style={{
         margin: 'auto',
         backgroundColor: '#f9f9f9',
