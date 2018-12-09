@@ -14,7 +14,6 @@ export const generateTestArr = (intervalsForTest, numberOfTasks) => (
   function (dispatch) {
     let testArr = muzWorker.generateTestArr(intervalsForTest, numberOfTasks)
     let currentInterval = testArr[0]
-    
     dispatch({
       type: types.GENERATE_TEST_ARR,
       payload: {
@@ -36,10 +35,11 @@ export const setTimeRemaining = time => ({
   payload: time
 })
 
-export const setTimerWorking = (boolean) => ({
+export const setTimerWorking = boolean => ({
   type: types.SET_TIMER_WORKING,
   payload: boolean
 })
+
 export const timerStop = () => ({
   type: types.TIMER_STOP,
   payload: false
@@ -51,32 +51,35 @@ export const timerReset = () => ({
     timerWorking: false
   }
 })
+
 export const actionTimer = () => (
-  function (dispatch) {
-    // let INTERVAL = 500
-    let runTimer = () => {
-      return (dispatch, getState) => {
-        // dispatch(start())
-        let timeForAnswer = getState().timeForAnswer
+  function (dispatch, getState) {
+    console.log('action timer run')
+    let timer0 = setTimeout(
+      function inner () {
         let timeRemaining = getState().timeRemaining
-        let timer0 = (setTimeout(
-            function inner (time) {
-              let timerWorking = getState().timerWorking
-              time -= 1
-              dispatch(setTimeRemaining(time))
-              console.log('timer Working' + time)
-              timer0 = setTimeout(inner, 500, time)
-              if (time === 0 || !timerWorking) {
-                dispatch(setAnswerVisible(true))
-                console.log('HO HO ho')
-                clearTimeout(timer0)
-              }
-            }, 1000, timeForAnswer)
-        )
-      }
-    }
-    runTimer()
+        dispatch(setTimeRemaining(timeRemaining - 1))
+        let timerWorking = getState().timerWorking
+        console.log(timerWorking)
+        timer0 = setTimeout(inner, 1000)
+        if(!timerWorking){
+          clearTimeout(timer0)
+          return
+        }
+        if (timeRemaining === 1) {
+          dispatch(setAnswerVisible(true))
+          console.log('ho ho ho')
+          let pointsPerAnswer = getState().pointsPerAnswer
+          let userAnswer = getState().userAnswer
+          let isAnswerTrue = userAnswer === getState().currentInterval.answer
+          let intervalName = getState().currentInterval.name
+          dispatch(addAnswerToResult(intervalName, isAnswerTrue))
+          dispatch(addPointsToResult(pointsPerAnswer, isAnswerTrue))
+          clearTimeout(timer0)
+        }
+      })
   })
+
 export const setAnswerVisible = boolean => ({
   type: types.SET_ANSWER_VISIBLE,
   payload: boolean
@@ -163,12 +166,3 @@ export const setUserAnswer = (answer) => {
   }
 }
 
-export const FETCH_DATA = 'fetch_data'
-
-export function defaultFunction () {
-  let testVar = 'Hello'
-  return {
-    type: FETCH_DATA,
-    payload: testVar
-  }
-}

@@ -13,7 +13,7 @@ const initialState = {
   testRendered: false,
   answerVisible: false,
   timeRemaining:NaN,
-  timerWorking:false
+  timerWorking:true
 }
 
 export default initialState

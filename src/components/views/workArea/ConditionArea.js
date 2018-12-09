@@ -61,6 +61,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  actionTimer: () => dispatch(actions.actionTimer()),
   changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),
   setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),
   setTimerWorking: (boolean) => dispatch(actions.setTimerWorking(boolean)),

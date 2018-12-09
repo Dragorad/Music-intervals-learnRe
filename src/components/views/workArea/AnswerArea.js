@@ -42,7 +42,9 @@ const mapStateToProps = store => ({
   testInterval: store.currentInterval,
   language: store.languageSelected
 })
-const mapDispatchToProps = (dispatch, state) => ({
+const mapDispatchToProps = (dispatch) => ({
+  timerReset: () => dispatch(actions.timerReset()),
+  setTimerWorking: boolean => dispatch(actions.setTimerWorking(boolean)),
   setAnswerVisible: boolean => dispatch(actions.setAnswerVisible(boolean)),
   setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),
   addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),

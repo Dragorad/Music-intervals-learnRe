@@ -52,7 +52,7 @@ class TestArea extends Component {
   answeringClicked (e) {
     e.preventDefault()
     resultsHandler.answering(this.props)
-    clearTimeout(eventWorker.timer)
+    // clearTimeout(eventWorker.timer)
     this.setState({answeringDisabled: true})
   }
   
@@ -144,7 +144,10 @@ const mapStateToProps = store => {
     
   }
 }
-const mapDispatchToProps = (dispatch, state) => ({
+const mapDispatchToProps = dispatch => ({
+  timerReset: () => dispatch(actions.timerReset()),
+  actionTimer: () => dispatch(actions.actionTimer()),
+  setTimerWorking: boolean => dispatch(actions.setTimerWorking(boolean)),
   generateNewTest: (intervalsForTest, numberOfTasks) => dispatch(actions.generateTestArr(intervalsForTest, numberOfTasks)),
   addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),
   changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),

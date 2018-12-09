@@ -15,11 +15,13 @@ const resultsHandler = (() => {
   }
   function answering(props){
     let pointsPerAnswer = props.pointsPerAnswer
+    
     console.log('answering clicked ' + props.testInterval.answer)
     let userAnswer = props.userAnswer
     let isAnswerTrue = userAnswer === props.testInterval.answer
     let intervalName = props.testInterval.name
     console.log(intervalName)
+    props.setTimerWorking(false)
     props.addAnswerToResult(intervalName, isAnswerTrue)
     props.addPointsToResult(pointsPerAnswer, isAnswerTrue)
   }
