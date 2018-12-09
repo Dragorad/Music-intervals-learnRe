@@ -16,13 +16,6 @@ class ConditionArea extends Component {
     
   }
   
-  // onTestButtonClick (e) {
-  //   e.preventDefault()
-  //   this.props.changeTasksRemaining(this.props.tasksRemaining)
-  //   this.props.setTestRendered()
-  //   this.props.timer()
-  // }
-  
   render () {
     let language = this.props.language
     let texts = languagesText[language].workPane.conditionArea
@@ -61,6 +54,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  setAnsweringDisabled: boolean => (actions.setAnsweringDisabled(boolean)),
   actionTimer: () => dispatch(actions.actionTimer()),
   changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),
   setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),

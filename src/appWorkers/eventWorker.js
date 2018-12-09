@@ -1,5 +1,4 @@
 import jquery from 'jquery'
-import languagesText from '../LanguagesData/LanguagesText'
 
 let $ = jquery
 const eventWorker = (() => {
@@ -67,34 +66,42 @@ const eventWorker = (() => {
     
     function nextQuestionClicked (e, props) {
       e.preventDefault()
-      // this.props.setTimeRemaining(0)
       // this.props.setTimerWorking(false)
-      // this.props.timerReset()
-      
-      // this.props.changeTasksRemaining(this.props.tasksRemaining)
-      // this.props.setTimeRemaining(this.props.timeForAnswer)
-      // let timeForAnswer = this.props.timeForAnswer
-      // let testInterval = {...this.props.testInterval}
-      // this.props.setTimeRemaining(timeForAnswer)
-      // eventWorker.baseKeyColorize(testInterval)
-      console.log('next question clicked')
-      let language = this.props.language
+      this.setState({answeringDisabled: false})
       if (this.props.tasksRemaining > 0) {
-        this.props.setCurrentInterval(this.props.testArr)
-        this.props.setTimeRemaining(this.props.timeForAnswer)
-        $('#testedAnswer').val(`${languagesText[language].workPane.answerArea.dontKnow}`)
-        this.props.changeTasksRemaining(this.props.tasksRemaining)
-        this.props.setAnswerVisible(false)
-        // testButtonsCommon.call(this)
-        this.setState({answeringDisabled: false})
-        eventWorker.baseKeyColorize(this.props.testInterval)
-        this.props.actionTimer()
-        console.log(this.props.testInterval.baseTone)
-        // let testArr = this.props.testArr
-        this.props.updateFormState()
+        this.props.nextQuestionClickedAction()
       } else {
         this.setState({testFinished: true})
       }
+      // // this.props.setTimeRemaining(0)
+      // // this.props.timerReset()
+      //
+      // // this.props.changeTasksRemaining(this.props.tasksRemaining)
+      // // this.props.setTimeRemaining(this.props.timeForAnswer)
+      // // let timeForAnswer = this.props.timeForAnswer
+      // // let testInterval = {...this.props.testInterval}
+      // // this.props.setTimeRemaining(timeForAnswer)
+      // // eventWorker.baseKeyColorize(testInterval)
+      // console.log('next question clicked')
+      // let language = this.props.language
+      // if (this.props.tasksRemaining > 0) {
+      //   this.props.setCurrentInterval(this.props.testArr)
+      //   this.props.setTimeRemaining(this.props.timeForAnswer)
+      //   $('#testedAnswer').val(`${languagesText[language].workPane.answerArea.dontKnow}`)
+      //   this.props.changeTasksRemaining(this.props.tasksRemaining)
+      //   this.props.setAnswerVisible(false)
+      //   this.props.setTimerWorking(true)
+      //   this.setState({answeringDisabled: false})
+      //   let newTestInterval = {...this.props.testInterval}
+      //   console.log(newTestInterval.baseTon)
+      //   eventWorker.baseKeyColorize(newTestInterval)
+      //   this.props.actionTimer()
+      //   console.log(this.props.testInterval.baseTone)
+      //   // let testArr = this.props.testArr
+      //   this.props.updateFormState()
+      // } else {
+      //   this.setState({testFinished: true})
+      // }
     }
     
     // const timer = (props) => {
@@ -135,7 +142,7 @@ const eventWorker = (() => {
       this.props.setLanguage(el.target.textContent === 'ENGLISH' || el.target.textContent === 'EN' ?
         'en' : 'bg')
     }
-
+    
     function setTestRendered () {
       return this.setState({testRendered: !this.testRendered})
     }

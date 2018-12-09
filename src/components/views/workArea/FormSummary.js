@@ -4,7 +4,6 @@ import TestArea from './TestArea'
 import ConditionArea from './ConditionArea'
 import * as actions from '../../../redux/actions/indexActions'
 import jquery from 'jquery'
-import languagesText from '../../../LanguagesData/LanguagesText'
 
 let $ = jquery
 
@@ -23,24 +22,24 @@ class FormSummary extends Component {
         'answerVisible': false
       })
     }
-    this.timer  = () => {
-    
-      setTimeout(
-        () => {
-          let timeRemaining = this.props.timeRemaining
-          if (timeRemaining > 0) {
-            setTimeout(this.timer)
-            this.setState({'timeRemaining': this.props.timeRemaining - 1})
-          } else {
-            this.setState({setAnswerVisible: true})
-            this.answering()
-            let language = this.props.language
-            let dontKnowTxt = languagesText[language].workPane.answerArea.dontKnow
-            $('#testedAnswer').val(dontKnowTxt)
-            clearTimeout(this.timer)
-          }
-        }, 500)
-    }
+    // this.timer  = () => {
+    //
+    //   setTimeout(
+    //     () => {
+    //       let timeRemaining = this.props.timeRemaining
+    //       if (timeRemaining > 0) {
+    //         setTimeout(this.timer)
+    //         this.setState({'timeRemaining': this.props.timeRemaining - 1})
+    //       } else {
+    //         this.setState({setAnswerVisible: true})
+    //         this.answering()
+    //         let language = this.props.language
+    //         let dontKnowTxt = languagesText[language].workPane.answerArea.dontKnow
+    //         $('#testedAnswer').val(dontKnowTxt)
+    //         clearTimeout(this.timer)
+    //       }
+    //     }, 500)
+    // }
   }
   
 
@@ -52,6 +51,7 @@ class FormSummary extends Component {
     let isAnswerTrue = userAnswer === this.props.testInterval.answer
     let intervalName = this.props.testInterval.name
     console.log(intervalName)
+    this.props.setAnsweringDisabled(true)
     this.props.addAnswerToResult(intervalName, isAnswerTrue)
     this.props.addPointsToResult(pointsPerAnswer, isAnswerTrue)
   }
@@ -76,7 +76,8 @@ class FormSummary extends Component {
           timer={this.timer}
           timeRemaining={this.state.timeRemaining}
           updateFormState={this.updateFormSummState}
-          answering={this.answering}/>
+          answering={this.answering}
+        />
       </div>
     )
   }
@@ -94,6 +95,7 @@ const mapStateToProps = state => ({
   testInterval: state.currentInterval
 })
 const mapDispatchToProps = (dispatch, state) => ({
+  setAnsweringDisabled: boolean => dispatch(actions.setAnsweringDisabled(boolean)),
   actionTimer:() => dispatch(actions.actionTimer()),
   setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),
   changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),

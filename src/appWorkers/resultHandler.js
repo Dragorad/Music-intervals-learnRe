@@ -22,6 +22,7 @@ const resultsHandler = (() => {
     let intervalName = props.testInterval.name
     console.log(intervalName)
     props.setTimerWorking(false)
+    props.setAnsweringDisabled(true)
     props.addAnswerToResult(intervalName, isAnswerTrue)
     props.addPointsToResult(pointsPerAnswer, isAnswerTrue)
   }

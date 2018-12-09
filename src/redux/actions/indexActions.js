@@ -1,6 +1,10 @@
 import * as types from './types'
 import muzWorker from '../../appWorkers/intervalWorker'
 import eventWorker from '../../appWorkers/eventWorker'
+import languagesText from '../../LanguagesData/LanguagesText'
+import jquery from 'jquery'
+
+let $ = jquery
 
 export const sayMamata = text => ({
   type: types.SAY_MAMATA,
@@ -51,7 +55,28 @@ export const timerReset = () => ({
     timerWorking: false
   }
 })
-
+export const nextQuestionClickedAction = () => (
+  (dispatch, getState) => {
+    dispatch(setTimerWorking(false))
+    console.log('next quest from actions')
+    let language = getState().languageSelected
+    if (getState().tasksRemaining > 0) {
+      dispatch(setCurrentInterval(getState().testArr))
+      dispatch(setTimeRemaining(getState().testIntervalData.timeForAnswer))
+      $('#testedAnswer').val(`${languagesText[language].workPane.answerArea.dontKnow}`)
+      dispatch(changeTasksRemaining(getState().tasksRemaining))
+      dispatch(setAnswerVisible(false))
+      dispatch(setAnsweringDisabled(false))
+      
+      dispatch(setTimerWorking(true))
+      
+      let newTestInterval = getState().currentInterval
+      console.log(newTestInterval)
+      eventWorker.baseKeyColorize(newTestInterval)
+      dispatch(actionTimer())
+    }
+  }
+)
 export const actionTimer = () => (
   function (dispatch, getState) {
     console.log('action timer run')
@@ -62,12 +87,13 @@ export const actionTimer = () => (
         let timerWorking = getState().timerWorking
         console.log(timerWorking)
         timer0 = setTimeout(inner, 1000)
-        if(!timerWorking){
+        if (!timerWorking) {
           clearTimeout(timer0)
           return
         }
         if (timeRemaining === 1) {
           dispatch(setAnswerVisible(true))
+          dispatch(setTimerWorking(false))
           console.log('ho ho ho')
           let pointsPerAnswer = getState().pointsPerAnswer
           let userAnswer = getState().userAnswer
@@ -75,6 +101,7 @@ export const actionTimer = () => (
           let intervalName = getState().currentInterval.name
           dispatch(addAnswerToResult(intervalName, isAnswerTrue))
           dispatch(addPointsToResult(pointsPerAnswer, isAnswerTrue))
+          dispatch(setAnsweringDisabled(true))
           clearTimeout(timer0)
         }
       })
@@ -82,6 +109,10 @@ export const actionTimer = () => (
 
 export const setAnswerVisible = boolean => ({
   type: types.SET_ANSWER_VISIBLE,
+  payload: boolean
+})
+export const setAnsweringDisabled = boolean => ({
+  type: types.SET_ANSWERING_DISABLED,
   payload: boolean
 })
 

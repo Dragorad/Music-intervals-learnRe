@@ -20,7 +20,7 @@ class AnswerArea extends Component {
         <input id='testedAnswer' type='text' name='testedAnswer' placeholder={texts.dontKnow}/>
       </div>
       <button id='answering'
-              disabled={this.state.disabled}
+              disabled={this.props.answeringDisabled}
               className='summary-field' style={{
         margin: 'auto',
         backgroundColor: '#f9f9f9',
@@ -37,6 +37,7 @@ class AnswerArea extends Component {
 
 const mapStateToProps = store => ({
   answerVisible: store.answerVisible,
+  answeringDisabled: store.answeringDisabled,
   userAnswer: store.userAnswer,
   pointsPerAnswer: store.pointsPerAnswer,
   testInterval: store.currentInterval,
@@ -46,6 +47,7 @@ const mapDispatchToProps = (dispatch) => ({
   timerReset: () => dispatch(actions.timerReset()),
   setTimerWorking: boolean => dispatch(actions.setTimerWorking(boolean)),
   setAnswerVisible: boolean => dispatch(actions.setAnswerVisible(boolean)),
+  setAnsweringDisabled: boolean => dispatch(actions.setAnsweringDisabled(boolean)),
   setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),
   addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),
   addAnswerToResult: (sessionAnswers, intervalName, boolean) => dispatch(actions.addAnswerToResult(sessionAnswers, intervalName, boolean))

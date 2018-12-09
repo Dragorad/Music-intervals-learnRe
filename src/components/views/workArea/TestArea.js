@@ -53,7 +53,7 @@ class TestArea extends Component {
     e.preventDefault()
     resultsHandler.answering(this.props)
     // clearTimeout(eventWorker.timer)
-    this.setState({answeringDisabled: true})
+    this.props.setAnsweringDisabled(true)
   }
   
   render () {
@@ -145,6 +145,8 @@ const mapStateToProps = store => {
   }
 }
 const mapDispatchToProps = dispatch => ({
+  setAnsweringDisabled: boolean => dispatch(actions.setAnsweringDisabled(boolean)),
+  nextQuestionClickedAction: () => dispatch(actions.nextQuestionClickedAction()),
   timerReset: () => dispatch(actions.timerReset()),
   actionTimer: () => dispatch(actions.actionTimer()),
   setTimerWorking: boolean => dispatch(actions.setTimerWorking(boolean)),

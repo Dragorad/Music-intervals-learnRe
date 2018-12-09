@@ -39,6 +39,8 @@ const rootReducer = (state = initialState, action) => {
       return {...state, testRendered: action.payload}
     case types.SET_ANSWER_VISIBLE:
       return {...state, answerVisible: action.payload}
+      case types.SET_ANSWERING_DISABLED:
+      return {...state, answeringDisabled: action.payload}
     case types.SET_TIME_REMAINING:
       return {...state, timeRemaining: action.payload}
     case types.SET_TIMER_WORKING:

@@ -12,6 +12,7 @@ const initialState = {
   currentInterval: {},
   testRendered: false,
   answerVisible: false,
+  answeringDisabled: false,
   timeRemaining:NaN,
   timerWorking:true
 }
