@@ -5,7 +5,7 @@
         'Example',
         'If the test involves only a few seconds for each answer, you will get 20 points minus the number of seconds to answer.',
         ' If you give yourself 15 seconds for thinking, you will have 5 points for each correct answer.',
-        'If the test includes small seconds, small and large tertiers for each answer you will get 60 points minus the number of seconds.',
+        'If the test includes small seconds, small and large thirds for each answer you will get 60 points minus the number of seconds.',
         'If the seconds are 5 for the answer you will get 55 t. Every wrong answer takes as many points as you can for a faithful answer. '
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
