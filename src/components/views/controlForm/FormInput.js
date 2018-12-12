@@ -19,9 +19,7 @@ class FormInput extends Component {
       < div className="interval-button-medium">
         <input id={this.props.inputId} type={this.props.typeStr} name={this.props.inputName}
                value={this.props.idx}
-               // onClick={this.props.handleInputChange}
-          //      onClick={this.onClickEvent}
-        ></input>
+              ></input>
         <label htmlFor={this.props.inputId}
                className={this.props.classString}>{(this.props.labelText).toUpperCase()}
         </label>

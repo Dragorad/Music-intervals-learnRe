@@ -73,57 +73,8 @@ const eventWorker = (() => {
       } else {
         this.setState({testFinished: true})
       }
-      // // this.props.setTimeRemaining(0)
-      // // this.props.timerReset()
-      //
-      // // this.props.changeTasksRemaining(this.props.tasksRemaining)
-      // // this.props.setTimeRemaining(this.props.timeForAnswer)
-      // // let timeForAnswer = this.props.timeForAnswer
-      // // let testInterval = {...this.props.testInterval}
-      // // this.props.setTimeRemaining(timeForAnswer)
-      // // eventWorker.baseKeyColorize(testInterval)
-      // console.log('next question clicked')
-      // let language = this.props.language
-      // if (this.props.tasksRemaining > 0) {
-      //   this.props.setCurrentInterval(this.props.testArr)
-      //   this.props.setTimeRemaining(this.props.timeForAnswer)
-      //   $('#testedAnswer').val(`${languagesText[language].workPane.answerArea.dontKnow}`)
-      //   this.props.changeTasksRemaining(this.props.tasksRemaining)
-      //   this.props.setAnswerVisible(false)
-      //   this.props.setTimerWorking(true)
-      //   this.setState({answeringDisabled: false})
-      //   let newTestInterval = {...this.props.testInterval}
-      //   console.log(newTestInterval.baseTon)
-      //   eventWorker.baseKeyColorize(newTestInterval)
-      //   this.props.actionTimer()
-      //   console.log(this.props.testInterval.baseTone)
-      //   // let testArr = this.props.testArr
-      //   this.props.updateFormState()
-      // } else {
-      //   this.setState({testFinished: true})
-      // }
+      
     }
-    
-    // const timer = (props) => {
-    //   let timeForAnswer = props.timeForAnswer
-    //   let timerId = setTimeout(function inner (time) {
-    //     // let reset = props.timeRemaining
-    //     // if (props.timeRemaining === 0) {
-    //     //   return
-    //     // }
-    //     time -= 1
-    //     let timerWorking = props.timerWorking
-    //     console.log(timerWorking + ' timer ')
-    //     props.setTimeRemaining(time)
-    //     console.log(timerWorking)
-    //     timerId = setTimeout(inner, 1500, time)
-    //     if (time === 0) {
-    //       props.setAnswerVisible(true)
-    //       console.log('HO')
-    //       clearTimeout(timerId)
-    //     }
-    //   }, 1500, timeForAnswer)
-    // }
     
     function newTestLink () {
       this.props.generateNewTest(this.props.intervalsForTest,

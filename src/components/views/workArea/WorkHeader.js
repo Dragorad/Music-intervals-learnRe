@@ -35,7 +35,7 @@ class WorkHeader extends Component {
                   console.log(intervalsForTest)
                 }
                   // eventWorker.newTestLink.bind(this)
-                }>{texts.sameIntervals.toUpperCase()}</button>
+                }>Under Construction {texts.sameIntervals.toUpperCase()}</button>
         
         
         <TestField

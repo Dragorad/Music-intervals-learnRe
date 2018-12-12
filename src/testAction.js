@@ -98,14 +98,3 @@ const testAction = (() => {
     }
 
 )()
-
-// testAction.showAnswer(testArr, testAction.answering, 1500)
-// let arr = [1, 2, 3]
-// let i = 0
-// setInterval(function () {
-//     if (i < testArr.length){
-//     console.log(arr[i++])}
-//     else {
-//         clearInterval()
-//     }
-// }, 500)

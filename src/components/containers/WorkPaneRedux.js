@@ -38,7 +38,7 @@ class WorkPaneRedux extends Component {
           setTestRendered={this.setTestRendered}
         />
         <div className='work-pane'>
-          <FormSummary />
+          <FormSummary/>
           <Keyboard/>
         </div>
       </React.Fragment>
