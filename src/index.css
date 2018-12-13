@@ -53,10 +53,16 @@ body {
 }
 .lang-buttons {
     width: 15%;
+    display:flex;
+    flex-flow: column;
+
 }
-.landing-buttons button, header button{
-    margin: 2%;
-    padding: 3%;
+.lang-buttons button {
+    margin: 1%;
+}
+a.summary-field, .landing-buttons button, header button, .summary-field.link{
+    /*margin: 2%;*/
+    /*padding: 3%;*/
     width: 40%;
     border-radius: 8px;
     background-color: #c10413;
@@ -295,7 +301,7 @@ form-summary .summary-field {
     display: block;
 }
 
-a.summary-field, button.summary-field {
+a.summary-field, button.summary-field , .summary-field.link{
 
     text-transform: uppercase;
     text-decoration: none;
@@ -311,8 +317,7 @@ svg {
     box-shadow: 5px 9px 12px 2px darkslategrey
 }
 
-header,
-.work-pane {
+header, .work-pane {
     width: 95%;
     margin: auto;
     display: flex;
@@ -324,8 +329,9 @@ header,
 
 header {
     height: 10%;
+    justify-content: flex-end;
     padding: 1%;
-    border: 1px solid lemonchiffon;
+    /*border: 1px solid lemonchiffon;*/
     font-size: 0.8em;
 }
 
@@ -391,6 +397,7 @@ button {
 }
 .summary-field {
     text-align: left;
+    padding: 1%;
 }
 
 .answer-form > input {
