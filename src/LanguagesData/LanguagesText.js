@@ -77,7 +77,7 @@ const languagesText = {
         'Example',
         'If the test involves only minor thirds, for each answer you will get 20 points minus the number of seconds to answer.',
         ' If you give yourself 15 seconds for thinking, you will have 5 points for each correct answer.',
-        'If the test includes perfect fourts, small and large thirds, for each answer you will get 60 points minus the number of seconds.',
+        'If the test includes perfect fourths, small and large thirds, for each answer you will get 60 points minus the number of seconds.',
         'If the seconds are 5 for the answer you will get 55 t. Every wrong answer takes as many points as you can for a faithful answer. '
       ],
       startButton: 'Let\'s Go!!!'
