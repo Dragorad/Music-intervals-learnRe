@@ -16,9 +16,9 @@ class LanguageButtons extends Component {
     )
 }
   }
-  
+
   render () {
-    return <div className={this.props.className}>{this.strings.map(this.callBackFn)}</div>
+    return <div className='lang-buttons summary-field'>{this.strings.map(this.callBackFn)}</div>
   }
 }
 function mapStateToProps (state) {
