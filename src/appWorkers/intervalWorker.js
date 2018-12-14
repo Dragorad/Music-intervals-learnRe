@@ -244,9 +244,9 @@ const muzWorker = (() => {
     let direction = intervalObj.direction
     let baseTonIndex = 0
     if (direction === 'up') {
-      baseTonIndex = _getRandomInt(0, keyboardPositions - semitones + 1)
+      baseTonIndex = _getRandomInt(0, keyboardPositions - semitones)
     } else {
-      baseTonIndex = _getRandomInt(semitones, keyboardPositions + 1)
+      baseTonIndex = _getRandomInt(semitones, keyboardPositions)
     }
     return baseTonIndex
   }
