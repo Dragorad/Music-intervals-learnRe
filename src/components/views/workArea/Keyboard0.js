@@ -2,8 +2,14 @@ import React from 'react'
 
 export default function Keyboard0(props) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
+    <svg
+      role="img" aria-label="[title + description]"
+      
+      xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
          height="660" viewBox="0 0 335.55 660.00001" width="335.55" id="svg2">
+      <title>Interval Learning Keyboard</title>
+      <desc>Specially crafted image of piano keyboard for better understanding of music intervals
+      </desc>
       <defs id="defs1">
         <linearGradient id="grad2" x1="62.145" y1="14.965" x2="-0.615" gradientUnits="userSpaceOnUse"
                         y2="14.965">
