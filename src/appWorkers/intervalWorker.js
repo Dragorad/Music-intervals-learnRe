@@ -223,6 +223,12 @@ const muzWorker = (() => {
     )
     if (baseSum < 0 || baseSum > 11) {
       baseSum < 0 ? (octaveIdx -= 1) : (octaveIdx += 1)
+      if (resultTone === 'Ces') {
+        octaveIdx += 1
+      }
+      if (resultTone === 'His') {
+        octaveIdx -= 1
+      }
     }
     octave = scale.octaves[octaveIdx]
     if (resultTone === 'Hes') {
@@ -259,14 +265,13 @@ const muzWorker = (() => {
     let currentInterval = 'hack'
     let directions = ['down', 'up']
     let intervalsKeys = Object.values(muzWorker.intervals)
-    targetIntervals = targetIntervals.map(element => intervalsKeys.
-    find(e => e.name.bg === element))
+    targetIntervals = targetIntervals.map(element => intervalsKeys.find(e => e.name.bg === element))
     for (let i = 0; i < testCount; i++) {
       let idx = _getRandomInt(0, targetIntervals.length)
       console.log(targetIntervals)
       currentInterval = targetIntervals.splice(idx, 1)[0]
       console.log(currentInterval)
-      currentInterval.direction = directions[ _getRandomInt(0, 2) ]
+      currentInterval.direction = directions[_getRandomInt(0, 2)]
       tested.push(currentInterval)
       currentInterval.baseToneIdx = generateBasePos(currentInterval)
       testArr.push({...currentInterval})
@@ -306,15 +311,14 @@ const muzWorker = (() => {
   }
 })()
 
-
 //inline tests
 
 // let intervalForTest = {
-//   baseTone: 'G - 1',
+//   baseTone: 'As - 1',
 //   direction: 'down',
-//   idx: 6,
+//   idx: 5,
 //   baseToneIdx: 12,
-//   semitones: 10
+//   semitones: 9
 // }
 // let answer = muzWorker.generateAnswer(intervalForTest)
 // console.log(answer)
