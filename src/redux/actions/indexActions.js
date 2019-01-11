@@ -27,20 +27,22 @@ export const generateTestArr = (intervalsForTest, numberOfTasks) => (
     })
   })
 
-export const generateNewTest = (dispatch, getState) => (
-  function (dispatch) {
-    let intervalData = getState().testIntervalData
-    let newTestArr = muzWorker.generateTestArr(intervalData.intervalsForTest, intervalData.numberOfTasks)
-    let currentInterval = newTestArr[0]
-    dispatch({
-      type: types.RE_GENERATE_NEW_TEST,
-      payload: {
-        newTestArr,
-        currentInterval
-      }
-      
-    })
+export const generateNewTest = () => ((dispatch, getState) => {
+  dispatch(setTimerWorking(false))
+  let intervalData = getState().testIntervalData
+  let intervalsForTest = intervalData.intervalsForTest.map(e => e.name.bg)
+  let newTestArr = muzWorker.generateTestArr(intervalsForTest, intervalData.numberOfTasks)
+  let currentInterval = newTestArr[0]
+  dispatch(setTimeRemaining(intervalData.timeForAnswer))
+  dispatch(setTestRendered(false))
+  dispatch({
+    type: types.RE_GENERATE_NEW_TEST,
+    payload: {
+      newTestArr,
+      currentInterval
+    }
   })
+})
 
 export const setTestIntervalData = intervalData => ({
   type: types.TEST_INTERVAL_DATA,
@@ -165,9 +167,9 @@ export const changeTasksRemaining = number => ({
   type: types.CHANGE_TASKS_REMAINING,
   payload: number - 1
 })
-export const setTestRendered = () => ({
+export const setTestRendered = boolean => ({
   type: types.SET_TEST_RENDERED,
-  payload: true
+  payload: boolean
 })
 export const setPointsPerAnswer = intervalData => ({
   type: types.SET_POINTS_PER_ANSWER,

@@ -1,14 +1,23 @@
-import { Link } from 'react-router-dom'
 import React from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../../../redux/actions/indexActions'
 
-export default  function NewTestSameIntervals (props) {
-  return <Link to={'/controlForm'} className='summary-field link'
-               onClick={(e) => {
-                 e.preventDefault()
-                 let intervalsForTest = this.props.intervalsForTest.map(el => el.name.bg)
-                 let numberOfTasks = this.props.numberOfTasks
-                 this.props.generateNewTest(intervalsForTest, numberOfTasks)
-                 console.log(intervalsForTest)
-               }}
-               >{props.texts.sameIntervals.toUpperCase()}</Link>
+const mapStateToProps = state => ({
+  testIntervalData: state.testIntervalData
+  
+})
+
+const mapDispatchToProps = dispatch => ({
+  generateNewTest: () => dispatch(actions.generateNewTest())
+})
+export default connect(mapStateToProps, mapDispatchToProps)(NewTestSameIntervals)
+
+function NewTestSameIntervals (props) {
+  return <button className='summary-field link'
+                 onClick={(e) => {
+                   // e.preventDefault()
+                   props.generateNewTest()
+    
+                 }}
+  >{props.texts.sameIntervals.toUpperCase()}</button>
 }

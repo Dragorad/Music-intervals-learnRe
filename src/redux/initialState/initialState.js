@@ -13,7 +13,7 @@ const initialState = {
   testRendered: false,
   answerVisible: false,
   answeringDisabled: false,
-  
+  regime:'local',
   timeRemaining:NaN,
   timerWorking:true
 }
