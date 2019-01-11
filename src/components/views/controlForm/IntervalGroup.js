@@ -27,7 +27,7 @@ class IntervalGroup extends Component {
           return (
             <FormInput
               key={i}
-              classString='interval-button-medium'
+              classString='interval-button-medium level-item'
               typeStr='checkbox'
               inputId={obj.name.en}
               inputName={obj.name[labelLang]}

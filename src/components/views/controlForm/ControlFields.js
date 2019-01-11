@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import NumericControlField from './NumericControlField.js'
-import FormInput from './FormInput.js'
 import { setLanguage } from '../../../redux/actions/indexActions'
 import connect from 'react-redux/es/connect/connect'
 import languagesText from '../../../LanguagesData/LanguagesText'
@@ -33,24 +32,24 @@ class ControlFields extends Component {
           }
         )}
         
-        <div className="regimes">
-          <p>Under Construction Режими на ползване</p>
-          <div className="radio-inputs">
-            {regimes.map((obj, i) => {
-                return (<FormInput
-                  key={i}
-                  classString='radio-input'
-                  typeStr='radio'
-                  inputId={obj[0]}
-                  inputName='regime'
-                  idx='M2'
-                  labelText={obj[1]}
-                />)
-              }
-            )}
-          
-          </div>
-        </div>
+        {/*<div className="regimes">*/}
+          {/*<p>Under Construction Режими на ползване</p>*/}
+          {/*<div className="radio-inputs">*/}
+            {/*{regimes.map((obj, i) => {*/}
+                {/*return (<FormInput*/}
+                  {/*key={i}*/}
+                  {/*classString='radio-input'*/}
+                  {/*typeStr='radio'*/}
+                  {/*inputId={obj[0]}*/}
+                  {/*inputName='regime'*/}
+                  {/*idx='M2'*/}
+                  {/*labelText={obj[1]}*/}
+                {/*/>)*/}
+              {/*}*/}
+            {/*)}*/}
+          {/**/}
+          {/*</div>*/}
+        {/*</div>*/}
       </div>)
   }
 }

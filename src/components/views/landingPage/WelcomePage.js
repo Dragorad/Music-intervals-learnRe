@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setLanguage } from '../../../redux/actions/indexActions'
 import languagesText from '../../../../src/LanguagesData/LanguagesText'
-import eventWorker from '../../../appWorkers/eventWorker'
-import LanguageButtons from '../LanguageButtons'
 
 class WelcomePage extends Component {
   constructor (props) {
@@ -27,7 +25,7 @@ class WelcomePage extends Component {
         <h2>{texts.welcomeH2}</h2>
         <h3>{texts.welcomeH3}</h3>
         {texts.exampleTexts.map((el,idx) => <p key={idx}>{el}</p>)}
-        <button
+        <button className='button'
           onClick={() => this.props.history.push('/control-form')}>{texts.startButton.toUpperCase()}</button>
       </div>
     )
@@ -38,11 +36,10 @@ class WelcomePage extends Component {
     return (
       <div className='landing'>
         <div className='landing-buttons'>
-          <h1>Intervals L<br/>
-            Приложение за изучаване на музикални интервали</h1>
-          <LanguageButtons strings={this.state.langButtonTxt} callbackfn={(el, idx) => <button
-            key={idx}
-            onClick={eventWorker.onLangButtonClick.bind(this)}>{el}</button>}/>
+         
+          {/*<LanguageButtons strings={this.state.langButtonTxt} callbackfn={(el, idx) => <button*/}
+            {/*key={idx}*/}
+            {/*onClick={eventWorker.onLangButtonClick.bind(this)}>{el}</button>}/>*/}
         </div>
         {this.SelectedLanguageElement({...this.props})}
       </div>

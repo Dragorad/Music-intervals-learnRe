@@ -1,4 +1,5 @@
 import jquery from 'jquery'
+import resultsHandler from './resultHandler'
 
 let $ = jquery
 const eventWorker = (() => {
@@ -63,7 +64,12 @@ const eventWorker = (() => {
       this.props.setTimerWorking(true)
       testButtonsCommon.call(this)
     }
-    
+    function answeringClicked (e) {
+      e.preventDefault()
+      resultsHandler.answering(this.props)
+      // clearTimeout(eventWorker.timer)
+      this.props.setAnsweringDisabled(true)
+    }
     function nextQuestionClicked (e, props) {
       e.preventDefault()
       // this.props.setTimerWorking(false)
@@ -99,6 +105,7 @@ const eventWorker = (() => {
     }
     
     return {
+      answeringClicked,
       setTestRendered,
       pathClicked,
       baseKeyColorize,

@@ -2,6 +2,9 @@
 
 const languagesText = {
   bg: {
+    header:{
+      titleTxt: 'Приложение за изучаване на музикални интервали'
+    },
     welcomePage: {
       welcomeH3: 'Опитвайте и ще успеете! Никой не се е родил научен!!!',
       welcomeH2: 'Добре дошли',
@@ -42,10 +45,10 @@ const languagesText = {
       conditionArea: {
         taskRemaining: 'Задачи до края',
         pointsAccum: 'Натрупани точки',
-        timeRemaining: 'Оставащо време',
         testBegin:'начало на теста'
       },
       testArea: {
+        timeRemaining: 'Оставащо време',
         interval:'интервал',
         direction:'посока',
         baseTon:'начален тон',
@@ -66,6 +69,9 @@ const languagesText = {
     }
   },
   en: {
+    header:{
+      titleTxt:'Musical intervals learning app'
+    },
     welcomePage: {
       welcomeH3: 'Try and you will succeed! No one was born with all knowledge existing !!!',
       welcomeH2: 'Welcome',
@@ -108,10 +114,10 @@ const languagesText = {
       conditionArea: {
         taskRemaining: 'Tasks Remaining',
         pointsAccum: 'Accumulated Points',
-        timeRemaining: 'Time Remaining',
         testBegin:'Begin The Test'
       },
       testArea: {
+        timeRemaining: 'Time Remaining',
         interval:'Interval',
         direction:'Direction',
         baseTon:'Base Ton',

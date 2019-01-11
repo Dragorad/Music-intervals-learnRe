@@ -26,6 +26,22 @@ export const generateTestArr = (intervalsForTest, numberOfTasks) => (
       }
     })
   })
+
+export const generateNewTest = (dispatch, getState) => (
+  function (dispatch) {
+    let intervalData = getState().testIntervalData
+    let newTestArr = muzWorker.generateTestArr(intervalData.intervalsForTest, intervalData.numberOfTasks)
+    let currentInterval = newTestArr[0]
+    dispatch({
+      type: types.RE_GENERATE_NEW_TEST,
+      payload: {
+        newTestArr,
+        currentInterval
+      }
+      
+    })
+  })
+
 export const setTestIntervalData = intervalData => ({
   type: types.TEST_INTERVAL_DATA,
   payload: intervalData
@@ -145,15 +161,6 @@ export const setCurrentInterval = intervalArea => (
   }
 )
 
-export const generateNewTest = intervalData => (
-  function (dispatch) {
-    let newTestArr = muzWorker.generateTestArr(intervalData.intervalsForTest, intervalData.numberOfTasks)
-    
-    dispatch({
-      type: types.GENERATE_NEW_TEST,
-      payload: newTestArr
-    })
-  })
 export const changeTasksRemaining = number => ({
   type: types.CHANGE_TASKS_REMAINING,
   payload: number - 1

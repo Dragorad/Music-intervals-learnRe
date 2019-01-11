@@ -32,8 +32,10 @@ class WorkPaneRedux extends Component {
     return (
       <React.Fragment>
         <div className='work-pane'>
-          <FormSummary/>
           <Keyboard0/>
+          <FormSummary/>
+          {/*{this.props.testRendered &&*/}
+          {/*<ResultStats/>}*/}
         </div>
       </React.Fragment>
     
@@ -43,6 +45,7 @@ class WorkPaneRedux extends Component {
 
 const mapStateToProps = state => {
   return {
+    testRendered: state.testRendered,
     testArr: state.testArr,
     testIntervalData: state.testIntervalData
   }

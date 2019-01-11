@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import languagesText from '../../../LanguagesData/LanguagesText'
 import { connect } from 'react-redux'
 import * as actions from '../../../redux/actions/indexActions'
+import eventWorker from '../../../appWorkers/eventWorker'
 
 class AnswerArea extends Component {
   constructor (props){
@@ -26,10 +27,10 @@ class AnswerArea extends Component {
         backgroundColor: '#f9f9f9',
         color: 'crimson'
       }}
-              onClick={this.props.onSendAnswClick.bind(this)}>{texts.sendAnswer.toUpperCase()} </button>
+              onClick={eventWorker.answeringClicked.bind(this)}>{texts.sendAnswer.toUpperCase()} </button>
       <div className='summary-field right-answer' style={
         this.props.answerVisible ? {display: 'block'} : {display: 'none'}}>
-        {texts.rightAnswer.toUpperCase()} <p style={{color: 'red'}}>{this.props.interval.answer}</p>
+        {texts.rightAnswer.toUpperCase()} <p style={{color: 'red'}}>{this.props.testInterval.answer}</p>
       </div>
     </div>
   }

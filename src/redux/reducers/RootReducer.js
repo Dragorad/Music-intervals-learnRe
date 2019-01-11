@@ -33,20 +33,26 @@ const rootReducer = (state = initialState, action) => {
         ...state, testArr: action.payload.testArr,
         currentInterval: action.payload.currentInterval
       }
+    case types.RE_GENERATE_NEW_TEST:
+      return {
+        ...state, testArr: action.payload.newTestArr,
+        currentInterval: action.payload.currentInterval
+      }
     case types.SET_USER_ANSWER:
       return {...state, userAnswer: action.payload}
     case types.SET_TEST_RENDERED:
       return {...state, testRendered: action.payload}
     case types.SET_ANSWER_VISIBLE:
       return {...state, answerVisible: action.payload}
-      case types.SET_ANSWERING_DISABLED:
+    case types.SET_ANSWERING_DISABLED:
       return {...state, answeringDisabled: action.payload}
     case types.SET_TIME_REMAINING:
       return {...state, timeRemaining: action.payload}
     case types.SET_TIMER_WORKING:
       return {...state, timerWorking: action.payload}
     case types.TIMER_RESET:
-      return { ...state,
+      return {
+        ...state,
         timerWorking: action.payload.timerWorking,
         timeRemaining: action.payload.timeRemaining
       }

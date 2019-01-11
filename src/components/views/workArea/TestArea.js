@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import TestField from './TestField'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actions from '../../../redux/actions/indexActions'
 import jquery from 'jquery'
@@ -8,9 +6,37 @@ import ResultStats from './ResultStats'
 import eventWorker from '../../../appWorkers/eventWorker'
 import languagesText from '../../../LanguagesData/LanguagesText'
 import AnswerArea from './AnswerArea'
-import resultsHandler from '../../../appWorkers/resultHandler'
+import ConditionFields from './ConditionFields'
 
 let $ = jquery
+
+function TestFinished () {
+  return (
+    <div className='testFinished'>
+      <p>Test finished!</p>
+      <ResultStats/>
+    
+    </div>)
+  
+}
+
+function TestAreaMain (props) {
+  return <div className='test-area'>
+    
+    <ConditionFields
+      interval={props.interval} language={props.language}/>
+    
+    <AnswerArea disabled={props.disabled}
+                onSendAnswClick={props.onSendAnswClick}
+                interval={props.interval}/>
+    <button id='next-question' className='summary-field'
+            onClick={props.onClick}>
+      {props.texts.nextQuest}
+    </button>
+  
+  
+  </div>
+}
 
 class TestArea extends Component {
   constructor (props) {
@@ -23,108 +49,88 @@ class TestArea extends Component {
     }
   }
   
-  language = this.props.language
-  texts = languagesText[this.language]
+  // nextQuestionClicked (e, props) {
+  //   e.preventDefault()
+  //   console.log('next question clicked')
+  //   let language = this.props.language
+  //   if (this.props.tasksRemaining > 0) {
+  //     $('#testedAnswer').val(`${languagesText[language].workPane.answerArea.dontKnow}`)
+  //     this.props.changeTasksRemaining(this.props.tasksRemaining)
+  //     this.setState({answerVisible: false})
+  //     this.setState({answeringDisabled: false})
+  //     let testArr = this.props.testArr
+  //     this.props.setCurrentInterval(testArr)
+  //     this.setState({
+  //       // testInterval: this.props.interval,
+  //       answerVisible: false
+  //     })
+  //     eventWorker.timer(props)
+  //     this.props.updateFormState()
+  //     eventWorker.baseKeyColorize(this.props.testInterval)
+  //   } else {
+  //     this.setState({testFinished: true})
+  //   }
+  // }
   
-  nextQuestionClicked (e, props) {
-    e.preventDefault()
-    console.log('next question clicked')
-    let language = this.props.language
-    if (this.props.tasksRemaining > 0) {
-      $('#testedAnswer').val(`${languagesText[language].workPane.answerArea.dontKnow}`)
-      this.props.changeTasksRemaining(this.props.tasksRemaining)
-      this.setState({answerVisible: false})
-      this.setState({answeringDisabled: false})
-      let testArr = this.props.testArr
-      this.props.setCurrentInterval(testArr)
-      this.setState({
-        // testInterval: this.props.interval,
-        answerVisible: false
-      })
-      eventWorker.timer(props)
-      this.props.updateFormState()
-      eventWorker.baseKeyColorize(this.props.testInterval)
-    } else {
-      this.setState({testFinished: true})
-    }
-  }
-  
-  answeringClicked (e) {
-    e.preventDefault()
-    resultsHandler.answering(this.props)
-    // clearTimeout(eventWorker.timer)
-    this.props.setAnsweringDisabled(true)
-  }
+  // answeringClicked (e) {
+  //   e.preventDefault()
+  //   resultsHandler.answering(this.props)
+  //   this.props.setAnsweringDisabled(true)
+  // }
   
   render () {
+    
     let language = this.props.language
-    let texts = languagesText[this.props.language].workPane.workHeader
-    if (this.props.testRendered) {
-      if (!this.state.testFinished) {
-        let interval = this.props.testInterval
-        let testArr = this.props.testArr
+    let testBtnVisible = this.props.testArr.length > 0 && !this.props.testRendered
+    let texts = languagesText[language].workPane
+    let startBtnTxt = texts.conditionArea.testBegin
+    let interval = this.props.testInterval
+    let testArr = this.props.testArr
+    let testRendered = this.props.testRendered
+    let testFinished = this.state.testFinished
+    
+    return (
+      <React.Fragment>
+        {testFinished && <TestFinished/>}
+        {testBtnVisible &&
+        <button className='summary-field'
+                disabled={this.props.testRendered}
+                name='test-start-button'
+                onClick={eventWorker.onTestButtonClick.bind(this)}>
+          {startBtnTxt}
+        </button>
+        }
         
-        let texts = languagesText[language].workPane.testArea
-        return (
+        {this.props.testRendered &&
+        (testFinished ?
+          <ResultStats/> :
+          
           <div className='test-area'>
             
-            <div className='condition'>
-              <TestField
-                key='0'
-                label={texts.interval}
-                text={interval.name[language]}/>
-              <TestField
-                key='1'
-                label={texts.direction}
-                text={interval.direction === 'up'
-                  ? String.fromCharCode(8593) : String.fromCharCode(8595)}/>
-              <TestField
-                key='2'
-                label={texts.baseTon}
-                text={interval.baseTone}/>
-            </div>
+            <ConditionFields
+              interval={this.props.interval} language={this.props.language}/>
             
-            <AnswerArea disabled={this.state.answeringDisabled}
-                        onSendAnswClick={this.answeringClicked}
-                        interval={interval}/>
+            <AnswerArea
+              // disabled={props.disabled}
+              onSendAnswClick={this.props.onSendAnswClick}
+              interval={this.props.interval}/>
             <button id='next-question' className='summary-field'
                     onClick={eventWorker.nextQuestionClicked.bind(this)}>
-              {texts.nextQuest}
-            </button>
-            
-            <ResultStats/>
-          
-          </div>
-        )
-      } else {
-        // let language = this.props.language
-        //   let texts = languagesText[language]
-        return (
-          <div className='testFinished'>
-            <p>Test finished!</p>
-            <p>Please choose:</p>
-            <Link to='/control-form' className='summary-field' onClick={() => {
-              eventWorker.redirectPageWithNullTestData('/control-form')
-              window.localStorage.clear()
-            }
-            }>{texts.fromBeginning.toUpperCase()}</Link>
-            
-            <button className='summary-field link'
-                    onClick={eventWorker.newTestLink.bind(this)}>
-              under construction {texts.sameIntervals}
+              {texts.testArea.nextQuest}
             </button>
           
-          </div>
-        )
-      }
-    } else {
-      return <div/>
-    }
+          
+          </div>)}
+      
+      </React.Fragment>
+    )
+    
   }
 }
 
 const mapStateToProps = store => {
   return {
+    interval: store.currentInterval,
     timeRemaining: store.timeRemaining,
     timeForAnswer: store.testIntervalData.timeForAnswer,
     language: store.languageSelected,
@@ -145,6 +151,7 @@ const mapStateToProps = store => {
   }
 }
 const mapDispatchToProps = dispatch => ({
+  setTestRendered: boolean => dispatch(actions.setTestRendered(boolean)),
   setAnsweringDisabled: boolean => dispatch(actions.setAnsweringDisabled(boolean)),
   nextQuestionClickedAction: () => dispatch(actions.nextQuestionClickedAction()),
   timerReset: () => dispatch(actions.timerReset()),

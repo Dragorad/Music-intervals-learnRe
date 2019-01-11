@@ -10,7 +10,7 @@ class NumericControlField extends Component {
     return (
       <div className="control-field">
         <label className="control">{this.props.text}
-          <input type="number"
+          <input type="number" className='input is-info'
                  onChange={this.handleInputChange.bind(this)}
                  name={this.props.fieldName}
                  placeholder={this.props.placeholder}

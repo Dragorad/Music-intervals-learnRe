@@ -10,22 +10,26 @@ let {sixthMinor, sixthMajor, seventhMinor, seventhMajor} = rest1
 let firstIntervals = [secondMinor, secondMajor, thirdMinor, thirdMajor]
 let secondIntervals = [fourthPerfect, fourthAug, fifthDiminished, fifthPerfect]
 let thirdIntervals = [sixthMinor, sixthMajor, seventhMinor, seventhMajor]
-let fourthIntervals = [intervals.octave,
+let fourthIntervals = [
+  // intervals.octave,
   {
-  idx: 13,
-  name: {
-    bg: 'избери всички',
-    en: 'select-all'
-  }
-},
-  {  idx: 13,
-  name: {
-    bg: 'освободи всички',
-    en: 'deselect-all'
-  }
-},]
+    idx: 13,
+    name: {
+      bg: 'избери всички',
+      en: 'select-all'
+    }
+  },
+  {
+    idx: 14,
+    name: {
+      bg: 'освободи всички',
+      en: 'deselect-all'
+    }
+  }]
+let intervalsArr = Object.values(intervals)
 
-let intervalsGroups = [firstIntervals, secondIntervals, thirdIntervals, fourthIntervals]
+console.log(intervalsArr)
+let intervalsGroups = [intervalsArr, fourthIntervals]
 
 class IntervalButtonsWrap extends Component {
   constructor (props) {
@@ -48,7 +52,8 @@ class IntervalButtonsWrap extends Component {
         })
         }
         <button value="send"
-                onClick={this.props.handleSubmit.bind(this)}>GENERATE TEST/ ГЕНЕРИРАЙ ТЕСТ</button>
+                onClick={this.props.handleSubmit.bind(this)}>GENERATE TEST/ ГЕНЕРИРАЙ ТЕСТ
+        </button>
       </div>
     )
   }

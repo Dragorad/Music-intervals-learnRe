@@ -54,14 +54,14 @@ const muzWorker = (() => {
   baseTonsArr = baseTonsArr.slice(7, -7)
   
   const intervals = {
-    unison: {
-      idx: 0,
-      name: {
-        bg: 'прима',
-        en: 'perfect-unison'
-      },
-      semitones: 0
-    },
+    // unison: {
+    //   idx: 0,
+    //   name: {
+    //     bg: 'прима',
+    //     en: 'perfect-unison'
+    //   },
+    //   semitones: 0
+    // },
     secondMinor: {
       idx: 1,
       name: {

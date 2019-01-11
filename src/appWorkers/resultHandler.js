@@ -14,6 +14,7 @@ const resultsHandler = (() => {
     return resultObj
   }
   function answering(props){
+    // e.preventDefault()
     let pointsPerAnswer = props.pointsPerAnswer
     
     console.log('answering clicked ' + props.testInterval.answer)

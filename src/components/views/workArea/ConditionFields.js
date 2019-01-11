@@ -1,0 +1,38 @@
+import TestField from './TestField'
+import React from 'react'
+import languagesText from '../../../LanguagesData/LanguagesText'
+import { connect } from 'react-redux'
+
+const mapStateToProps = store => ({
+ language : store.languageSelected,
+  timeRemaining: store.timeRemaining
+})
+const mapDispatchToProps = dispatch => ({
+
+})
+
+
+function ConditionFields (props) {
+  let texts = languagesText[props.language].workPane.testArea
+  return( <div className='condition'>
+    <TestField
+    label={texts.timeRemaining}
+    text={props.timeRemaining}/>
+  
+  
+    <TestField
+      key='0'
+      label={texts.interval}
+      text={props.interval.name[props.language]}/>
+    <TestField
+      key='1'
+      label={texts.direction}
+      text={props.interval.direction === 'up'
+        ? String.fromCharCode(8593) : String.fromCharCode(8595)}/>
+    <TestField
+      key='2'
+      label={texts.baseTon}
+      text={props.interval.baseTone}/>
+  </div>)
+}
+export default connect (mapStateToProps, mapDispatchToProps)(ConditionFields)

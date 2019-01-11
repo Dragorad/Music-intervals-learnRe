@@ -2,16 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import TestField from './TestField'
 import * as actions from '../../../redux/actions/indexActions'
-import jquery from 'jquery'
 import languagesText from '../../../LanguagesData/LanguagesText'
-import eventWorker from '../../../appWorkers/eventWorker'
 
-let $ = jquery
-
-class ConditionArea extends Component {
+class StatusArea extends Component {
   
   componentDidMount () {
-    let testArr = this.props.testArr
     this.props.setTimeRemaining(this.props.timeForAnswer)
     
   }
@@ -26,15 +21,15 @@ class ConditionArea extends Component {
       <TestField
         label={texts.pointsAccum}
         text={this.props.sessionPoints}/>
-      <TestField
-        label={texts.timeRemaining}
-        text={this.props.timeRemaining}/>
+      {/*<TestField*/}
+        {/*label={texts.timeRemaining}*/}
+        {/*text={this.props.timeRemaining}/>*/}
       
-      <button className='summary-field'
-              disabled={this.props.testRendered}
-              name='test-start-button'
-              onClick={eventWorker.onTestButtonClick.bind(this)}>{texts.testBegin}
-      </button>
+      {/*<button className='summary-field'*/}
+              {/*disabled={this.props.testRendered}*/}
+              {/*name='test-start-button'*/}
+              {/*onClick={eventWorker.onTestButtonClick.bind(this)}>{texts.testBegin}*/}
+      {/*</button>*/}
     </div>
   }
 }
@@ -63,4 +58,4 @@ const mapDispatchToProps = dispatch => ({
   setTestRendered: () => dispatch(actions.setTestRendered())
 })
 export default connect(mapStateToProps, mapDispatchToProps)
-(ConditionArea)
+(StatusArea)
