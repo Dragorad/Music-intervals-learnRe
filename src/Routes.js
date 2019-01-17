@@ -2,11 +2,11 @@ import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import ControlForm from './components/views/controlForm/ControlForm'
 import WorkPaneRedux from './components/containers/WorkPaneRedux'
-import WelcomePage from './components/views/landingPage/WelcomePage'
+import UserForm from './userForms/userForm'
 
 const Routes = (props) => (
   <Switch>
-    <Route exact path='/' component={WelcomePage} />
+    <Route exact path='/' component={UserForm} />
     <Route exact path='/control-form' component={ControlForm} />
     <Redirect from='/index' to='/'/>
     <Redirect from='/home' to='/'/>

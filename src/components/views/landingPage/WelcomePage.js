@@ -9,43 +9,39 @@ class WelcomePage extends Component {
     this.state = {
       langButtonTxt: ['БЪЛГАРСКИ', 'ENGLISH'],
       welcomeTxtRendered: false
-      
     }
     this.language = this.props.languageSelected
   }
-  
   SelectedLanguageElement (props) {
     let texts = {...languagesText[props.language]}
     texts = texts.welcomePage
     console.log(texts)
     return (
       props.language !== '' &&
-      
+
       <div className='welcome-text'>
         <h2>{texts.welcomeH2}</h2>
         <h3>{texts.welcomeH3}</h3>
-        {texts.exampleTexts.map((el,idx) => <p key={idx}>{el}</p>)}
+        {texts.exampleTexts.map((el, idx) => <p key={idx}>{el}</p>)}
         <button className='button'
           onClick={() => this.props.history.push('/control-form')}>{texts.startButton.toUpperCase()}</button>
       </div>
     )
   }
-  
+
   render () {
-    
     return (
       <div className='landing'>
         <div className='landing-buttons'>
-         
-          {/*<LanguageButtons strings={this.state.langButtonTxt} callbackfn={(el, idx) => <button*/}
-            {/*key={idx}*/}
-            {/*onClick={eventWorker.onLangButtonClick.bind(this)}>{el}</button>}/>*/}
+
+          {/*<LanguageButtons strings={this.state.langButtonTxt} callbackfn={(el, idx) => <button */}
+          {/*key={idx} */}
+          {/*onClick={eventWorker.onLangButtonClick.bind(this)}>{el}</button>}/> */}
         </div>
         {this.SelectedLanguageElement({...this.props})}
       </div>
     )
   }
-  
 }
 
 function mapStateToProps (state) {

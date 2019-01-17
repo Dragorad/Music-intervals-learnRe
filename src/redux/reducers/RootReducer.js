@@ -24,18 +24,21 @@ const rootReducer = (state = initialState, action) => {
       }
     case types.TEST_INTERVAL_DATA:
       return {
-        ...state, testIntervalData: action.payload,
+        ...state,
+        testIntervalData: action.payload,
         tasksRemaining: action.payload.numberOfTasks,
         sessionAnswers: action.payload.intervalsForTest
       }
     case types.GENERATE_TEST_ARR:
       return {
-        ...state, testArr: action.payload.testArr,
+        ...state,
+        testArr: action.payload.testArr,
         currentInterval: action.payload.currentInterval
       }
     case types.RE_GENERATE_NEW_TEST:
       return {
-        ...state, testArr: action.payload.newTestArr,
+        ...state,
+        testArr: action.payload.newTestArr,
         currentInterval: action.payload.currentInterval
       }
     case types.SET_USER_ANSWER:
@@ -62,7 +65,8 @@ const rootReducer = (state = initialState, action) => {
       return {...state, pointsPerAnswer: action.payload}
     case types.SET_CURRENT_INTERVAL:
       return {
-        ...state, currentInterval: action.payload.currentInterval,
+        ...state,
+        currentInterval: action.payload.currentInterval,
         currentIntervalIdx: action.payload.idx
       }
     case types.SET_CURRENT_INTERVAL_IDX:
@@ -71,9 +75,10 @@ const rootReducer = (state = initialState, action) => {
       }
     case types.ADD_ANSWER_TO_RESULT :
       return {
-        ...state, sessionAnswers:
-          [...state.sessionAnswers].map(el => el.name === action.payload.name ?
-            resultsHandler.handleSingleResult(el, action.payload) : el
+        ...state,
+        sessionAnswers:
+          [...state.sessionAnswers].map(el => el.name === action.payload.name
+            ? resultsHandler.handleSingleResult(el, action.payload) : el
           )
       }
     case types.ADD_POINTS_TO_RESULT :
@@ -87,4 +92,3 @@ const rootReducer = (state = initialState, action) => {
 }
 
 export default rootReducer
-
