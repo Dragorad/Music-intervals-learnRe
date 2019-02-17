@@ -15,7 +15,9 @@ const initialState = {
   answeringDisabled: false,
   regime:'local',
   timeRemaining:NaN,
-  timerWorking:true
+  timerWorking:true,
+  isSigned: false,
+  user:{}
 }
 
 export default initialState

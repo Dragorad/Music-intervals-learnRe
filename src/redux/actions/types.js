@@ -30,5 +30,6 @@ export const TIMER_STOP = 'TIMER_STOP'
 export const TIMER_RESET = 'TIMER_RESET'
 export const SET_TIMER_ID = 'SET_TIMER_ID'
 export const TIMER_DECREASE = 'TIMER_DECREASE'
-
+export const SET_IS_SIGNED = 'SET_IS_SIGNED'
+export const SET_USERNAME = 'SET_USERNAME'
 

@@ -2,7 +2,11 @@
 
 const languagesText = {
   bg: {
-    header:{
+    regimes: {
+      title: 'режими',
+      options: ['само генериране', 'локално самообучение', 'изпит онлайн игра']
+    },
+    header: {
       titleTxt: 'Приложение за изучаване на музикални интервали'
     },
     welcomePage: {
@@ -22,11 +26,8 @@ const languagesText = {
       startButton: ' Да започваме !!! '
     },
     controlForm: {
-      inputs: [['timeForAnswer', 'време за отговор'], ['numberOfTasks', 'брой задачи']],
-      regimes: {
-        title: 'режими',
-        options: ['само генериране', 'локално самообучение', 'изпит онлайн игра']
-      }
+      inputs: [['timeForAnswer', 'време за отговор'], ['numberOfTasks', 'брой задачи']]
+      
     },
     alerts: {
       alertTime: 'Времето за отговор трябва да е между 2 и 20 секунди!',
@@ -45,20 +46,20 @@ const languagesText = {
       conditionArea: {
         taskRemaining: 'Задачи до края',
         pointsAccum: 'Натрупани точки',
-        testBegin:'начало на теста'
+        testBegin: 'начало на теста'
       },
       testArea: {
         timeRemaining: 'Оставащо време',
-        interval:'интервал',
-        direction:'посока',
-        baseTon:'начален тон',
-        nextQuest:'следващ въпрос'
+        interval: 'интервал',
+        direction: 'посока',
+        baseTon: 'начален тон',
+        nextQuest: 'следващ въпрос'
       },
-      answerArea:{
-        answer:'отговор',
-        sendAnswer:'изпращам отговор',
-        rightAnswer:'правилен отговор',
-        dontKnow:'не знам'
+      answerArea: {
+        answer: 'отговор',
+        sendAnswer: 'изпращам отговор',
+        rightAnswer: 'правилен отговор',
+        dontKnow: 'не знам'
       },
       resultStats: {
         interval: 'интервал',
@@ -69,8 +70,12 @@ const languagesText = {
     }
   },
   en: {
-    header:{
-      titleTxt:'Musical intervals learning app'
+    regimes: {
+      title: 'regimes',
+      options: ['only generate', 'local self train', 'exam/online game']
+      },
+    header: {
+      titleTxt: 'Musical intervals learning app'
     },
     welcomePage: {
       welcomeH3: 'Try and you will succeed! No one was born with all knowledge existing !!!',
@@ -89,13 +94,8 @@ const languagesText = {
       startButton: 'Let\'s Go!!!'
     },
     controlForm: {
-      inputs: [['timeForAnswer', 'time for answer'], ['numberOfTasks', 'number of tasks']],
-      regimes: {
-        regimes: {
-          title: 'regimes',
-          options: ['only generate', 'local self train', 'exam/online game']
-        }
-      }
+      inputs: [['timeForAnswer', 'time for answer'], ['numberOfTasks', 'number of tasks']]
+      
     },
     alerts: {
       alertTime: 'Time for answer must be between 2 and 20 seconds!',
@@ -114,20 +114,20 @@ const languagesText = {
       conditionArea: {
         taskRemaining: 'Tasks Remaining',
         pointsAccum: 'Accumulated Points',
-        testBegin:'Begin The Test'
+        testBegin: 'Begin The Test'
       },
       testArea: {
         timeRemaining: 'Time Remaining',
-        interval:'Interval',
-        direction:'Direction',
-        baseTon:'Base Ton',
-        nextQuest:'Next Question'
+        interval: 'Interval',
+        direction: 'Direction',
+        baseTon: 'Base Ton',
+        nextQuest: 'Next Question'
       },
-      answerArea:{
-        answer:'answer',
-        sendAnswer:'send answer',
-        rightAnswer:'Right Answer',
-        dontKnow:'Don\'t know'
+      answerArea: {
+        answer: 'answer',
+        sendAnswer: 'send answer',
+        rightAnswer: 'Right Answer',
+        dontKnow: 'Don\'t know'
       },
       resultStats: {
         interval: 'interval',

@@ -1,11 +1,9 @@
 import firebase from 'firebase'
 // import firestore from 'firebase\firestore'
-import configApi from './configAPI'
+import { configApi } from './configAPI'
 
 const dataWorker = ( () => {
   const settings = {timestampsInSnapshots: true}
-  
-  
   
   const fire = firebase.initializeApp(configApi)
   const db = firebase.firestore()
@@ -32,7 +30,7 @@ const dataWorker = ( () => {
   }
   // db.collection.results
   return {
-    config,
+    fire,
     db,
     addResult
   }

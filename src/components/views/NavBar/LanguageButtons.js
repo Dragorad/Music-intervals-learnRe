@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { setLanguage } from '../../redux/actions/indexActions'
-import eventWorker from '../../appWorkers/eventWorker'
+import { setLanguage } from '../../../redux/actions/indexActions'
+import eventWorker from '../../../appWorkers/eventWorker'
 
 class LanguageButtons extends Component {
   constructor (props) {

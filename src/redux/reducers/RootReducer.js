@@ -1,20 +1,6 @@
 import * as types from '../actions/types'
 import resultsHandler from '../../appWorkers/resultHandler'
-// import initialStore from '../initialStore/initialStore'
 import initialState from '../initialState/initialState'
-
-// const initialStore = {
-//   testIntervalData: {},
-//   testArr: {},
-//   pointsPerAnswer: 0,
-//   totalPoints: 0,
-//   sessionPoints: 0,
-//   sessionAnswers: [],
-//   userAnswer: '',
-//   tasksRemaining: 0,
-//   currentIntervalIdx: 0,
-//   currentInterval: {}
-// }
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -43,6 +29,10 @@ const rootReducer = (state = initialState, action) => {
       }
     case types.SET_USER_ANSWER:
       return {...state, userAnswer: action.payload}
+    case types.SET_IS_SIGNED:
+      return {...state, isSigned: action.payload}
+    case types.SET_USERNAME:
+      return {...state, userName: action.payload}
     case types.SET_TEST_RENDERED:
       return {...state, testRendered: action.payload}
     case types.SET_ANSWER_VISIBLE:

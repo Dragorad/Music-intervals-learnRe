@@ -61,6 +61,14 @@ export const setTimerWorking = boolean => ({
   type: types.SET_TIMER_WORKING,
   payload: boolean
 })
+export const setIsSigned= boolean => ({
+  type: types.SET_IS_SIGNED,
+  payload: boolean
+})
+export const setUserName = userName => ({
+  type: types.SET_USERNAME,
+  payload: userName
+})
 
 export const timerStop = () => ({
   type: types.TIMER_STOP,

@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../../redux/actions/indexActions'
-import { setLanguage } from '../../redux/actions/indexActions'
+import * as actions from '../../../redux/actions/indexActions'
+import { setLanguage } from '../../../redux/actions/indexActions'
 import LanguageButtons from './LanguageButtons'
 import { Link } from 'react-router-dom'
-import StatusArea from './workArea/StatusArea'
-import languagesText from '../../LanguagesData/LanguagesText'
-import NewTestLink from './workArea/NewTestLink'
-import NewTestSameIntervals from './workArea/NewTestSameIntervals'
+import StatusArea from '../workArea/StatusArea'
+import languagesText from '../../../LanguagesData/LanguagesText'
+import NewTestLink from '../workArea/NewTestLink'
+import NewTestSameIntervals from '../workArea/NewTestSameIntervals'
+import dataWorker from '../../../appWorkers/dataWorker'
 
 function mapStateToProps (store) {
   return {
+    isSigned: store.isSigned,
+    userName: store.userName,
     timeRemaining: store.timeRemaining,
     timeForAnswer: store.testIntervalData.timeForAnswer,
     language: store.languageSelected,
@@ -70,13 +73,34 @@ class Navbar extends Component {
     
     let addTxt = languagesText[this.props.language].header.titleTxt
     return (
-      <header>
+      <header className='row'>
         <h1 className={'summary-field'}> Intervals L <br/>
           {!this.props.testRendered && addTxt}</h1>
         {this.props.testRendered &&
         <StatusArea/>}
+        {this.props.isSigned ?
+          <React.Fragment>
+            <h4>Welcome {this.props.userName}</h4>
+            <p>user name: {this.props.userName}</p>
+            <button className=''>Sign Out
+            </button>
+          </React.Fragment>
+          : <Link to={'/login'} className={'summary-field'}>Login
+          </Link>}
+          <button className=''
+                    onClick={dataWorker.addResult('results', {
+                      user: 'new',
+                      email: 'test email'
+                    })}>Save Result
+          </button>
         
         
+        <button className="btn-small blue scale-transition"
+                onClick={dataWorker.addResult('results', {
+                  user: 'new',
+                  email: 'test email'
+                })}>Sign In
+        </button>
         {this.props.testRendered &&
         <React.Fragment>
           <NewTestLink
