@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../../../redux/actions/indexActions'
-import jquery from 'jquery'
 import ResultStats from './ResultStats'
 import eventWorker from '../../../appWorkers/eventWorker'
 import languagesText from '../../../LanguagesData/LanguagesText'
 import AnswerArea from './AnswerArea'
 import ConditionFields from './ConditionFields'
-
-let $ = jquery
+import NewTestLink from './NewTestLink'
+import NewTestSameIntervals from './NewTestSameIntervals'
 
 function TestFinished () {
   return (
@@ -49,37 +48,9 @@ class TestArea extends Component {
     }
   }
   
-  // nextQuestionClicked (e, props) {
-  //   e.preventDefault()
-  //   console.log('next question clicked')
-  //   let language = this.props.language
-  //   if (this.props.tasksRemaining > 0) {
-  //     $('#testedAnswer').val(`${languagesText[language].workPane.answerArea.dontKnow}`)
-  //     this.props.changeTasksRemaining(this.props.tasksRemaining)
-  //     this.setState({answerVisible: false})
-  //     this.setState({answeringDisabled: false})
-  //     let testArr = this.props.testArr
-  //     this.props.setCurrentInterval(testArr)
-  //     this.setState({
-  //       // testInterval: this.props.interval,
-  //       answerVisible: false
-  //     })
-  //     eventWorker.timer(props)
-  //     this.props.updateFormState()
-  //     eventWorker.baseKeyColorize(this.props.testInterval)
-  //   } else {
-  //     this.setState({testFinished: true})
-  //   }
-  // }
-  
-  // answeringClicked (e) {
-  //   e.preventDefault()
-  //   resultsHandler.answering(this.props)
-  //   this.props.setAnsweringDisabled(true)
-  // }
-  
   render () {
-    
+    let text = languagesText[this.props.language].workPane
+    let BtnTexts = text.workHeader
     let language = this.props.language
     let testBtnVisible = this.props.testArr.length > 0 && !this.props.testRendered
     let texts = languagesText[language].workPane
@@ -101,10 +72,9 @@ class TestArea extends Component {
         </button>
         }
         
+        
         {this.props.testRendered &&
-        (testFinished ?
-          <ResultStats/> :
-          
+        (!testFinished &&
           <div className='test-area'>
             
             <ConditionFields
@@ -119,9 +89,13 @@ class TestArea extends Component {
               {texts.testArea.nextQuest}
             </button>
           
-          
           </div>)}
-      
+        <div className='re-test-area'>
+          <NewTestLink
+            props={this.props}
+          texts={text.workHeader}/>
+          <NewTestSameIntervals
+            texts={text.workHeader}/></div>
       </React.Fragment>
     )
     

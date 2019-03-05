@@ -10,7 +10,7 @@ const Routes = (props) => (
     <Route exact path='/' component={WelcomePage} />
     <Route exact path='/login' component={UserForm} />
     <Route exact path='/signedIn' component={ControlForm} />
-    <Route exact path='/signup' component={UserForm} />
+    <Route exact path='/signUp' component={UserForm} />
     <Route exact path='/control-form' component={ControlForm} />
     <Redirect from='/index' to='/'/>
     <Redirect from='/home' to='/'/>

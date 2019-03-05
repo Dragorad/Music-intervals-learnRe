@@ -6,6 +6,7 @@ import Routes from './Routes'
 import store from './redux/store/indexStore'
 import { Provider } from 'react-redux'
 import Navbar from './components/views/NavBar/Navbar'
+import 'firebase/auth'
 
 class App extends Component {
   render () {
@@ -14,8 +15,8 @@ class App extends Component {
         <BrowserRouter>
           <React.Fragment>
             <Navbar/>
-            <Routes />
-            <Footer />
+            <Routes/>
+            <Footer/>
           </React.Fragment>
         </BrowserRouter>
       </Provider>

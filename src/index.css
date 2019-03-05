@@ -101,19 +101,20 @@ body {
         width: 900px;
         height: 1200px;
     }
-header {
-    height: 5em;
-    font-size: 0.8em;
-}
-    /*.work-pane {*/
-        /*flex-flow: row nowrap;*/
-        /*justify-content: flex-start;*/
-    /*}*/
 
+    header {
+        height: 5em;
+        font-size: 0.8em;
+    }
+
+    /*.work-pane {*/
+    /*flex-flow: row nowrap;*/
+    /*justify-content: flex-start;*/
+    /*}*/
     /*svg {*/
-        /*align-self: flex-start;*/
-        /*max-width: 68%;*/
-        /*height: 1200px;*/
+    /*align-self: flex-start;*/
+    /*max-width: 68%;*/
+    /*height: 1200px;*/
     /*}*/
 
 }
@@ -529,6 +530,7 @@ table {
 td, th {
     border-bottom: 1px solid #6fa0b5;
     padding: 1px;
+    color: #c0cfe1
 }
 
 .data-field {
@@ -582,6 +584,15 @@ div.test-area {
     width: 100%;
 }
 
+.re-test-area {
+    display: flex;
+    flex-flow: row;
+    height: 20%;
+    margin: 1%;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
 .answer-area {
     display: flex;
     border: 1px solid antiquewhite;
@@ -617,10 +628,11 @@ div.test-area {
     box-shadow: #867260;
     border: 1px solid blueviolet;
     background-color: midnightblue;
+
 }
 
 .testFinished p {
-    color: #fafafa;
+    color: #c1c0bf;
     font-weight: bold;
     margin: 5%;
 }

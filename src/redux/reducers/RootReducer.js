@@ -21,6 +21,10 @@ const rootReducer = (state = initialState, action) => {
         testArr: action.payload.testArr,
         currentInterval: action.payload.currentInterval
       }
+    case types.SET_TEST_ARR:
+      return{
+        ...state,testArr: action.payload
+      }
     case types.RE_GENERATE_NEW_TEST:
       return {
         ...state,

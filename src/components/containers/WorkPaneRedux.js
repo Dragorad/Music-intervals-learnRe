@@ -34,8 +34,7 @@ class WorkPaneRedux extends Component {
         <div className='work-pane'>
           <Keyboard0/>
           <FormSummary/>
-          {/*{this.props.testRendered &&*/}
-          {/*<ResultStats/>}*/}
+          
         </div>
       </React.Fragment>
     

@@ -93,7 +93,7 @@ class ControlForm extends Component {
     let selectAllBox = $('#select-all')
     let deselectAllBox = $('#deselect-all')
     let simpleBoxes = boxes.filter((i, el) => Number(el.value) < 13)
-    console.log(selectAllBox)
+    // console.log(selectAllBox)
     selectAllBox.on('click', function () {
       simpleBoxes.prop('checked', true)
     })

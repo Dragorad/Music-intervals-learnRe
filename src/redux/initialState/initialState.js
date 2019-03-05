@@ -1,7 +1,7 @@
 const initialState = {
   languageSelected:'bg',
   testIntervalData: {},
-  testArr: {},
+  testArr: [],
   pointsPerAnswer: 0,
   totalPoints: 0,
   sessionPoints: 0,
@@ -17,7 +17,8 @@ const initialState = {
   timeRemaining:NaN,
   timerWorking:true,
   isSigned: false,
-  user:{}
+  userName:'guest',
+  user: {}
 }
 
 export default initialState

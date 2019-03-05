@@ -28,18 +28,21 @@ const eventWorker = (() => {
       this.props.push(pathString, testIntervalData)
     }
     
-    function generateNewTestLink (e) {
-      console.log(this.props.intervalsForTest)
-      let intervalsForTest = this.props.intervalsForTest
-      // .map(el => el.name)
-      console.log(intervalsForTest)
-      let numberOfTasks = this.props.numberOfTasks
-      e.preventDefault()
-      let testIntervalData = this.props.generateNewTest(intervalsForTest, numberOfTasks)
-      console.log(testIntervalData)
-      
-    }
-    
+    // function generateNewTestLink (e) {
+    //   e.preventDefault()
+    //   alert('New TestClicked')
+    //   //
+    //   // console.log(this.props.intervalsForTest)
+    //   // let intervalsForTest = this.props.intervalsForTest
+    //   // // .map(el => el.name)
+    //   // console.log(intervalsForTest)
+    //   // let numberOfTasks = this.props.numberOfTasks
+    //   // e.preventDefault()
+    //   // let testIntervalData = this.props.generateNewTest(intervalsForTest, numberOfTasks)
+    //   // console.log(testIntervalData)
+    //   //
+    // }
+    //
     const passIndex = (() => {
       let idx = 0
       return function () {
@@ -111,7 +114,7 @@ const eventWorker = (() => {
       baseKeyColorize,
       onLangButtonClick,
       passIndex,
-      generateNewTestLink,
+      // generateNewTestLink,
       newTestLink,
       onTestButtonClick,
       nextQuestionClicked,

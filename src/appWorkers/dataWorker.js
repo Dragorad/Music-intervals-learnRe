@@ -2,7 +2,7 @@ import firebase from 'firebase'
 // import firestore from 'firebase\firestore'
 import { configApi } from './configAPI'
 
-const dataWorker = ( () => {
+const dataWorker = (() => {
   const settings = {timestampsInSnapshots: true}
   
   const fire = firebase.initializeApp(configApi)
@@ -10,7 +10,7 @@ const dataWorker = ( () => {
   db.settings(settings)
   
   db.enablePersistence()
-    .catch(function(err) {
+    .catch(function (err) {
       if (err.code == 'failed-precondition') {
         console.log(`"Multiple tabs open, persistence can only be enabled
                 in one tab at a a time.
@@ -21,13 +21,26 @@ const dataWorker = ( () => {
                 ...`)
       }
     })
+  
   function addResult (collectionName, resultObj) {
     console.log('from dataWorker')
     db.collection(collectionName).add(resultObj)
       .then(function (docRef) {
-        console.log('Document written with ID:', docRef.parent)
+        let id = docRef.id
+        
+        console.log('Document written with ID:', id)
+        let document = db.collection('results').doc(id)
+        document.get()
+          .then(doc => {
+            let timeSaved = doc.data().timeSaved.toDate().toLocaleDateString()
+            alert(`result saved with id ${id}`)
+            console.log(timeSaved)
+            
+          })
+        
       })
   }
+  
   // db.collection.results
   return {
     fire,

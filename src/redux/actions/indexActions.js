@@ -26,7 +26,10 @@ export const generateTestArr = (intervalsForTest, numberOfTasks) => (
       }
     })
   })
-
+export const setTestArr= testArr =>({
+  type: types.SET_TEST_ARR,
+  payload: testArr
+})
 export const generateNewTest = () => ((dispatch, getState) => {
   dispatch(setTimerWorking(false))
   let intervalData = getState().testIntervalData
@@ -61,7 +64,7 @@ export const setTimerWorking = boolean => ({
   type: types.SET_TIMER_WORKING,
   payload: boolean
 })
-export const setIsSigned= boolean => ({
+export const setIsSigned = boolean => ({
   type: types.SET_IS_SIGNED,
   payload: boolean
 })
