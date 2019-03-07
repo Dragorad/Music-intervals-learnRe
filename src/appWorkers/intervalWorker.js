@@ -221,22 +221,21 @@ const muzWorker = (() => {
     let resultTone = scalePositions[ansKeyIdx].find(el =>
       el.startsWith(answerLetter)
     )
-    if (baseSum < 0 || baseSum > 11) {
-      baseSum < 0 ? (octaveIdx -= 1) : (octaveIdx += 1)
-      if (resultTone === 'Ces') {
-        octaveIdx += 1
-      }
-      if (resultTone === 'His') {
-        octaveIdx -= 1
-      }
+    if (baseSum <= 0 || baseSum >= 11) {
+      baseSum <= 0 ? (octaveIdx -= 1) : (octaveIdx += 1)
+      // if (resultTone === 'Ces') {
+      //   octaveIdx += 1
+      // }
+      // if (resultTone === 'His') {
+      //   octaveIdx -= 1
+      // }
     }
     octave = scale.octaves[octaveIdx]
     if (resultTone === 'Hes') {
       resultTone = 'B'
     }
-    // let resultString =
     return resultTone + ' - ' + octave
-    // return resultString
+   
   }
   
   function _getRandomInt (min, max) {
@@ -313,15 +312,15 @@ const muzWorker = (() => {
 
 //inline tests
 
-// let intervalForTest = {
-//   baseTone: 'As - 1',
-//   direction: 'down',
-//   idx: 5,
-//   baseToneIdx: 12,
-//   semitones: 9
-// }
-// let answer = muzWorker.generateAnswer(intervalForTest)
-// console.log(answer)
+let intervalForTest = {
+  baseTone: 'Fis - 1',
+  direction: 'down',
+  idx: 4,
+  // baseToneIdx: 12,
+  semitones: 6
+}
+let answer = muzWorker.generateAnswer(intervalForTest)
+console.log(answer)
 // let testArr = muzWorker
 //   .generateTestArr(['малка секста'], 50)
 //   .map(el => [el.name.bg, el.baseTone, el.direction])
@@ -340,4 +339,4 @@ const muzWorker = (() => {
 // console.log(tessst)
 // console.log(testArr)
 
-export default muzWorker
+// export default muzWorker
