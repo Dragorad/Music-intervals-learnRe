@@ -71,9 +71,16 @@ class TestArea extends Component {
           {startBtnTxt}
         </button>
         }
-        
-        
+  
+        <div className='re-test-area'>
+          <NewTestLink
+            props={this.props}
+            texts={text.workHeader}/>
+          <NewTestSameIntervals
+            texts={text.workHeader}/>
+        </div>
         {this.props.testRendered &&
+        
         (!testFinished &&
           <div className='test-area'>
             
@@ -90,12 +97,7 @@ class TestArea extends Component {
             </button>
           
           </div>)}
-        <div className='re-test-area'>
-          <NewTestLink
-            props={this.props}
-          texts={text.workHeader}/>
-          <NewTestSameIntervals
-            texts={text.workHeader}/></div>
+        
       </React.Fragment>
     )
     

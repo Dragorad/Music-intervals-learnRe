@@ -24,6 +24,7 @@ const dataWorker = (() => {
   
   function addResult (collectionName, resultObj) {
     console.log('from dataWorker')
+    console.log(resultObj)
     db.collection(collectionName).add(resultObj)
       .then(function (docRef) {
         let id = docRef.id
@@ -41,11 +42,37 @@ const dataWorker = (() => {
       })
   }
   
+  async function getBestScores (collectionName, numberOfResults) {
+    
+    let resultsQuery = db.collection('results').where('sessionPoints', '>', 0)
+      .orderBy('sessionPoints', 'desc').limit(numberOfResults)
+    console.log('fetch data started')
+    return resultsQuery.get()
+      .then(snapshot => {
+          let scoresArr = []
+          snapshot.forEach(
+            doc => {
+              let data = doc.data()
+
+              console.log(data.user + ' ' + data.sessionPoints)
+              scoresArr.push(data)
+            }
+          )
+          console.log(scoresArr)
+
+        return scoresArr
+        }
+      )
+    
+  }
+  
+  //
   // db.collection.results
   return {
     fire,
     db,
-    addResult
+    addResult,
+    getBestScores
   }
 })()
 

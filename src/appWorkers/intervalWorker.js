@@ -312,15 +312,15 @@ const muzWorker = (() => {
 
 //inline tests
 
-let intervalForTest = {
-  baseTone: 'Fis - 1',
-  direction: 'down',
-  idx: 4,
-  // baseToneIdx: 12,
-  semitones: 6
-}
-let answer = muzWorker.generateAnswer(intervalForTest)
-console.log(answer)
+// let intervalForTest = {
+//   baseTone: 'Fis - 1',
+//   direction: 'down',
+//   idx: 4,
+//   // baseToneIdx: 12,
+//   semitones: 6
+// }
+// let answer = muzWorker.generateAnswer(intervalForTest)
+// console.log(answer)
 // let testArr = muzWorker
 //   .generateTestArr(['малка секста'], 50)
 //   .map(el => [el.name.bg, el.baseTone, el.direction])
@@ -339,4 +339,4 @@ console.log(answer)
 // console.log(tessst)
 // console.log(testArr)
 
-// export default muzWorker
+export default muzWorker

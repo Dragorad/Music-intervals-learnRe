@@ -567,6 +567,7 @@ button {
 }
 
 .test-area, .condition {
+    font-size: large;
     display: flex;
     flex-flow: column;
     justify-content: space-evenly;
@@ -585,9 +586,12 @@ div.test-area {
 }
 
 .re-test-area {
+    border-bottom: 0.5px solid #039be5;
+    font-size: small;
+    padding-bottom: 1%;
     display: flex;
     flex-flow: row;
-    height: 20%;
+    height: 10%;
     margin: 1%;
     width: 100%;
     justify-content: space-evenly;

@@ -107,6 +107,12 @@ const eventWorker = (() => {
       return this.setState({testRendered: !this.testRendered})
     }
     
+    // function showBestResults (collection, numberOfResults) {
+    //   dataWorker.getBestScores(collection, numberOfResults)
+    //     .then( function (res) {
+    //       console.log(res)
+    //     })
+    // }
     return {
       answeringClicked,
       setTestRendered,
@@ -118,7 +124,8 @@ const eventWorker = (() => {
       newTestLink,
       onTestButtonClick,
       nextQuestionClicked,
-      redirectPageWithNullTestData
+      redirectPageWithNullTestData,
+      // showBestResults
     }
   }
 )()

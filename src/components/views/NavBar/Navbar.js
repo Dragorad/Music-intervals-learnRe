@@ -7,6 +7,7 @@ import StatusArea from '../workArea/StatusArea'
 import languagesText from '../../../LanguagesData/LanguagesText'
 import dataWorker from '../../../appWorkers/dataWorker'
 import firebase from 'firebase'
+import BestResults from '../workArea/BestResults'
 
 function mapStateToProps (store) {
   return {
@@ -23,7 +24,7 @@ function mapStateToProps (store) {
     // totalPoints: store.totalPoints,
     sessionPoints: store.sessionPoints,
     sessionAnswers: store.sessionAnswers,
-    pointsPerAnswer: store.pointsPerAnswer,
+    pointsPerAnswer: store.pointsPerAnswer
     // userAnswer: store.userAnswer,
     // tasksRemaining: store.tasksRemaining,
     // testInterval: store.currentInterval,
@@ -36,26 +37,6 @@ function mapStateToProps (store) {
 const mapDispatchToProps = {
   ...actions
 }
-// function mapDispatchToProps (dispatch) {
-//   return {
-//     setIsSigned: boolean => dispatch(actions.setIsSigned(boolean)),
-//     setUserName: string => dispatch(actions.setUserName(string)),
-//     setLanguage: language => dispatch(actions.setLanguage(language)),
-//     setAnsweringDisabled: boolean => dispatch(actions.setAnsweringDisabled(boolean)),
-//     nextQuestionClickedAction: () => dispatch(actions.nextQuestionClickedAction()),
-//     timerReset: () => dispatch(actions.timerReset()),
-//     actionTimer: () => dispatch(actions.actionTimer()),
-//     setTimerWorking: boolean => dispatch(actions.setTimerWorking(boolean)),
-//     generateNewTest: (intervalsForTest, numberOfTasks) => dispatch(actions.generateTestArr(intervalsForTest, numberOfTasks)),
-//     addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),
-//     changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),
-//     setAnswerVisible: boolean => dispatch(actions.setAnswerVisible(boolean)),
-//     setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),
-//     setCurrentInterval: testArr => dispatch(actions.setCurrentInterval(testArr)),
-//     setTestRendered: () => dispatch(actions.setTestRendered()),
-//     addAnswerToResult: (sessionAnswers, intervalName, boolean) => dispatch(actions.addAnswerToResult(sessionAnswers, intervalName, boolean))
-//   }
-// }
 
 class Navbar extends Component {
   constructor (props) {
@@ -106,13 +87,23 @@ class Navbar extends Component {
                   event.preventDefault()
                   let date = new Date(Date.now())
                   console.log(date.toTimeString())
-                  dataWorker.addResult('results', {
-                  isSigned,
-                  user,
-                  sessionPoints, sessionAnswers,
-                  timeSaved: date})
-                  }}>Save Result
+                  let resultObj = {
+                    isSigned,
+                    user: this.props.userName,
+                    sessionPoints, sessionAnswers,
+                    timeSaved: date
+                  }
+                  console.log(resultObj)
+                  dataWorker.addResult('results', resultObj)
+                }}>Save Result
         </button>}
+        <button
+          onClick={e => {
+            e.preventDefault()
+            dataWorker.getBestScores('results', 10)
+          }}
+        >Get Top Scores
+        </button>
         {this.props.isSigned ?
           <React.Fragment>
             <button className=''
@@ -133,34 +124,21 @@ class Navbar extends Component {
         {/*</Link>*/}
         
         
-        
-        
-        < React.Fragment >
-        {/*< button className=''*/}
-          {/*onClick={event => {*/}
-          {/*event.preventDefault()*/}
-          {/*let date = new Date(Date.now())*/}
-          {/*console.log(date.toTimeString())*/}
-          {/*dataWorker.addResult('results', {*/}
-          {/*isSigned,*/}
-          {/*user,*/}
-          {/*sessionPoints,*/}
-          {/*sessionAnswers,*/}
-          {/*timeSaved: date*/}
-        {/*})*/}
-        {/*}}>Save Result*/}
+        < React.Fragment>
+   
+          {/*}}>Save Result*/}
           {/*</button>*/}
-        {/*<NewTestLink*/}
-        {/*texts={texts}/>*/}
-        {/*<NewTestSameIntervals*/}
-        {/*texts={texts}/>*/}
-          </React.Fragment>
-          
+          {/*<NewTestLink*/}
+          {/*texts={texts}/>*/}
+          {/*<NewTestSameIntervals*/}
+          {/*texts={texts}/>*/}
+        </React.Fragment>
+        
         
         < LanguageButtons
           strings={this.state.langButtonTxt}/>
         < Link to={'/'}>Help </Link>
-      
+      <BestResults/>
       
       </header>
     )
