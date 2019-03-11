@@ -1,11 +1,10 @@
-import firebase from 'firebase'
+import firebase from './firebaseWorker'
 // import firestore from 'firebase\firestore'
-import { configApi } from './configAPI'
 
 const dataWorker = (() => {
   const settings = {timestampsInSnapshots: true}
   
-  const fire = firebase.initializeApp(configApi)
+  const fire = firebase
   const db = firebase.firestore()
   db.settings(settings)
   
@@ -42,10 +41,10 @@ const dataWorker = (() => {
       })
   }
   
-  async function getBestScores (collectionName, numberOfResults) {
-    
-    let resultsQuery = db.collection('results').where('sessionPoints', '>', 0)
-      .orderBy('sessionPoints', 'desc').limit(numberOfResults)
+  const resultsQuery = db.collection('results').where('sessionPoints', '>', 0)
+    .orderBy('sessionPoints', 'desc').limit(8)
+  function getBestScores (collectionName) {
+    let that = this
     console.log('fetch data started')
     return resultsQuery.get()
       .then(snapshot => {
@@ -60,9 +59,24 @@ const dataWorker = (() => {
           )
           console.log(scoresArr)
 
-        return scoresArr
+          return scoresArr
         }
       )
+    // return resultsQuery
+      // .onSnapshot(function (querySnapshot) {
+      //   let scoresArr = []
+      //   querySnapshot.forEach(
+      //     doc => {
+      //       let data = doc.data()
+      //
+      //       console.log(data.user + ' ' + data.sessionPoints)
+      //       scoresArr.push(data)
+      //     }
+      //   )
+      //   console.log(scoresArr)
+      //
+      //   return scoresArr
+      // })
     
   }
   
@@ -72,7 +86,8 @@ const dataWorker = (() => {
     fire,
     db,
     addResult,
-    getBestScores
+    getBestScores,
+    resultsQuery
   }
 })()
 

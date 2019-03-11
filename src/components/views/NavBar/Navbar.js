@@ -7,7 +7,6 @@ import StatusArea from '../workArea/StatusArea'
 import languagesText from '../../../LanguagesData/LanguagesText'
 import dataWorker from '../../../appWorkers/dataWorker'
 import firebase from 'firebase'
-import BestResults from '../workArea/BestResults'
 
 function mapStateToProps (store) {
   return {
@@ -24,7 +23,8 @@ function mapStateToProps (store) {
     // totalPoints: store.totalPoints,
     sessionPoints: store.sessionPoints,
     sessionAnswers: store.sessionAnswers,
-    pointsPerAnswer: store.pointsPerAnswer
+    pointsPerAnswer: store.pointsPerAnswer,
+    testIntervalData: store.testIntervalData,
     // userAnswer: store.userAnswer,
     // tasksRemaining: store.tasksRemaining,
     // testInterval: store.currentInterval,
@@ -68,6 +68,7 @@ class Navbar extends Component {
     let texts = text.workHeader
     let interval = this.props.testInterval
     let testArr = this.props.testArr
+    let testIntervalData = this.props.testIntervalData
     let user = this.props.user
     let sessionAnswers = this.props.sessionAnswers
     let isSigned = this.props.isSigned
@@ -90,6 +91,7 @@ class Navbar extends Component {
                   let resultObj = {
                     isSigned,
                     user: this.props.userName,
+                    testIntervalData,
                     sessionPoints, sessionAnswers,
                     timeSaved: date
                   }
@@ -97,13 +99,13 @@ class Navbar extends Component {
                   dataWorker.addResult('results', resultObj)
                 }}>Save Result
         </button>}
-        <button
-          onClick={e => {
-            e.preventDefault()
-            dataWorker.getBestScores('results', 10)
-          }}
-        >Get Top Scores
-        </button>
+        {/*<button*/}
+          {/*onClick={e => {*/}
+            {/*e.preventDefault()*/}
+            {/*dataWorker.getBestScores('results', 10)*/}
+          {/*}}*/}
+        {/*>Get Top Scores*/}
+        {/*</button>*/}
         {this.props.isSigned ?
           <React.Fragment>
             <button className=''
@@ -111,7 +113,7 @@ class Navbar extends Component {
                       event.preventDefault()
                       firebase.auth().signOut().then(
                         res => {
-                          alert(`User ${this.props.userName} has logged out ${res}`)
+                          alert(`User ${this.props.userName} has logged out`)
                         }
                       )
                     }
@@ -138,7 +140,7 @@ class Navbar extends Component {
         < LanguageButtons
           strings={this.state.langButtonTxt}/>
         < Link to={'/'}>Help </Link>
-      <BestResults/>
+      
       
       </header>
     )

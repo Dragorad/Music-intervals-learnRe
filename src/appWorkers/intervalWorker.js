@@ -221,14 +221,14 @@ const muzWorker = (() => {
     let resultTone = scalePositions[ansKeyIdx].find(el =>
       el.startsWith(answerLetter)
     )
-    if (baseSum <= 0 || baseSum >= 11) {
-      baseSum <= 0 ? (octaveIdx -= 1) : (octaveIdx += 1)
-      // if (resultTone === 'Ces') {
-      //   octaveIdx += 1
-      // }
-      // if (resultTone === 'His') {
-      //   octaveIdx -= 1
-      // }
+    if (baseSum < 0 || baseSum > 11) {
+      baseSum < 0 ? (octaveIdx -= 1) : (octaveIdx += 1)
+      if (resultTone === 'Ces' || resultTone === 'Ceses') {
+        octaveIdx += 1
+      }
+      if (resultTone === 'His' || resultTone === 'Hisis') {
+        octaveIdx -= 1
+      }
     }
     octave = scale.octaves[octaveIdx]
     if (resultTone === 'Hes') {

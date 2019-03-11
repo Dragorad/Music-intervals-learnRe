@@ -12,7 +12,8 @@ class ResultStats extends Component {
     let language = this.props.language
     let texts = languagesText[language].workPane.resultStats
     return <table>
-      
+      <caption> Session Results</caption>
+      <tbody>
         <th>{texts.interval}</th>
         <th>{texts.rightAnsw}</th>
         <th>{texts.falseAnsw}</th>
@@ -23,6 +24,7 @@ class ResultStats extends Component {
           <td className='data-field'>{el.trueAnswers}</td>
           <td className='data-field'>{el.falseAnswers}</td>
         </tr>))}
+      </tbody>
     </table>
   }
 }
