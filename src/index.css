@@ -122,9 +122,20 @@ body {
 
 body {
     font-family: "Yanone", sans-serif;
-
+    max-width: 900px;
+    }
+.navbar {
+    /*background-image: url("./keyboard33.png");*/
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+    align-content: center;
+    justify-content: space-around;
+    width: 95%;
+    box-shadow:0 0 5em #666666;
+    background: rgb(246,246,246);
+    background: radial-gradient(circle, rgba(246,246,246,1) 66%, rgba(233,233,233,0.031232561383928603) 100%);
 }
-
 #loadingBox,
 #errorBox,
 #infoBox {
@@ -139,7 +150,18 @@ body {
     height: 95%;
     text-align: center;
 }
-
+.sign-in-screen{
+    width: 40%;
+    background-color: rgba(120 139 34 0.3);
+    /*opacity: 0.6;*/
+    box-shadow: 1px 1em 1em slategrey;
+    position: absolute;
+    top: 10em;
+    right: 4em;
+}
+.save-result {
+    background-color: #20606b;
+}
 .landing {
     height: 100%;
     width: 97%;
@@ -534,6 +556,8 @@ td, th {
 }
 
 .data-field {
+    background: antiquewhite;
+    padding: 0.1em;
     text-align: center;
     font-weight: bold;
 }
@@ -542,6 +566,8 @@ button {
     padding: 2%;
     border-radius: 0.5%;
     cursor: pointer;
+    /*height: 40%;*/
+    margin: 0.5%;
 }
 
 .summary p, .summary-field {
@@ -556,13 +582,24 @@ button {
     color: #0c0d6b;
     font-size: 1.0em;
 }
+.modal{
+    display: block;
+}
+
 .best-results {
     position: absolute;
     z-index: 10;
-    background-color: #fafafa;
+    /*background-color: #fafafa;*/
+    box-shadow: 0.5em 1em  2em #0426261a;
     bottom: 15%;
     right: 15%;
 }
+.best-results p{
+    color: #c10413;
+    font-weight: bold;
+
+}
+
 .summary-field {
     text-align: left;
     padding: 1%;

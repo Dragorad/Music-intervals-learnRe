@@ -27,8 +27,9 @@ function ConditionFields (props) {
     <TestField
       key='1'
       label={texts.direction}
+      style={{'font-size':'large'}}
       text={props.interval.direction === 'up'
-        ? String.fromCharCode(8593) : String.fromCharCode(8595)}/>
+        ?  String.fromCharCode(8593) :  String.fromCharCode(8595)}/>
     <TestField
       key='2'
       label={texts.baseTon}

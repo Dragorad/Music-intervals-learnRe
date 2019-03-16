@@ -2,7 +2,7 @@ import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import ControlForm from './components/views/controlForm/ControlForm'
 import WorkPaneRedux from './components/containers/WorkPaneRedux'
-import UserForm from './components/views/userForms/userForm'
+import UserForm from './components/views/userForms/SignInScreen'
 import WelcomePage from './components/views/landingPage/WelcomePage'
 
 const Routes = (props) => (

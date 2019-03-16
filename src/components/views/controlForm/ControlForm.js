@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../../redux/actions/indexActions'
 import languagesText from '../../../LanguagesData/LanguagesText'
 import muzWorker from '../../../appWorkers/intervalWorker'
+import { notify } from 'react-notify-toast'
 
 let $ = jquery
 let testIntervalData = {
@@ -45,11 +46,11 @@ class ControlForm extends Component {
     let {timeForAnswer, numberOfTasks} = testIntervalData
     console.log(timeForAnswer)
     if (timeForAnswer < 2 || timeForAnswer > 20) {
-      alert(alerts.alertTime)
+      notify.show(alerts.alertTime, 'success')
       return
     }
     if (numberOfTasks < 2) {
-      alert(alerts.alertTasks)
+      notify.show(alerts.alertTasks,'error')
       return
     }
     console.log(testIntervalData.intervalsForTest)
@@ -67,7 +68,7 @@ class ControlForm extends Component {
         }
       )
     if (intervalsForTest.length === 0) {
-      alert(alerts.alertIntervals)
+      notify.show(alerts.alertIntervals, 'warning')
     } else {
       let bgIntervalsForTest = [...testIntervalData.intervalsForTest].map(el => el.name.bg)
       console.log(bgIntervalsForTest)
@@ -78,12 +79,12 @@ class ControlForm extends Component {
       this.props.setTestIntervalData(testIntervalData)
       this.props.setPointsPerAnswer(testIntervalData)
       let newTestArr = this.props.testArr
-      console.log('new test Arr' + newTestArr)
-      window.localStorage.setItem(
-        'testIntervalData',
-        JSON.stringify(testIntervalData)
-      )
-      window.localStorage.setItem('testArr', JSON.stringify(testArr))
+      // console.log('new test Arr' + newTestArr)
+      // window.localStorage.setItem(
+      //   'testIntervalData',
+      //   JSON.stringify(testIntervalData)
+      // )
+      // window.localStorage.setItem('testArr', JSON.stringify(testArr))
       this.props.history.push('/work-pane')
     }
   }

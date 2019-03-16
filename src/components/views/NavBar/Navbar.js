@@ -5,33 +5,28 @@ import LanguageButtons from './LanguageButtons'
 import { Link } from 'react-router-dom'
 import StatusArea from '../workArea/StatusArea'
 import languagesText from '../../../LanguagesData/LanguagesText'
-import dataWorker from '../../../appWorkers/dataWorker'
+import { notify } from 'react-notify-toast'
 import firebase from 'firebase'
+import SignInScreen from '../userForms/SignInScreen'
+import SaveResultButton from './SaveResultButton'
 
 function mapStateToProps (store) {
   return {
     isSigned: store.isSigned,
     userName: store.userName,
     // user: store.user,
-    timeRemaining: store.timeRemaining,
-    timeForAnswer: store.testIntervalData.timeForAnswer,
+    // timeRemaining: store.timeRemaining,
+    // timeForAnswer: store.testIntervalData.timeForAnswer,
     language: store.languageSelected,
     testRendered: store.testRendered,
     // testIntervalData: store.testIntervalData,
     // intervalsForTest: store.testIntervalData.intervalsForTest,
     numberOfTasks: store.testIntervalData.numberOfTasks,
-    // totalPoints: store.totalPoints,
     sessionPoints: store.sessionPoints,
     sessionAnswers: store.sessionAnswers,
     pointsPerAnswer: store.pointsPerAnswer,
-    testIntervalData: store.testIntervalData,
-    // userAnswer: store.userAnswer,
-    // tasksRemaining: store.tasksRemaining,
-    // testInterval: store.currentInterval,
-    // testArr: store.testArr,
-    // currentIntervalIdx: store.currentIntervalIdx
-    
-  }
+    testIntervalData: store.testIntervalData
+     }
 }
 
 const mapDispatchToProps = {
@@ -46,8 +41,25 @@ class Navbar extends Component {
       answerVisible: false,
       answeringDisabled: false,
       testFinished: false,
-      langButtonTxt: ['БГ', 'EN']
+      langButtonTxt: ['БГ', 'EN'],
+      isSigning: false
     }
+  }
+  
+  loginClicked (e) {
+    e.preventDefault()
+    this.setState({isSigning: true})
+    
+  }
+  
+  signingOut (event) {
+    event.preventDefault()
+    firebase.auth().signOut()
+      .then(res => {
+        this.setState({signingIn: false})
+        // this.props.setLoggedOut()
+        notify.show(`User ${this.props.userName} has logged out`, 'warning')
+      })
   }
   
   componentDidMount () {
@@ -75,59 +87,49 @@ class Navbar extends Component {
     let sessionPoints = this.props.sessionPoints
     let addTxt = languagesText[this.props.language].header.titleTxt
     return (
-      <header className='row'>
+      <header className='navbar'>
         <h1 className={'summary-field'}> Intervals L <br/>
           {!this.props.isSigned ?
             addTxt :
             <strong style={{'color': 'black'}}> Welcome {this.props.userName}</strong>} </h1>
         {this.props.testRendered &&
         <StatusArea/>}
-        {this.props.testRendered &&
-        <button className=''
-                onClick={event => {
-                  event.preventDefault()
-                  let date = new Date(Date.now())
-                  console.log(date.toTimeString())
-                  let resultObj = {
-                    isSigned,
-                    user: this.props.userName,
-                    testIntervalData,
-                    sessionPoints, sessionAnswers,
-                    timeSaved: date
-                  }
-                  console.log(resultObj)
-                  dataWorker.addResult('results', resultObj)
-                }}>Save Result
-        </button>}
+        {this.props.testRendered && this.props.isSigned &&<SaveResultButton/>}
+        {/*<button className=''*/}
+                {/*onClick={event => {*/}
+                  {/*event.preventDefault()*/}
+                  {/*let date = new Date(Date.now())*/}
+                  {/*console.log(date.toTimeString())*/}
+                  {/*let resultObj = {*/}
+                    {/*isSigned,*/}
+                    {/*user: this.props.userName,*/}
+                    {/*testIntervalData,*/}
+                    {/*sessionPoints, sessionAnswers,*/}
+                    {/*timeSaved: date*/}
+                  {/*}*/}
+                  {/*console.log(resultObj)*/}
+                  {/*dataWorker.addResult('results', resultObj)*/}
+                {/*}}>Save Result*/}
+        {/*</button>}*/}
         {/*<button*/}
-          {/*onClick={e => {*/}
-            {/*e.preventDefault()*/}
-            {/*dataWorker.getBestScores('results', 10)*/}
-          {/*}}*/}
+        {/*onClick={e => {*/}
+        {/*e.preventDefault()*/}
+        {/*dataWorker.getBestScores('results', 10)*/}
+        {/*}}*/}
         {/*>Get Top Scores*/}
         {/*</button>*/}
         {this.props.isSigned ?
-          <React.Fragment>
-            <button className=''
-                    onClick={event => {
-                      event.preventDefault()
-                      firebase.auth().signOut().then(
-                        res => {
-                          alert(`User ${this.props.userName} has logged out`)
-                        }
-                      )
-                    }
-                    }>Sign Out
-            </button>
-          </React.Fragment>
-          : <Link to={'/login'} className={'summary-field'}>Login
-          </Link>}
-        {/*<Link to={'/signUp'} className={'summary-field'} style={{'backgroundColor': 'gray'}}>Sign Up*/}
-        {/*</Link>*/}
-        
+          <button onClick={this.signingOut.bind(this)}
+          >Sign Out </button>
+          : <button
+            onClick={this.loginClicked.bind(this)}
+            style={{display: this.state.isSigning ? 'none' : 'block'}}
+            className={'summary-field link'}>Login
+          </button>}
+        {this.state.isSigning && <SignInScreen/>}
         
         < React.Fragment>
-   
+          
           {/*}}>Save Result*/}
           {/*</button>*/}
           {/*<NewTestLink*/}
@@ -139,7 +141,9 @@ class Navbar extends Component {
         
         < LanguageButtons
           strings={this.state.langButtonTxt}/>
-        < Link to={'/'}>Help </Link>
+        < Link
+          className={'button'}
+          to={'/'}>Help </Link>
       
       
       </header>

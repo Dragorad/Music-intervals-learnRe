@@ -35,13 +35,17 @@ class BestResults extends Component {
     "background-color": 'yellow'
   }
   
-    // {this.props.testFinished ? this.props.style={changedStyle}: null}
-  
-    // let bestUser = this.state.data.userName
-    // let bestPoints = this.props.language
     // let texts = languagesText[language].workPane.resultStats
     return <table className='best-results'>
-      <caption> Best Results</caption>
+      
+      <p>Best Results<span className="close"
+      style={{
+      "position":'absolute',
+      'top':'1em',
+      'right':'1em'}
+      }> {String.fromCharCode(215)}</span>
+      </p>
+      
       <tbody>
       <tr>
         <th>User</th>

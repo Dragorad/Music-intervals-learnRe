@@ -1,5 +1,5 @@
 import firebase from './firebaseWorker'
-// import firestore from 'firebase\firestore'
+import { notify } from 'react-notify-toast'
 
 const dataWorker = (() => {
   const settings = {timestampsInSnapshots: true}
@@ -33,7 +33,7 @@ const dataWorker = (() => {
         document.get()
           .then(doc => {
             let timeSaved = doc.data().timeSaved.toDate().toLocaleDateString()
-            alert(`result saved with id ${id}`)
+            notify.show(`result saved with id ${id}`, 'success')
             console.log(timeSaved)
             
           })

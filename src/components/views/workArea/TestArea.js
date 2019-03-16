@@ -11,30 +11,15 @@ import NewTestSameIntervals from './NewTestSameIntervals'
 
 function TestFinished () {
   return (
-    <div className='testFinished'>
-      <p>Test finished!</p>
+    <React.fragment>
       <ResultStats/>
-    
-    </div>)
+      {/*toast.success(`*/}
+      {/*<div className='testFinished'>*/}
+        {/*<p>Test finished!</p>*/}
+      {/*</div>`)*/}
+    </React.fragment>
+  )
   
-}
-
-function TestAreaMain (props) {
-  return <div className='test-area'>
-    
-    <ConditionFields
-      interval={props.interval} language={props.language}/>
-    
-    <AnswerArea disabled={props.disabled}
-                onSendAnswClick={props.onSendAnswClick}
-                interval={props.interval}/>
-    <button id='next-question' className='summary-field'
-            onClick={props.onClick}>
-      {props.texts.nextQuest}
-    </button>
-  
-  
-  </div>
 }
 
 class TestArea extends Component {
@@ -71,7 +56,7 @@ class TestArea extends Component {
           {startBtnTxt}
         </button>
         }
-  
+        
         <div className='re-test-area'>
           <NewTestLink
             props={this.props}
@@ -97,7 +82,7 @@ class TestArea extends Component {
             </button>
           
           </div>)}
-        
+      
       </React.Fragment>
     )
     

@@ -6,26 +6,33 @@ class ResultStats extends Component {
   constructor (props) {
     super(props)
   }
-  
+  // hideModal (e){
+  //   e.preventDefault()
+  //   this.props.style({display:'none'})
+  // }
   render (props) {
     let sessionAnswers = this.props.sessionAnswers
     let language = this.props.language
     let texts = languagesText[language].workPane.resultStats
-    return <table>
-      <caption> Session Results</caption>
-      <tbody>
+    return(
+    <div className='modal'>
+      <span className="close"> {String.fromCharCode(215)};</span>
+      <table>
+        <caption> Session Results</caption>
+        <tbody>
         <th>{texts.interval}</th>
         <th>{texts.rightAnsw}</th>
         <th>{texts.falseAnsw}</th>
-      
-      {this.props.sessionAnswers.map((el, idx) => (
-        <tr className='result-stats'>
-          <td>{el.name[language]}:</td>
-          <td className='data-field'>{el.trueAnswers}</td>
-          <td className='data-field'>{el.falseAnswers}</td>
-        </tr>))}
-      </tbody>
-    </table>
+        
+        {this.props.sessionAnswers.map((el, idx) => (
+          <tr className='result-stats'>
+            <td>{el.name[language]}:</td>
+            <td className='data-field'>{el.trueAnswers}</td>
+            <td className='data-field'>{el.falseAnswers}</td>
+          </tr>))}
+        </tbody>
+      </table>
+    </div>)
   }
 }
 
