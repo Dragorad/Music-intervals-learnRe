@@ -32,7 +32,8 @@ const languagesText = {
     alerts: {
       alertTime: 'Времето за отговор трябва да е между 2 и 20 секунди!',
       alertTasks: 'Задачите трябва да са поне 2!',
-      alertIntervals: 'Трябва да изберете поне един интервал!'
+      alertIntervals: 'Трябва да изберете поне един интервал!',
+      alertNullPoints:'Не може да запазвате нулев или отрицателен резултат'
     },
     workPane: {
       workHeader: {
@@ -100,7 +101,8 @@ const languagesText = {
     alerts: {
       alertTime: 'Time for answer must be between 2 and 20 seconds!',
       alertTasks: 'Number of tasks must be at last 2!',
-      alertIntervals: 'You have to select at last one interval for test!'
+      alertIntervals: 'You have to select at last one interval for test!',
+      alertNullPoints:'You can\'t save null or negative result'
     },
     workPane: {
       workHeader: {

@@ -4,11 +4,13 @@ import initialState from '../initialState/initialState'
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.RESET_STORE:
+      return{...state, ...initialState}
     case types.SET_LANGUAGE:
       return {
         ...state, languageSelected: action.payload
       }
-    case types.TEST_INTERVAL_DATA:
+    case types.SET_TEST_INTERVAL_DATA:
       return {
         ...state,
         testIntervalData: action.payload,
@@ -77,6 +79,8 @@ const rootReducer = (state = initialState, action) => {
       }
     case types.ADD_POINTS_TO_RESULT :
       return {...state, sessionPoints: state.sessionPoints + action.payload}
+      case types.SET_SESSION_POINTS :
+      return {...state, sessionPoints: action.payload}
     case
     types.PUSH_INTERVAL_IN_RESULTS :
       return {...state, testResult: action.payload}

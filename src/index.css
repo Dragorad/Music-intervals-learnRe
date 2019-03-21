@@ -2,6 +2,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    position: relative;
+    max-height: 800px;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Average+Sans|Lato');
@@ -46,6 +48,7 @@ body {
     }
 
     .work-pane {
+        position: relative;
         height: 100%;
         flex-flow: column-reverse;
         width: 97%;
@@ -123,7 +126,8 @@ body {
 body {
     font-family: "Yanone", sans-serif;
     max-width: 900px;
-    }
+}
+
 .navbar {
     /*background-image: url("./keyboard33.png");*/
     display: flex;
@@ -132,10 +136,11 @@ body {
     align-content: center;
     justify-content: space-around;
     width: 95%;
-    box-shadow:0 0 5em #666666;
-    background: rgb(246,246,246);
-    background: radial-gradient(circle, rgba(246,246,246,1) 66%, rgba(233,233,233,0.031232561383928603) 100%);
+    box-shadow: 0 0 5em #666666;
+    background: rgb(246, 246, 246);
+    background: radial-gradient(circle, rgba(246, 246, 246, 1) 66%, rgba(233, 233, 233, 0.031232561383928603) 100%);
 }
+
 #loadingBox,
 #errorBox,
 #infoBox {
@@ -150,7 +155,8 @@ body {
     height: 95%;
     text-align: center;
 }
-.sign-in-screen{
+
+.sign-in-screen {
     width: 40%;
     background-color: rgba(120 139 34 0.3);
     /*opacity: 0.6;*/
@@ -159,9 +165,11 @@ body {
     top: 10em;
     right: 4em;
 }
+
 .save-result {
     background-color: #20606b;
 }
+
 .landing {
     height: 100%;
     width: 97%;
@@ -557,9 +565,10 @@ td, th {
 
 .data-field {
     background: antiquewhite;
-    padding: 0.1em;
+    padding: 0.3em;
     text-align: center;
     font-weight: bold;
+    transition: all 1s;
 }
 
 button {
@@ -577,26 +586,44 @@ button {
     /*font-size: large;*/
     padding: 0.1em;
 }
-
+.result-stats{
+    transition: background-color 1s linear 1s;
+}
 .result-stats p, .summary-field span {
     color: #0c0d6b;
     font-size: 1.0em;
+
 }
-.modal{
+
+.modal {
     display: block;
 }
 
 .best-results {
     position: absolute;
+    display: block;
     z-index: 10;
     /*background-color: #fafafa;*/
-    box-shadow: 0.5em 1em  2em #0426261a;
-    bottom: 15%;
-    right: 15%;
+    box-shadow: 0.5em 1em 2em #0426261a;
+    bottom: 5%;
+    right: 10%;
+
 }
-.best-results p{
+.hidden>td {
+    transition: color 1s linear 1s;
+    background-color: red;
+    color: azure;
+}
+.best-results span {
+    font-size: large;
+}
+.best-results tr p{
+    display: block;
     color: #c10413;
     font-weight: bold;
+    align-content: center;
+    transition-property: display;
+    transition-timing-function: ease-in-out;
 
 }
 

@@ -26,7 +26,7 @@ function mapStateToProps (store) {
     sessionAnswers: store.sessionAnswers,
     pointsPerAnswer: store.pointsPerAnswer,
     testIntervalData: store.testIntervalData
-     }
+  }
 }
 
 const mapDispatchToProps = {
@@ -56,9 +56,10 @@ class Navbar extends Component {
     event.preventDefault()
     firebase.auth().signOut()
       .then(res => {
-        this.setState({signingIn: false})
-        // this.props.setLoggedOut()
         notify.show(`User ${this.props.userName} has logged out`, 'warning')
+        this.props.resetStore()
+        // this.setState({signingIn: false})
+        // this.props.setLoggedOut()
       })
   }
   
@@ -88,36 +89,17 @@ class Navbar extends Component {
     let addTxt = languagesText[this.props.language].header.titleTxt
     return (
       <header className='navbar'>
-        <h1 className={'summary-field'}> Intervals L <br/>
-          {!this.props.isSigned ?
-            addTxt :
-            <strong style={{'color': 'black'}}> Welcome {this.props.userName}</strong>} </h1>
+        <div>
+          <h1 className={'summary-field'}> Intervals L</h1>
+          <h4 className={'summary-field'}>
+            {!this.props.isSigned ?
+              addTxt :
+              <strong style={{'color': 'black'}}> Welcome {this.props.userName}</strong>}</h4>
+        </div>
         {this.props.testRendered &&
         <StatusArea/>}
-        {this.props.testRendered && this.props.isSigned &&<SaveResultButton/>}
-        {/*<button className=''*/}
-                {/*onClick={event => {*/}
-                  {/*event.preventDefault()*/}
-                  {/*let date = new Date(Date.now())*/}
-                  {/*console.log(date.toTimeString())*/}
-                  {/*let resultObj = {*/}
-                    {/*isSigned,*/}
-                    {/*user: this.props.userName,*/}
-                    {/*testIntervalData,*/}
-                    {/*sessionPoints, sessionAnswers,*/}
-                    {/*timeSaved: date*/}
-                  {/*}*/}
-                  {/*console.log(resultObj)*/}
-                  {/*dataWorker.addResult('results', resultObj)*/}
-                {/*}}>Save Result*/}
-        {/*</button>}*/}
-        {/*<button*/}
-        {/*onClick={e => {*/}
-        {/*e.preventDefault()*/}
-        {/*dataWorker.getBestScores('results', 10)*/}
-        {/*}}*/}
-        {/*>Get Top Scores*/}
-        {/*</button>*/}
+        {this.props.testRendered && this.props.isSigned && <SaveResultButton/>}
+        
         {this.props.isSigned ?
           <button onClick={this.signingOut.bind(this)}
           >Sign Out </button>
@@ -129,13 +111,8 @@ class Navbar extends Component {
         {this.state.isSigning && <SignInScreen/>}
         
         < React.Fragment>
-          
-          {/*}}>Save Result*/}
-          {/*</button>*/}
-          {/*<NewTestLink*/}
-          {/*texts={texts}/>*/}
-          {/*<NewTestSameIntervals*/}
-          {/*texts={texts}/>*/}
+        
+        
         </React.Fragment>
         
         

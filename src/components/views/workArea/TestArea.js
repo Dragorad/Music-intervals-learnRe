@@ -9,19 +9,6 @@ import ConditionFields from './ConditionFields'
 import NewTestLink from './NewTestLink'
 import NewTestSameIntervals from './NewTestSameIntervals'
 
-function TestFinished () {
-  return (
-    <React.fragment>
-      <ResultStats/>
-      {/*toast.success(`*/}
-      {/*<div className='testFinished'>*/}
-        {/*<p>Test finished!</p>*/}
-      {/*</div>`)*/}
-    </React.fragment>
-  )
-  
-}
-
 class TestArea extends Component {
   constructor (props) {
     super(props)
@@ -47,7 +34,7 @@ class TestArea extends Component {
     
     return (
       <React.Fragment>
-        {testFinished && <TestFinished/>}
+        {testFinished && <ResultStats/>}
         {testBtnVisible &&
         <button className='summary-field'
                 disabled={this.props.testRendered}
@@ -103,6 +90,7 @@ const mapStateToProps = store => {
     sessionPoints: store.sessionPoints,
     sessionAnswers: store.sessionAnswers,
     pointsPerAnswer: store.pointsPerAnswer,
+    answeringDisabled: store.answeringDisabled,
     userAnswer: store.userAnswer,
     tasksRemaining: store.tasksRemaining,
     testInterval: store.currentInterval,

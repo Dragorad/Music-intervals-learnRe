@@ -73,8 +73,11 @@ const eventWorker = (() => {
       // clearTimeout(eventWorker.timer)
       this.props.setAnsweringDisabled(true)
     }
-    function nextQuestionClicked (e, props) {
+    function nextQuestionClicked (e) {
       e.preventDefault()
+      if(this.props.answeringDisabled) {
+        console.log('from nextQ Clicked ' + this.props.answeringDisabled)
+        resultsHandler.answering(this.props)}
       // this.props.setTimerWorking(false)
       this.setState({answeringDisabled: false})
       if (this.props.tasksRemaining > 0) {

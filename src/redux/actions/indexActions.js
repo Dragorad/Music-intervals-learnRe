@@ -10,6 +10,10 @@ export const sayMamata = text => ({
   type: types.SAY_MAMATA,
   payload: text + 'Mamata!'
 })
+export const resetStore = storeObj => ({
+  type: types.RESET_STORE,
+  payload:storeObj
+})
 export const setLanguage = language => ({
   type: types.SET_LANGUAGE,
   payload: language
@@ -48,12 +52,16 @@ export const generateNewTest = () => ((dispatch, getState) => {
 })
 
 export const setTestIntervalData = intervalData => ({
-  type: types.TEST_INTERVAL_DATA,
+  type: types.SET_TEST_INTERVAL_DATA,
   payload: intervalData
 })
 export const setTimeForAnswer = time => ({
   type: types.SET_TIME_FOR_ANSWER,
   payload: time
+})
+export const setSessionPoints = points => ({
+  type: types.SET_SESSION_POINTS,
+  payload: points
 })
 export const setTimeRemaining = time => ({
   type: types.SET_TIME_REMAINING,
