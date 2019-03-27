@@ -3,6 +3,7 @@ import muzWorker from '../../appWorkers/intervalWorker'
 import eventWorker from '../../appWorkers/eventWorker'
 import languagesText from '../../LanguagesData/LanguagesText'
 import jquery from 'jquery'
+import initialState from '../initialState/initialState'
 
 let $ = jquery
 
@@ -10,10 +11,21 @@ export const sayMamata = text => ({
   type: types.SAY_MAMATA,
   payload: text + 'Mamata!'
 })
-export const resetStore = storeObj => ({
-  type: types.RESET_STORE,
-  payload:storeObj
-})
+export const resetStore = () => (
+  function (getState, dispatch) {
+    let keepValues = {
+      isSigned: getState().isSigned,
+      userName: getState().userName,
+      user: getState().user
+    }
+    console.log('from action ' + keepValues)
+    let reStateObj = {...initialState, ...keepValues}
+    dispatch({
+      type: types.RESET_STORE,
+      payload: reStateObj
+    })
+    
+  })
 export const setLanguage = language => ({
   type: types.SET_LANGUAGE,
   payload: language
@@ -30,17 +42,24 @@ export const generateTestArr = (intervalsForTest, numberOfTasks) => (
       }
     })
   })
-export const setTestArr= testArr =>({
+export const setTestArr = testArr => ({
   type: types.SET_TEST_ARR,
   payload: testArr
 })
-export const generateNewTest = () => ((dispatch, getState) => {
+export const reGenerateNewTest = isTestWithSameData => ((dispatch, getState) => {
   dispatch(setTimerWorking(false))
-  let intervalData = getState().testIntervalData
+  
+  let intervalData
+    isTestWithSameData ? intervalData = getState().testIntervalData:
+      intervalData = {}
+  let numberOfTasks = intervalData.numberOfTasks
+  console.log(numberOfTasks)
   let intervalsForTest = intervalData.intervalsForTest.map(e => e.name.bg)
   let newTestArr = muzWorker.generateTestArr(intervalsForTest, intervalData.numberOfTasks)
   let currentInterval = newTestArr[0]
   dispatch(setTimeRemaining(intervalData.timeForAnswer))
+  dispatch(changeTasksRemaining(intervalData.numberOfTasks))
+  dispatch(setSessionPoints(0))
   dispatch(setTestRendered(false))
   dispatch({
     type: types.RE_GENERATE_NEW_TEST,

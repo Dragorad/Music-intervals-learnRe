@@ -5,29 +5,29 @@ const resultsHandler = (() => {
     console.log(intervalObj)
     let resultObj = {...targetObj}
     if (intervalObj.isCorrect === true) {
-      resultObj.trueAnswers +=1}
-    else {
+      resultObj.trueAnswers += 1
+    } else {
       resultObj.falseAnswers += 1
     }
     console.log(intervalObj)
     console.log(resultObj)
     return resultObj
   }
-  function answering(props){
+  
+  function answering (props) {
     // e.preventDefault()
     let pointsPerAnswer = props.pointsPerAnswer
-    
-    console.log('answering clicked ' + props.testInterval.answer)
     let userAnswer = props.userAnswer
     let isAnswerTrue = userAnswer === props.testInterval.answer
     let intervalName = props.testInterval.name
-    console.log(intervalName)
     props.setTimerWorking(false)
-    props.setAnsweringDisabled(true)
-    props.addAnswerToResult(intervalName, isAnswerTrue)
-    props.addPointsToResult(pointsPerAnswer, isAnswerTrue)
+    if (!props.answeringDisabled) {
+      props.addAnswerToResult(intervalName, isAnswerTrue)
+      props.addPointsToResult(pointsPerAnswer, isAnswerTrue)
+      props.setAnsweringDisabled(true)
+    }
   }
- 
+  
   return {
     handleSingleResult,
     answering

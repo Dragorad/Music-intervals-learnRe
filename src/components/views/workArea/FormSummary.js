@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import TestArea from './TestArea'
 import * as actions from '../../../redux/actions/indexActions'
+import { CSSTransitionGroup, Transition } from 'react-transition-group'
 
 class FormSummary extends Component {
   constructor(props) {

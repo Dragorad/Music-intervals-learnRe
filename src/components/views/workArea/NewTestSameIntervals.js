@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { generateNewTest } from '../../../redux/actions/indexActions'
+import { reGenerateNewTest } from '../../../redux/actions/indexActions'
 
 const mapStateToProps = state => ({
   testIntervalData: state.testIntervalData
@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  generateNewTest: () => dispatch(generateNewTest())
+  reGenerateNewTest: () => dispatch(reGenerateNewTest())
 })
 export default connect(mapStateToProps, mapDispatchToProps)(NewTestSameIntervals)
 
@@ -16,7 +16,7 @@ function NewTestSameIntervals (props) {
   return <button className='summary-field link'
                  onClick={(e) => {
                    // e.preventDefault()
-                   props.generateNewTest()
+                   props.reGenerateNewTest()
     
                  }}
   >{props.texts.sameIntervals.toUpperCase()}</button>

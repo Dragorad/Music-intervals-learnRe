@@ -57,8 +57,11 @@ class Navbar extends Component {
     firebase.auth().signOut()
       .then(res => {
         notify.show(`User ${this.props.userName} has logged out`, 'warning')
-        this.props.resetStore()
-        // this.setState({signingIn: false})
+        // this.props.resetStore()
+        this.setState({signingIn: false})
+        this.props.setIsSigned(false)
+        this.props.setUserName('guest')
+        this.props.setTimerWorking(false)
         // this.props.setLoggedOut()
       })
   }

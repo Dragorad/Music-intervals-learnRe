@@ -33,7 +33,7 @@ class TestArea extends Component {
     let testFinished = this.state.testFinished
     
     return (
-      <React.Fragment>
+      <div className={'summary'}>
         {testFinished && <ResultStats/>}
         {testBtnVisible &&
         <button className='summary-field'
@@ -70,7 +70,7 @@ class TestArea extends Component {
           
           </div>)}
       
-      </React.Fragment>
+      </div>
     )
     
   }

@@ -23,7 +23,7 @@ export default function Footer (props) {
 //   }
 // }
 // const mapDispatchToProps = dispatch => ({
-//   generateNewTest: (intervalsForTest, numberOfTasks) =>
+//   reGenerateNewTest: (intervalsForTest, numberOfTasks) =>
 //     dispatch(actions.generateTestArr(intervalsForTest, numberOfTasks))
 // })
 

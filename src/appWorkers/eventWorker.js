@@ -38,7 +38,7 @@ const eventWorker = (() => {
     //   // console.log(intervalsForTest)
     //   // let numberOfTasks = this.props.numberOfTasks
     //   // e.preventDefault()
-    //   // let testIntervalData = this.props.generateNewTest(intervalsForTest, numberOfTasks)
+    //   // let testIntervalData = this.props.reGenerateNewTest(intervalsForTest, numberOfTasks)
     //   // console.log(testIntervalData)
     //   //
     // }
@@ -67,18 +67,17 @@ const eventWorker = (() => {
       this.props.setTimerWorking(true)
       testButtonsCommon.call(this)
     }
+    
     function answeringClicked (e) {
       e.preventDefault()
       resultsHandler.answering(this.props)
       // clearTimeout(eventWorker.timer)
       this.props.setAnsweringDisabled(true)
     }
+    
     function nextQuestionClicked (e) {
       e.preventDefault()
-      if(this.props.answeringDisabled) {
-        console.log('from nextQ Clicked ' + this.props.answeringDisabled)
-        resultsHandler.answering(this.props)}
-      // this.props.setTimerWorking(false)
+      resultsHandler.answering(this.props)
       this.setState({answeringDisabled: false})
       if (this.props.tasksRemaining > 0) {
         this.props.nextQuestionClickedAction()
@@ -127,7 +126,7 @@ const eventWorker = (() => {
       newTestLink,
       onTestButtonClick,
       nextQuestionClicked,
-      redirectPageWithNullTestData,
+      redirectPageWithNullTestData
       // showBestResults
     }
   }

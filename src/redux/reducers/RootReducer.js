@@ -5,7 +5,7 @@ import initialState from '../initialState/initialState'
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.RESET_STORE:
-      return{...state, ...initialState}
+      return {...state, ...action.payload}
     case types.SET_LANGUAGE:
       return {
         ...state, languageSelected: action.payload
@@ -24,8 +24,8 @@ const rootReducer = (state = initialState, action) => {
         currentInterval: action.payload.currentInterval
       }
     case types.SET_TEST_ARR:
-      return{
-        ...state,testArr: action.payload
+      return {
+        ...state, testArr: action.payload
       }
     case types.RE_GENERATE_NEW_TEST:
       return {
@@ -79,7 +79,7 @@ const rootReducer = (state = initialState, action) => {
       }
     case types.ADD_POINTS_TO_RESULT :
       return {...state, sessionPoints: state.sessionPoints + action.payload}
-      case types.SET_SESSION_POINTS :
+    case types.SET_SESSION_POINTS :
       return {...state, sessionPoints: action.payload}
     case
     types.PUSH_INTERVAL_IN_RESULTS :

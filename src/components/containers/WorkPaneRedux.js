@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import FormSummary from '../views/workArea/FormSummary'
 import * as actions from '../../redux/actions/indexActions'
 import jQuery from 'jquery'
 import { connect } from 'react-redux'
 import Keyboard0 from '../views/workArea/Keyboard0'
 import BestResults from '../views/workArea/BestResults'
+import TestArea from '../views/workArea/TestArea'
 
 let $ = jQuery
 
@@ -34,7 +34,7 @@ class WorkPaneRedux extends Component {
       <React.Fragment>
         <div className='work-pane'>
           <Keyboard0/>
-          <FormSummary/>
+          <TestArea/>
           <BestResults/>
         </div>
       </React.Fragment>

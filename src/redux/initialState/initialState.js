@@ -15,7 +15,7 @@ const initialState = {
   answeringDisabled: false,
   regime:'local',
   timeRemaining:NaN,
-  timerWorking:true,
+  timerWorking:false,
   isSigned: false,
   userName:'guest',
   user: {}
