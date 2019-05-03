@@ -140,7 +140,9 @@ body {
     background: rgb(246, 246, 246);
     background: radial-gradient(circle, rgba(246, 246, 246, 1) 66%, rgba(233, 233, 233, 0.031232561383928603) 100%);
 }
-
+.sign-in-screen {
+    z-index: 5;
+}
 #loadingBox,
 #errorBox,
 #infoBox {
@@ -405,7 +407,7 @@ legend {
 .interval-button-medium > label {
     background-color: slategrey;
     border-radius: 2%;
-    padding: 5%;
+    padding: 3%;
     position: relative;
     top: 0;
     left: 0;
@@ -413,7 +415,7 @@ legend {
     color: antiquewhite;
     text-align: center;
     min-height: 75%;
-    margin: auto;
+    /*margin: auto;*/
     /*border: 1px solid #867260;*/
 }
 

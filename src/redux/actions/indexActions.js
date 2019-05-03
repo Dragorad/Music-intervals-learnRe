@@ -95,6 +95,10 @@ export const setIsSigned = boolean => ({
   type: types.SET_IS_SIGNED,
   payload: boolean
 })
+export const setIsSigning = boolean => ({
+  type: types.SET_IS_SIGNING,
+  payload: boolean
+})
 export const setUserName = userName => ({
   type: types.SET_USERNAME,
   payload: userName

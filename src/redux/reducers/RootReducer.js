@@ -13,6 +13,7 @@ const rootReducer = (state = initialState, action) => {
     case types.SET_TEST_INTERVAL_DATA:
       return {
         ...state,
+        ...state,
         testIntervalData: action.payload,
         tasksRemaining: action.payload.numberOfTasks,
         sessionAnswers: action.payload.intervalsForTest
@@ -37,6 +38,8 @@ const rootReducer = (state = initialState, action) => {
       return {...state, userAnswer: action.payload}
     case types.SET_IS_SIGNED:
       return {...state, isSigned: action.payload}
+      case types.SET_IS_SIGNING:
+      return {...state, isSigning: action.payload}
     case types.SET_USERNAME:
       return {...state, userName: action.payload}
     case types.SET_TEST_RENDERED:

@@ -17,6 +17,7 @@ const initialState = {
   timeRemaining:NaN,
   timerWorking:false,
   isSigned: false,
+  isSigning: false,
   userName:'guest',
   user: {}
 }
