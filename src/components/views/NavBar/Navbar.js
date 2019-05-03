@@ -13,6 +13,7 @@ import SaveResultButton from './SaveResultButton'
 function mapStateToProps (store) {
   return {
     isSigned: store.isSigned,
+    isSigning: store.isSigning,
     userName: store.userName,
     // user: store.user,
     // timeRemaining: store.timeRemaining,
@@ -48,7 +49,10 @@ class Navbar extends Component {
   
   loginClicked (e) {
     e.preventDefault()
-    this.setState({isSigning: true})
+
+    this.props.setIsSigning(true)
+    // this.setState({isSigning: true})
+    // notify.show(this.state)
     
   }
   
@@ -67,12 +71,12 @@ class Navbar extends Component {
   }
   
   componentDidMount () {
-    this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
-      user => {
-        this.props.setIsSigned(!!user)
-        this.props.setUserName(user.displayName)
-      }
-    )
+    // this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
+    //   user => {
+    //     // this.props.setIsSigned(!!user)
+    //     this.props.setUserName(user.displayName)
+    //   }
+    // )
   }
   
   componentWillUnmount () {
@@ -85,7 +89,8 @@ class Navbar extends Component {
     let interval = this.props.testInterval
     let testArr = this.props.testArr
     let testIntervalData = this.props.testIntervalData
-    let user = this.props.user
+    let userName = this.props.userName
+    let isSigning = this.props.isSigning
     let sessionAnswers = this.props.sessionAnswers
     let isSigned = this.props.isSigned
     let sessionPoints = this.props.sessionPoints
@@ -95,9 +100,9 @@ class Navbar extends Component {
         <div>
           <h1 className={'summary-field'}> Intervals L</h1>
           <h4 className={'summary-field'}>
-            {!this.props.isSigned ?
+            { userName ==='guest'?
               addTxt :
-              <strong style={{'color': 'black'}}> Welcome {this.props.userName}</strong>}</h4>
+              <strong style={{'color': 'black'}}> Welcome {userName}</strong>}</h4>
         </div>
         {this.props.testRendered &&
         <StatusArea/>}
@@ -108,17 +113,11 @@ class Navbar extends Component {
           >Sign Out </button>
           : <button
             onClick={this.loginClicked.bind(this)}
-            style={{display: this.state.isSigning ? 'none' : 'block'}}
+            style={{display: isSigning ? 'none' : 'block'}}
             className={'summary-field link'}>Login
           </button>}
-        {this.state.isSigning && <SignInScreen/>}
-        
-        < React.Fragment>
-        
-        
-        </React.Fragment>
-        
-        
+        {this.props.isSigning && <SignInScreen/>}
+
         < LanguageButtons
           strings={this.state.langButtonTxt}/>
         < Link

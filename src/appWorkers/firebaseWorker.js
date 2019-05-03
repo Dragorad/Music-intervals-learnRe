@@ -1,19 +1,31 @@
-import firebase from 'firebase'
+import app from 'firebase/app'
 import {configAPI} from './configAPI'
+import React from 'react'
+import 'firebase/auth'
+import firebase from 'firebase'
+import {connect} from "react-redux"
+import {setIsSigning, setIsSigned} from "../redux/actions/indexActions"
+
+export const FirebaseContext = React.createContext(null)
 
 
-export  const firebaseApp = firebase.initializeApp(configAPI)
-
-export const uiConfig = {
-    // Popup signin flow rather than redirect flow.
-    signInFlow: 'popup',
-    // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-    signInSuccessUrl: '/signedIn',
-    // We will display Google and Facebook as auth providers.
-    signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        firebase.auth.PhoneAuthProvider.PROVIDER_ID
-
-    ]
+export class FirebaseApp {
+    constructor() {
+        app.initializeApp(configAPI)
+        this.auth = app.auth()
+    }
 }
+export const firebaseApp = new FirebaseApp()
+
+// export const firebaseApp = firebase.initializeApp(configAPI)
+
+
+// const mapStateToProps = store => ( {
+//  isSigning: store.isSigning,
+//  isSigned: store.isSigned
+// })
+// const mapDispatchToProps = dispatch => ( {
+//  setIsSigning: boolean => dispatch(setIsSigning(boolean)),
+//  setIsSigned: boolean => dispatch(setIsSigned(boolean)),
+//  })
+// export default connect(mapStateToProps, mapDispatchToProps)(uiConfig)

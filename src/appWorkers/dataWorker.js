@@ -1,12 +1,12 @@
 import {firebaseApp}  from  './firebaseWorker'
 import { notify } from 'react-notify-toast'
-// import firebase from 'firebase'
+import firebase from 'firebase'
 
 const dataWorker = (() => {
   const settings = {timestampsInSnapshots: true}
   
   const fire = firebaseApp
-  const db = firebaseApp.firestore()
+  const db = firebase.firestore()
   db.settings(settings)
   
   db.enablePersistence()
