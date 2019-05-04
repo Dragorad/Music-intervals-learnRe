@@ -17,7 +17,7 @@ class ResultStats extends Component {
     let texts = languagesText[language].workPane.resultStats
     return (
       <div className='modal'>
-        <span className="close"> {String.fromCharCode(215)};</span>
+        {/*<span className="close"> {String.fromCharCode(215)};</span>*/}
         <table>
           <caption> Session Results</caption>
           {/*<tbody>*/}

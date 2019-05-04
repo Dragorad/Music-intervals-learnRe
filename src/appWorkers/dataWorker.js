@@ -3,11 +3,11 @@ import { notify } from 'react-notify-toast'
 import firebase from 'firebase'
 
 const dataWorker = (() => {
-  const settings = {timestampsInSnapshots: true}
+  // const settings = {timestampsInSnapshots: true}
   
   const fire = firebaseApp
   const db = firebase.firestore()
-  db.settings(settings)
+  // db.settings(settings)
   
   db.enablePersistence()
     .catch(function (err) {
