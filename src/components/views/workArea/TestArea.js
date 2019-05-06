@@ -60,7 +60,7 @@ class TestArea extends Component {
               interval={this.props.interval} language={this.props.language}/>
             
             <AnswerArea
-              // disabled={props.disabled}
+
               onSendAnswClick={this.props.onSendAnswClick}
               interval={this.props.interval}/>
             <button id='next-question' className='summary-field'

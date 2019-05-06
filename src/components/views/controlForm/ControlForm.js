@@ -13,7 +13,7 @@ let testIntervalData = {
   timeForAnswer: 0,
   numberOfTasks: 0
 }
-let testArr = {}
+// let testArr = {}
 
 class ControlForm extends Component {
   constructor (props) {

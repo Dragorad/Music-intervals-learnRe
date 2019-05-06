@@ -534,7 +534,7 @@ header a {
     display: flex;
     flex-flow: column;
     justify-content: flex-start;
-    align-items: center;
+    /*align-items: center;*/
     height: 60%;
     /*width: 50%;*/
     font-size: 1em;
@@ -548,13 +548,11 @@ table {
     margin: 1px;
     padding: 1%;
     flex-shrink: 1;
-    max-width: 40%;
-    font-size: 0.8em;
+    font-size: 0.7em;
 }
 
 td, th {
     border-bottom: 1px solid #6fa0b5;
-    padding: 1%;
     color: #658ab6
 }
 
@@ -599,7 +597,7 @@ button {
 .best-results {
     position: absolute;
     display: block;
-    /*background-color: #fafafa;*/
+    max-width: 44%;
     box-shadow: 0.5em 1em 2em #0426261a;
     bottom: 5%;
     right: 10%;

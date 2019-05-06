@@ -7,9 +7,7 @@ let {secondMinor, secondMajor, thirdMinor, thirdMajor, ...rest} = intervals
 let {fourthPerfect, fourthAug, fifthDiminished, fifthPerfect, ...rest1} = rest
 let {sixthMinor, sixthMajor, seventhMinor, seventhMajor} = rest1
 
-let firstIntervals = [secondMinor, secondMajor, thirdMinor, thirdMajor]
-let secondIntervals = [fourthPerfect, fourthAug, fifthDiminished, fifthPerfect]
-let thirdIntervals = [sixthMinor, sixthMajor, seventhMinor, seventhMajor]
+
 let fourthIntervals = [
   // intervals.octave,
   {

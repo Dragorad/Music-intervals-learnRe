@@ -3,16 +3,8 @@ import { connect } from 'react-redux'
 import languagesText from '../../../../src/LanguagesData/LanguagesText'
 
 class ResultStats extends Component {
-  constructor (props) {
-    super(props)
-  }
-  
-  // hideModal (e){
-  //   e.preventDefault()
-  //   this.props.style({display:'none'})
-  // }
-  render (props) {
-    let sessionAnswers = this.props.sessionAnswers
+    render (props) {
+    // let sessionAnswers = this.props.sessionAnswers
     let language = this.props.language
     let texts = languagesText[language].workPane.resultStats
     return (

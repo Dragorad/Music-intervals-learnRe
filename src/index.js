@@ -4,12 +4,14 @@ import './index.css'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import {FirebaseApp, FirebaseContext} from "./appWorkers/firebaseWorker"
+import {defaultContextValue} from "./ReactContext/initialContext"
+import {AppContext} from '../src/ReactContext/initialContext'
 // import FirebaseContext from ''
 
 ReactDOM.render(
-    <FirebaseContext.Provider value = { FirebaseApp }>
+    <AppContext.Provider value = { defaultContextValue }>
      <App/>
-    </FirebaseContext.Provider>
+    </AppContext.Provider>
  , document.getElementById('root')
 )
 registerServiceWorker()

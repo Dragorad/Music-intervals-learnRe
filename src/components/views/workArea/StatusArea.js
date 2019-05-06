@@ -57,5 +57,4 @@ const mapDispatchToProps = dispatch => ({
   setAnswerVisible: boolean => dispatch(actions.setAnswerVisible(boolean)),
   setTestRendered: () => dispatch(actions.setTestRendered())
 })
-export default connect(mapStateToProps, mapDispatchToProps)
-(StatusArea)
+export default connect(mapStateToProps, mapDispatchToProps)(StatusArea)
