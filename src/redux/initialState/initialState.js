@@ -19,6 +19,7 @@ const initialState = {
   isSigned: false,
   isSigning: false,
   userName:'guest',
+  resultSaved: false,
   user: {}
 }
 

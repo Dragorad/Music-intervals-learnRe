@@ -1,8 +1,24 @@
 import jquery from 'jquery'
 import resultsHandler from './resultHandler'
+import muzWorker from "./intervalWorker";
 
 let $ = jquery
 const eventWorker = (() => {
+        function mapForMuzWorkerGenerateTest(testIntervalData, language) {
+            testIntervalData['intervalsForTest'].serializeArray()
+                .map(function (el) {
+                        console.log(el)
+                        let elName = Object.values(muzWorker.intervals).find(elem => elem.name[language] === el.name)
+                        return {
+                            name: elName.name,
+                            trueAnswers: 0,
+                            falseAnswers: 0
+                        }
+
+                    }
+                )
+        }
+
     function pathClicked (event, props) {
       event.preventDefault()
       let targetId = event.target.id.split('-').join(' - ')
@@ -12,14 +28,14 @@ const eventWorker = (() => {
       props.setUserAnswer(targetId)
       $(this).addClass('clicked-key')
     }
-    
+
     function baseKeyColorize (testInterval) {
       $('path').removeClass('base-key clicked-key')
       let baseToneId = testInterval.baseTone.split(' ').join('')
       let baseKey = $(`path#${baseToneId}`)
       baseKey.addClass('base-key')
     }
-    
+
     function redirectPageWithNullTestData (pathString) {
       let testIntervalData = {
         timeForAnswer: 0,
@@ -27,7 +43,7 @@ const eventWorker = (() => {
       }
       this.props.push(pathString, testIntervalData)
     }
-    
+
     // function generateNewTestLink (e) {
     //   e.preventDefault()
     //   alert('New TestClicked')
@@ -50,7 +66,7 @@ const eventWorker = (() => {
         return idx
       }
     })()
-    
+
     function testButtonsCommon () {
       eventWorker.baseKeyColorize(this.props.testInterval)
       this.props.changeTasksRemaining(this.props.tasksRemaining)
@@ -60,21 +76,22 @@ const eventWorker = (() => {
       // eventWorker.timer(this.props)
       console.log('testButtonCommon started')
     }
-    
+
     function onTestButtonClick (e, props) {
       e.preventDefault()
       this.props.setTestRendered(true)
       this.props.setTimerWorking(true)
       testButtonsCommon.call(this)
+        this.props.setResultSaved(false)
     }
-    
+
     function answeringClicked (e) {
       e.preventDefault()
       resultsHandler.answering(this.props)
       // clearTimeout(eventWorker.timer)
       this.props.setAnsweringDisabled(true)
     }
-    
+
     function nextQuestionClicked (e) {
       e.preventDefault()
       resultsHandler.answering(this.props)
@@ -84,9 +101,9 @@ const eventWorker = (() => {
       } else {
         this.setState({testFinished: true})
       }
-      
+
     }
-    
+
     function newTestLink () {
       this.props.generateNewTest(this.props.intervalsForTest,
         this.props.numberOfTasks)
@@ -96,7 +113,7 @@ const eventWorker = (() => {
         answeringDisabled: false
       })
     }
-    
+
     function onLangButtonClick (el) {
       el.preventDefault()
       let payload = el.target.textContent
@@ -104,11 +121,11 @@ const eventWorker = (() => {
       this.props.setLanguage(el.target.textContent === 'ENGLISH' || el.target.textContent === 'EN' ?
         'en' : 'bg')
     }
-    
+
     function setTestRendered () {
       return this.setState({testRendered: !this.testRendered})
     }
-    
+
     // function showBestResults (collection, numberOfResults) {
     //   dataWorker.getBestScores(collection, numberOfResults)
     //     .then( function (res) {

@@ -27,10 +27,11 @@ class TestArea extends Component {
     let testBtnVisible = this.props.testArr.length > 0 && !this.props.testRendered
     let texts = languagesText[language].workPane
     let startBtnTxt = texts.conditionArea.testBegin
-    let interval = this.props.testInterval
-    let testArr = this.props.testArr
+    // let interval = this.props.testInterval
+    // let testArr = this.props.testArr
     let testRendered = this.props.testRendered
     let testFinished = this.state.testFinished
+    // let resultSaved = this.props.resultSaved
     
     return (
       <div className={'summary'}>
@@ -112,6 +113,7 @@ const mapDispatchToProps = dispatch => ({
   setAnswerVisible: boolean => dispatch(actions.setAnswerVisible(boolean)),
   setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),
   setCurrentInterval: testArr => dispatch(actions.setCurrentInterval(testArr)),
+  setResultSaved: boolean => dispatch(actions.setResultSaved(boolean)),
   addAnswerToResult: (sessionAnswers, intervalName, boolean) => dispatch(actions.addAnswerToResult(sessionAnswers, intervalName, boolean))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(TestArea)

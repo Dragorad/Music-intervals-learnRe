@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  reGenerateNewTest: () => dispatch(reGenerateNewTest())
+  reGenerateNewTest: boolean => dispatch(reGenerateNewTest(boolean))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(NewTestSameIntervals)
 
@@ -16,8 +16,8 @@ function NewTestSameIntervals (props) {
   return <button className='summary-field link'
                  onClick={(e) => {
                    // e.preventDefault()
-                   props.reGenerateNewTest()
-    
+                   props.reGenerateNewTest(true)
+
                  }}
   >{props.texts.sameIntervals.toUpperCase()}</button>
 }

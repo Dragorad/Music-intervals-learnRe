@@ -4,6 +4,7 @@ body {
     font-family: sans-serif;
     position: relative;
     max-height: 800px;
+    box-sizing: border-box;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Average+Sans|Lato');
@@ -16,7 +17,7 @@ body {
     padding: 0;
     border: none;
     font-size: 100%;
-}
+    }
 
 * {
     margin: 0;
@@ -49,7 +50,7 @@ body {
 
     .work-pane {
         position: relative;
-        height: 100%;
+        /*height: 100%;*/
         flex-flow: column-reverse;
         width: 97%;
         display: flex;
@@ -61,6 +62,7 @@ body {
         height: 30%;
         width: 60%;
         flex-flow: column-reverse;
+
     }
 
     footer {
@@ -126,7 +128,7 @@ body {
     align-items: stretch;
     align-content: center;
     justify-content: space-around;
-    width: 95%;
+    width: 97%;
     box-shadow: 0 0 5em #666666;
     background: rgb(246, 246, 246);
     background: radial-gradient(circle, rgba(246, 246, 246, 1) 66%, rgba(233, 233, 233, 0.031232561383928603) 100%);
@@ -143,7 +145,11 @@ body {
 }
 
 #root {
+    align-items: center;
     text-align: center;
+    display: flex;
+    flex-flow: column;
+
 }
 
 .welcome-screen {
@@ -308,7 +314,7 @@ input {
     flex-flow: column;
     justify-content: space-around;
     vertical-align: middle;
-    height: 80%;
+    /*height: 80%;*/
 }
 
 .controls-wrap {
@@ -317,9 +323,10 @@ input {
     text-align: center;
     position: relative;
     margin: auto;
-    width: 96%;
+    width: 100%;
     height: 18%;
     font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
     background-color: #fafafa;
     align-items: center;
 }
@@ -331,7 +338,8 @@ input {
     margin: auto;
     background-color: black;
     height: 65%;
-    width: 95%;
+    width: 100%;
+    box-sizing: border-box;
     padding: 2%;
 }
 
@@ -479,7 +487,8 @@ svg {
 }
 
 header, .work-pane {
-    width: 95%;
+    width: 97%;
+    box-sizing: border-box;
     margin: auto;
     display: flex;
     /*flex-flow: row nowrap;*/
@@ -534,7 +543,7 @@ header a {
     display: flex;
     flex-flow: column;
     justify-content: flex-start;
-    /*align-items: center;*/
+    align-items: center;
     height: 60%;
     /*width: 50%;*/
     font-size: 1em;
@@ -560,7 +569,6 @@ td, th {
     background: antiquewhite;
     padding: 0.4em;
     text-align: center;
-    /*font-weight: bold;*/
     transition: all 1s;
 }
 
@@ -639,7 +647,7 @@ button {
     flex-flow: column;
     justify-content: space-evenly;
     width: 100%;
-    height: 40%;
+    /*height: 40%;*/
     margin: 0 3%;
     padding: 2%;
     z-index: 3;

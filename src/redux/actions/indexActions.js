@@ -24,7 +24,7 @@ export const resetStore = () => (
       type: types.RESET_STORE,
       payload: reStateObj
     })
-    
+
   })
 export const setLanguage = language => ({
   type: types.SET_LANGUAGE,
@@ -46,29 +46,40 @@ export const setTestArr = testArr => ({
   type: types.SET_TEST_ARR,
   payload: testArr
 })
+
 export const reGenerateNewTest = isTestWithSameData => ((dispatch, getState) => {
-  dispatch(setTimerWorking(false))
-  
-  let intervalData
-    isTestWithSameData ? intervalData = getState().testIntervalData:
-      intervalData = {}
-  let numberOfTasks = intervalData.numberOfTasks
-  console.log(numberOfTasks)
-  let intervalsForTest = intervalData.intervalsForTest.map(e => e.name.bg)
-  let newTestArr = muzWorker.generateTestArr(intervalsForTest, intervalData.numberOfTasks)
-  let currentInterval = newTestArr[0]
-  dispatch(setTimeRemaining(intervalData.timeForAnswer))
-  dispatch(changeTasksRemaining(intervalData.numberOfTasks))
-  dispatch(setSessionPoints(0))
-  dispatch(setTestRendered(false))
-  dispatch({
-    type: types.RE_GENERATE_NEW_TEST,
-    payload: {
-      newTestArr,
-      currentInterval
+    dispatch(setTimerWorking(false))
+    if (!isTestWithSameData) {
+      dispatch({
+        type: types.RE_GENERATE_NEW_TEST,
+        payload: {
+          newTestArr: [],
+          currentInterval: {}
+        }
+      })
+      dispatch(setTestIntervalData({}))
+      return
     }
-  })
-})
+    dispatch(setTestRendered(false))
+    let intervalData = getState().testIntervalData
+    console.log(intervalData);
+    let language = getState().languageSelected
+    let intervalsForTest = intervalData.intervalsForTest.map(el => (el = el.name.bg))
+    let newTestArr = muzWorker.generateTestArr(intervalsForTest, intervalData.numberOfTasks)
+    let currentInterval = newTestArr[0]
+    dispatch(setTimeRemaining(intervalData.timeForAnswer))
+    dispatch(changeTasksRemaining(intervalData.numberOfTasks))
+    dispatch(setSessionPoints(0))
+    dispatch(setTestRendered(false))
+    dispatch({
+      type: types.RE_GENERATE_NEW_TEST,
+      payload: {
+        newTestArr,
+        currentInterval
+      }
+    })
+  }
+)
 
 export const setTestIntervalData = intervalData => ({
   type: types.SET_TEST_INTERVAL_DATA,
@@ -99,6 +110,10 @@ export const setIsSigning = boolean => ({
   type: types.SET_IS_SIGNING,
   payload: boolean
 })
+export const setResultSaved = boolean => ({
+  type: types.RESULT_SAVED,
+  payload: boolean
+})
 export const setUserName = userName => ({
   type: types.SET_USERNAME,
   payload: userName
@@ -127,11 +142,10 @@ export const nextQuestionClickedAction = () => (
       dispatch(changeTasksRemaining(getState().tasksRemaining))
       dispatch(setAnswerVisible(false))
       dispatch(setAnsweringDisabled(false))
-      
+
       dispatch(setTimerWorking(true))
-      
+
       let newTestInterval = getState().currentInterval
-      console.log(newTestInterval)
       eventWorker.baseKeyColorize(newTestInterval)
       dispatch(actionTimer())
     }
@@ -141,7 +155,7 @@ export const actionTimer = () => (
   function (dispatch, getState) {
     console.log('action timer run')
     let timer0 = setTimeout(
-      function inner () {
+      function inner() {
         let timeRemaining = getState().timeRemaining
         dispatch(setTimeRemaining(timeRemaining - 1))
         let timerWorking = getState().timerWorking

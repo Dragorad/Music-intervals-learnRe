@@ -28,9 +28,7 @@ class WorkPaneRedux extends Component {
   }
   
   render () {
-    let testIntervalData = this.props.testIntervalData
-    let testArr = this.props.testArr
-    return (
+        return (
       <React.Fragment>
         <div className='work-pane'>
           <Keyboard0/>
