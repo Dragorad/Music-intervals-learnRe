@@ -42,13 +42,21 @@ export const generateTestArr = (intervalsForTest, numberOfTasks) => (
       }
     })
   })
+
 export const setTestArr = testArr => ({
   type: types.SET_TEST_ARR,
   payload: testArr
 })
+export const setTestFinished = boolean => ({
+  type: types.TEST_FINISHED,
+  payload: boolean
+})
 
 export const reGenerateNewTest = isTestWithSameData => ((dispatch, getState) => {
     dispatch(setTimerWorking(false))
+    dispatch(setTestFinished(false))
+    dispatch(setTestRendered(false))
+    dispatch(setSessionPoints(0))
     if (!isTestWithSameData) {
       dispatch({
         type: types.RE_GENERATE_NEW_TEST,
@@ -60,17 +68,16 @@ export const reGenerateNewTest = isTestWithSameData => ((dispatch, getState) => 
       dispatch(setTestIntervalData({}))
       return
     }
-    dispatch(setTestRendered(false))
     let intervalData = getState().testIntervalData
-    console.log(intervalData);
-    let language = getState().languageSelected
+    let numberOfTasks = intervalData.numberOfTasks
+    // let language = getState().languageSelected
     let intervalsForTest = intervalData.intervalsForTest.map(el => (el = el.name.bg))
-    let newTestArr = muzWorker.generateTestArr(intervalsForTest, intervalData.numberOfTasks)
+    let newTestArr = muzWorker.generateTestArr(intervalsForTest, numberOfTasks)
     let currentInterval = newTestArr[0]
     dispatch(setTimeRemaining(intervalData.timeForAnswer))
-    dispatch(changeTasksRemaining(intervalData.numberOfTasks))
+    dispatch(changeTasksRemaining(numberOfTasks + 1))
     dispatch(setSessionPoints(0))
-    dispatch(setTestRendered(false))
+    // dispatch(setTestRendered(false))
     dispatch({
       type: types.RE_GENERATE_NEW_TEST,
       payload: {
@@ -132,21 +139,21 @@ export const timerReset = () => ({
 })
 export const nextQuestionClickedAction = () => (
   (dispatch, getState) => {
-    dispatch(setTimerWorking(false))
+    // dispatch(setTimerWorking(false))
+    // console.log(getState().timerWorking)
     console.log('next quest from actions')
     let language = getState().languageSelected
     if (getState().tasksRemaining > 0) {
       dispatch(setCurrentInterval(getState().testArr))
-      dispatch(setTimeRemaining(getState().testIntervalData.timeForAnswer))
+      // dispatch(setTimeRemaining(getState().testIntervalData.timeForAnswer))
       $('#testedAnswer').val(`${languagesText[language].workPane.answerArea.dontKnow}`)
       dispatch(changeTasksRemaining(getState().tasksRemaining))
       dispatch(setAnswerVisible(false))
       dispatch(setAnsweringDisabled(false))
 
-      dispatch(setTimerWorking(true))
-
       let newTestInterval = getState().currentInterval
       eventWorker.baseKeyColorize(newTestInterval)
+      dispatch(setTimerWorking(true))
       dispatch(actionTimer())
     }
   }
@@ -163,6 +170,7 @@ export const actionTimer = () => (
         timer0 = setTimeout(inner, 1000)
         if (!timerWorking) {
           clearTimeout(timer0)
+          console.log('timeout cleaned')
           return
         }
         if (timeRemaining === 1) {
@@ -203,21 +211,19 @@ export const setCurrentIntervalIdx = () => ({
   payload: eventWorker.passIndex()
 })
 
-export const setCurrentInterval = intervalArea => (
-  function (dispatch) {
-    let idx = eventWorker.passIndex()
-    let currentInterval = intervalArea[idx]
-    eventWorker.baseKeyColorize(currentInterval)
-    dispatch({
-        type: types.SET_CURRENT_INTERVAL,
-        payload: {
-          idx,
-          currentInterval
-        }
-      }
-    )
-  }
-)
+export const setCurrentInterval = intervalArea => ((dispatch, getState) => {
+  let idx = getState().currentIntervalIdx + 1
+  idx = idx >= intervalArea.length ? 0 : idx
+  let currentInterval = intervalArea[idx]
+  eventWorker.baseKeyColorize(currentInterval)
+  dispatch({
+    type: types.SET_CURRENT_INTERVAL,
+    payload: {
+      idx,
+      currentInterval
+    }
+  })
+})
 
 export const changeTasksRemaining = number => ({
   type: types.CHANGE_TASKS_REMAINING,

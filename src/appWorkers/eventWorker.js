@@ -4,22 +4,22 @@ import muzWorker from "./intervalWorker";
 
 let $ = jquery
 const eventWorker = (() => {
-        function mapForMuzWorkerGenerateTest(testIntervalData, language) {
-            testIntervalData['intervalsForTest'].serializeArray()
-                .map(function (el) {
-                        console.log(el)
-                        let elName = Object.values(muzWorker.intervals).find(elem => elem.name[language] === el.name)
-                        return {
-                            name: elName.name,
-                            trueAnswers: 0,
-                            falseAnswers: 0
-                        }
+    function mapForMuzWorkerGenerateTest(testIntervalData, language) {
+      testIntervalData['intervalsForTest'].serializeArray()
+        .map(function (el) {
+            console.log(el)
+            let elName = Object.values(muzWorker.intervals).find(elem => elem.name[language] === el.name)
+            return {
+              name: elName.name,
+              trueAnswers: 0,
+              falseAnswers: 0
+            }
 
-                    }
-                )
-        }
+          }
+        )
+    }
 
-    function pathClicked (event, props) {
+    function pathClicked(event, props) {
       event.preventDefault()
       let targetId = event.target.id.split('-').join(' - ')
       console.log(targetId)
@@ -29,14 +29,14 @@ const eventWorker = (() => {
       $(this).addClass('clicked-key')
     }
 
-    function baseKeyColorize (testInterval) {
+    function baseKeyColorize(testInterval) {
       $('path').removeClass('base-key clicked-key')
       let baseToneId = testInterval.baseTone.split(' ').join('')
       let baseKey = $(`path#${baseToneId}`)
       baseKey.addClass('base-key')
     }
 
-    function redirectPageWithNullTestData (pathString) {
+    function redirectPageWithNullTestData(pathString) {
       let testIntervalData = {
         timeForAnswer: 0,
         numberOfTasks: 0
@@ -44,21 +44,6 @@ const eventWorker = (() => {
       this.props.push(pathString, testIntervalData)
     }
 
-    // function generateNewTestLink (e) {
-    //   e.preventDefault()
-    //   alert('New TestClicked')
-    //   //
-    //   // console.log(this.props.intervalsForTest)
-    //   // let intervalsForTest = this.props.intervalsForTest
-    //   // // .map(el => el.name)
-    //   // console.log(intervalsForTest)
-    //   // let numberOfTasks = this.props.numberOfTasks
-    //   // e.preventDefault()
-    //   // let testIntervalData = this.props.reGenerateNewTest(intervalsForTest, numberOfTasks)
-    //   // console.log(testIntervalData)
-    //   //
-    // }
-    //
     const passIndex = (() => {
       let idx = 0
       return function () {
@@ -67,54 +52,58 @@ const eventWorker = (() => {
       }
     })()
 
-    function testButtonsCommon () {
+    function testButtonsCommon() {
       eventWorker.baseKeyColorize(this.props.testInterval)
+      // eventWorker.answeringClicked.bind(this)
+      this.props.setCurrentInterval(this.props.testArr)
       this.props.changeTasksRemaining(this.props.tasksRemaining)
       this.props.setTimeRemaining(this.props.timeForAnswer)
-      // this.props.setTimerWorking(true)
+      this.props.setAnswerVisible(false)
       this.props.actionTimer()
-      // eventWorker.timer(this.props)
       console.log('testButtonCommon started')
     }
 
-    function onTestButtonClick (e, props) {
+    function onTestButtonClick(e, props) {
       e.preventDefault()
       this.props.setTestRendered(true)
+      this.props.setTestFinished(false)
       this.props.setTimerWorking(true)
       testButtonsCommon.call(this)
-        this.props.setResultSaved(false)
+      this.props.setResultSaved(false)
     }
 
-    function answeringClicked (e) {
+    function answeringClicked(e) {
       e.preventDefault()
       resultsHandler.answering(this.props)
       // clearTimeout(eventWorker.timer)
-      this.props.setAnsweringDisabled(true)
+      // this.props.setAnsweringDisabled(true)
     }
 
-    function nextQuestionClicked (e) {
+    function nextQuestionClicked(e) {
       e.preventDefault()
       resultsHandler.answering(this.props)
-      this.setState({answeringDisabled: false})
+      this.props.setAnsweringDisabled(false)
+      this.props.setAnsweringDisabled(false)
+      // ({answeringDisabled: false})
       if (this.props.tasksRemaining > 0) {
         this.props.nextQuestionClickedAction()
       } else {
-        this.setState({testFinished: true})
+        this.props.setTestFinished(true )
       }
 
     }
 
-    function newTestLink () {
-      this.props.generateNewTest(this.props.intervalsForTest,
-        this.props.numberOfTasks)
-      this.props.setTestRendered.bind(this)
-      this.setState({
-        testFinished: false,
-        answeringDisabled: false
-      })
-    }
+    // function newTestLink() {
+    //   this.props.generateNewTest(this.props.intervalsForTest,
+    //     this.props.numberOfTasks)
+    //   this.props.setTestRendered.bind(this)
+    //   this.setState({
+    //     testFinished: false,
+    //     answeringDisabled: false
+    //   })
+    // }
 
-    function onLangButtonClick (el) {
+    function onLangButtonClick(el) {
       el.preventDefault()
       let payload = el.target.textContent
       console.log(payload)
@@ -122,29 +111,20 @@ const eventWorker = (() => {
         'en' : 'bg')
     }
 
-    function setTestRendered () {
+    function setTestRendered() {
       return this.setState({testRendered: !this.testRendered})
     }
-
-    // function showBestResults (collection, numberOfResults) {
-    //   dataWorker.getBestScores(collection, numberOfResults)
-    //     .then( function (res) {
-    //       console.log(res)
-    //     })
-    // }
-    return {
+   return {
       answeringClicked,
       setTestRendered,
       pathClicked,
       baseKeyColorize,
       onLangButtonClick,
       passIndex,
-      // generateNewTestLink,
-      newTestLink,
       onTestButtonClick,
       nextQuestionClicked,
       redirectPageWithNullTestData
-      // showBestResults
+
     }
   }
 )()

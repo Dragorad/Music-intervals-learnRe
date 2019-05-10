@@ -11,6 +11,7 @@ const initialState = {
   currentIntervalIdx: 0,
   currentInterval: {},
   testRendered: false,
+  testFinished: false,
   answerVisible: false,
   answeringDisabled: false,
   regime:'local',
