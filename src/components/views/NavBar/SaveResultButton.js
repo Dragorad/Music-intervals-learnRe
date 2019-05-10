@@ -41,7 +41,7 @@ function SaveResultButton(props) {
                         return;
                     }
                     let date = new Date(Date.now())
-                    console.log(date.toTimeString())
+                    // // console.log(date.toTimeString())
 
                     let resultObj = {
                         isSigned: props.isSigned,
@@ -51,7 +51,7 @@ function SaveResultButton(props) {
                         sessionAnswers: props.sessionAnswers,
                         timeSaved: date
                     }
-                    console.log(resultObj)
+                    // console.log(resultObj)
                     dataWorker.addResult('results', resultObj)
                     props.setResultSaved(true)
                 }

@@ -34,10 +34,10 @@ class BestResults extends Component {
                 snapshot.forEach(doc => {
 
                     let dateString = this.convertDataString(doc.data().timeSaved)
-                    console.log(dateString);
+                    // console.log(dateString);
                     scoresArr.push(doc.data())
-                    console.log('scores arr')
-                    console.log(scoresArr)
+                    // console.log('scores arr')
+                    // console.log(scoresArr)
                 })
                 this.setState({
                     minimized: this.props.testRendered,
@@ -49,7 +49,7 @@ class BestResults extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.testRendered === prevState.minimized) {
-            console.log(' best result props changed')
+            // console.log(' best result props changed')
             this.setState({minimized: !this.state.minimized})
         }
     }

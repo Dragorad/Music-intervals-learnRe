@@ -1,16 +1,16 @@
 const resultsHandler = (() => {
   
   function handleSingleResult (targetObj, intervalObj) {
-    console.log(targetObj)
-    console.log(intervalObj)
+    // console.log(targetObj)
+    // console.log(intervalObj)
     let resultObj = {...targetObj}
     if (intervalObj.isCorrect === true) {
       resultObj.trueAnswers += 1
     } else {
       resultObj.falseAnswers += 1
     }
-    console.log(intervalObj)
-    console.log(resultObj)
+    // console.log(intervalObj)
+    // console.log(resultObj)
     return resultObj
   }
   
@@ -60,7 +60,7 @@ const resultsHandler = (() => {
 //   }
 // })(state, storeArr, intervalObj)
 // // storeArr = resultsHandler.handleIntervalInResult(storeArr, intervalObj)
-// // console.log(storeArr)
+// // // console.log(storeArr)
 // intervalObj = {
 //   name: 'чиста квинта',
 //   isCorrect: true

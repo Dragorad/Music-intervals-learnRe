@@ -16,7 +16,7 @@ class WorkPaneRedux extends Component {
     
     function pathClicked () {
       let targetId = this.id.split('-').join(' - ')
-      console.log(targetId)
+      // console.log(targetId)
       that.props.setUserAnswer(targetId)
       $('#testedAnswer').val(targetId)
       $('.clicked-key').toggleClass()

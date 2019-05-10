@@ -19,7 +19,7 @@ let intervalsGroups = [firstIntervals, secondIntervals, thirdIntervals]
 class IntervalGroup extends Component {
    render () {
     let labelLang = this.props.language
-    console.log(labelLang)
+    // console.log(labelLang)
     return (
       <div className='little-big-intervals'>
         

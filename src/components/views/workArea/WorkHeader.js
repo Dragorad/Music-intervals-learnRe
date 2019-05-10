@@ -9,8 +9,8 @@ import NewTestSameIntervals from './NewTestSameIntervals'
 class WorkHeader extends Component {
   
   componentDidMount (props) {
-    console.log('mounting work-pane')
-    console.log(this.props.testIntervalData)
+    // console.log('mounting work-pane')
+    // console.log(this.props.testIntervalData)
   }
   
   componentWillUnmount () {

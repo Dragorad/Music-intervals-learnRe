@@ -235,7 +235,7 @@ const muzWorker = (() => {
       resultTone = 'B'
     }
     return resultTone + ' - ' + octave
-   
+    
   }
   
   function _getRandomInt (min, max) {
@@ -258,7 +258,7 @@ const muzWorker = (() => {
   
   function generateTestArr (inputIntervalsArr, testCount) {
     let targetIntervals = inputIntervalsArr
-    console.log(targetIntervals)
+    // console.log(targetIntervals)
     let testArr = []
     let tested = []
     let currentInterval = 'hack'
@@ -267,9 +267,9 @@ const muzWorker = (() => {
     targetIntervals = targetIntervals.map(element => intervalsKeys.find(e => e.name.bg === element))
     for (let i = 0; i < testCount; i++) {
       let idx = _getRandomInt(0, targetIntervals.length)
-      console.log(targetIntervals)
+      // console.log(targetIntervals)
       currentInterval = targetIntervals.splice(idx, 1)[0]
-      console.log(currentInterval)
+      // console.log(currentInterval)
       currentInterval.direction = directions[_getRandomInt(0, 2)]
       tested.push(currentInterval)
       currentInterval.baseToneIdx = generateBasePos(currentInterval)
@@ -281,12 +281,11 @@ const muzWorker = (() => {
     }
     
     testArr = testArr.map(el => generateTones(el))
-    // console.log(testArr)
     return testArr
   }
   
   function generateTones (intervalObj) {
-    // console.log(baseTonsArr)
+    
     let baseTonName = baseTonsArr[intervalObj.baseToneIdx]
     let bassName = baseTonName[0]
     if (Array.isArray(bassName)) {
@@ -306,7 +305,6 @@ const muzWorker = (() => {
     generateAnswer,
     intervals,
     _getRandomInt
-    // testAction
   }
 })()
 

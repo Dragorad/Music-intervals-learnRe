@@ -22,7 +22,7 @@ class ControlFields extends Component {
       
       <div className="controls-wrap">
         {texts.inputs.map((el, idx) => {
-            console.log(languagesText.en.controlForm.inputs.idx)
+            // console.log(languagesText.en.controlForm.inputs.idx)
             return (<NumericControlField
               key={idx}
               handleInputChange={this.handleInputChange.bind(this)}

@@ -23,19 +23,19 @@ const dataWorker = (() => {
     })
   
   function addResult (collectionName, resultObj) {
-    console.log('from dataWorker')
-    console.log(resultObj)
+    // console.log('from dataWorker')
+    // console.log(resultObj)
     db.collection(collectionName).add(resultObj)
       .then(function (docRef) {
         let id = docRef.id
         
-        console.log('Document written with ID:', id)
+        // console.log('Document written with ID:', id)
         let document = db.collection('results').doc(id)
         document.get()
           .then(doc => {
             let timeSaved = doc.data().timeSaved.toDate().toLocaleDateString()
             notify.show(`result saved with id ${id}`, 'success')
-            console.log(timeSaved)
+            // console.log(timeSaved)
             
           })
         
@@ -46,7 +46,7 @@ const dataWorker = (() => {
     .orderBy('sessionPoints', 'desc').limit(8)
   function getBestScores (collectionName) {
     let that = this
-    console.log('fetch data started')
+    // console.log('fetch data started')
     return resultsQuery.get()
       .then(snapshot => {
           let scoresArr = []
@@ -54,11 +54,11 @@ const dataWorker = (() => {
             doc => {
               let data = doc.data()
 
-              console.log(data.user + ' ' + data.sessionPoints)
+              // console.log(data.user + ' ' + data.sessionPoints)
               scoresArr.push(data)
             }
           )
-          console.log(scoresArr)
+          // console.log(scoresArr)
 
           return scoresArr
         }

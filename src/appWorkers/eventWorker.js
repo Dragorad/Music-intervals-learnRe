@@ -7,7 +7,7 @@ const eventWorker = (() => {
     function mapForMuzWorkerGenerateTest(testIntervalData, language) {
       testIntervalData['intervalsForTest'].serializeArray()
         .map(function (el) {
-            console.log(el)
+            // console.log(el)
             let elName = Object.values(muzWorker.intervals).find(elem => elem.name[language] === el.name)
             return {
               name: elName.name,
@@ -22,7 +22,7 @@ const eventWorker = (() => {
     function pathClicked(event, props) {
       event.preventDefault()
       let targetId = event.target.id.split('-').join(' - ')
-      console.log(targetId)
+      // console.log(targetId)
       $('#testedAnswer').val(targetId)
       $('.clicked-key').toggleClass()
       props.setUserAnswer(targetId)
@@ -47,7 +47,7 @@ const eventWorker = (() => {
     const passIndex = (() => {
       let idx = 0
       return function () {
-        console.log(idx++)
+        // console.log(idx++)
         return idx
       }
     })()
@@ -60,7 +60,7 @@ const eventWorker = (() => {
       this.props.setTimeRemaining(this.props.timeForAnswer)
       this.props.setAnswerVisible(false)
       this.props.actionTimer()
-      console.log('testButtonCommon started')
+      // console.log('testButtonCommon started')
     }
 
     function onTestButtonClick(e, props) {
@@ -106,7 +106,7 @@ const eventWorker = (() => {
     function onLangButtonClick(el) {
       el.preventDefault()
       let payload = el.target.textContent
-      console.log(payload)
+      // console.log(payload)
       this.props.setLanguage(el.target.textContent === 'ENGLISH' || el.target.textContent === 'EN' ?
         'en' : 'bg')
     }
@@ -134,7 +134,7 @@ const eventWorker = (() => {
 //   numberOfTasks: 4,
 // timeForAnswer:4
 // }
-// console.log(eventWorker.generateNewTestLink(props))
+// // console.log(eventWorker.generateNewTestLink(props))
 // eventWorker.timer(props)
 export default eventWorker
 

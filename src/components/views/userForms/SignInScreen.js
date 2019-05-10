@@ -40,7 +40,7 @@ class SignInScreen extends React.Component {
     componentDidMount() {
         this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
             (user) => {
-                console.log('user auth state is changing')
+                // console.log('user auth state is changing')
                 this.props.setIsSigning(true)
                 this.setState({isSignedIn: !!user})
                 // this.props.setIsSigned(!this.props.isSigned)

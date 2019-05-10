@@ -18,7 +18,7 @@ export const resetStore = () => (
       userName: getState().userName,
       user: getState().user
     }
-    console.log('from action ' + keepValues)
+    // console.log('from action ' + keepValues)
     let reStateObj = {...initialState, ...keepValues}
     dispatch({
       type: types.RESET_STORE,
@@ -140,12 +140,12 @@ export const timerReset = () => ({
 export const nextQuestionClickedAction = () => (
   (dispatch, getState) => {
     // dispatch(setTimerWorking(false))
-    // console.log(getState().timerWorking)
-    console.log('next quest from actions')
+    // // console.log(getState().timerWorking)
+    // // console.log('next quest from actions')
     let language = getState().languageSelected
     if (getState().tasksRemaining > 0) {
       dispatch(setCurrentInterval(getState().testArr))
-      // dispatch(setTimeRemaining(getState().testIntervalData.timeForAnswer))
+      dispatch(setTimeRemaining(getState().testIntervalData.timeForAnswer))
       $('#testedAnswer').val(`${languagesText[language].workPane.answerArea.dontKnow}`)
       dispatch(changeTasksRemaining(getState().tasksRemaining))
       dispatch(setAnswerVisible(false))
@@ -160,23 +160,23 @@ export const nextQuestionClickedAction = () => (
 )
 export const actionTimer = () => (
   function (dispatch, getState) {
-    console.log('action timer run')
+    // console.log('action timer run')
     let timer0 = setTimeout(
       function inner() {
         let timeRemaining = getState().timeRemaining
         dispatch(setTimeRemaining(timeRemaining - 1))
         let timerWorking = getState().timerWorking
-        console.log(timerWorking)
+        // console.log(timerWorking)
         timer0 = setTimeout(inner, 1000)
         if (!timerWorking) {
           clearTimeout(timer0)
-          console.log('timeout cleaned')
+          // console.log('timeout cleaned')
           return
         }
         if (timeRemaining === 1) {
           dispatch(setAnswerVisible(true))
           dispatch(setTimerWorking(false))
-          console.log('ho ho ho')
+          // console.log('ho ho ho')
           let pointsPerAnswer = getState().pointsPerAnswer
           let userAnswer = getState().userAnswer
           let isAnswerTrue = userAnswer === getState().currentInterval.answer

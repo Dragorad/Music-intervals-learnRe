@@ -26,7 +26,7 @@ let fourthIntervals = [
   }]
 let intervalsArr = Object.values(intervals)
 
-console.log(intervalsArr)
+// console.log(intervalsArr)
 let intervalsGroups = [intervalsArr, fourthIntervals]
 
 class IntervalButtonsWrap extends Component {

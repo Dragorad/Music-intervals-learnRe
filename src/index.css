@@ -561,6 +561,11 @@ table {
     font-size: 0.7em;
 }
 
+#test-start, #testedAnswer {
+ background-color: rgba(250, 235, 215, 0.22);
+    color: #658ab6;
+}
+
 td, th {
     border-bottom: 1px solid #6fa0b5;
     color: #658ab6
@@ -693,7 +698,7 @@ div.test-area {
 #testedAnswer {
     margin-bottom: 3em;
     height: 2em;
-    background-color: palegoldenrod;
+    /*background-color: palegoldenrod;*/
     color: #c10413;
     text-align: center;
     font-weight: bold;

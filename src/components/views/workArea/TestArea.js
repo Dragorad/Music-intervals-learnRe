@@ -34,7 +34,8 @@ class TestArea extends Component {
       <div className={'summary'}>
         {testFinished && <ResultStats/>}
         {testBtnVisible &&
-        <button className='summary-field'
+        <button className='summary-field data-field link'
+                id='test-start'
                 disabled={this.props.testRendered}
                 name='test-start-button'
                 onClick={eventWorker.onTestButtonClick.bind(this)}>

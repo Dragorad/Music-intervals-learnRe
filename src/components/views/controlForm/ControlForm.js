@@ -19,7 +19,7 @@ let testIntervalData = {
 function mapForMuzWorkerGenerateTest(intervalsForTest, language) {
 
   testIntervalData['intervalsForTest'] = intervalsForTest.serializeArray().map(function (el) {
-                console.log(el)
+                // console.log(el)
                 let elName = Object.values(muzWorker.intervals).find(elem => elem.name[language] === el.name)
                 return {
                     name: elName.name,
@@ -49,7 +49,7 @@ class ControlForm extends Component {
         // let field = target.type === 'checkbox' ? target.checked : target.value
         let value = target.value
         testIntervalData[target.name] = Number(target.value)
-        console.log(testIntervalData)
+        // console.log(testIntervalData)
         this.setState({[target]: value})
     }
 
@@ -57,10 +57,10 @@ class ControlForm extends Component {
         event.preventDefault()
         let intervalsForTest = $('input[type="checkbox"]:checked').not(
             $('#select-all'))
-        console.log(testIntervalData)
+        // console.log(testIntervalData)
         let alerts = languagesText[this.props.language].alerts
         let {timeForAnswer, numberOfTasks} = testIntervalData
-        // console.log(timeForAnswer)
+        // // console.log(timeForAnswer)
         if (timeForAnswer < 2 || timeForAnswer > 20) {
             notify.show(alerts.alertTime, 'success')
             return
@@ -69,14 +69,14 @@ class ControlForm extends Component {
             notify.show(alerts.alertTasks, 'error')
             return
         }
-        // console.log(testIntervalData.intervalsForTest)
+        // // console.log(testIntervalData.intervalsForTest)
         let language = this.props.language
         mapForMuzWorkerGenerateTest(intervalsForTest, language);
         if (intervalsForTest.length === 0) {
             notify.show(alerts.alertIntervals, 'warning')
         } else {
             let bgIntervalsForTest = [...testIntervalData.intervalsForTest].map(el => el.name.bg)
-          console.log(bgIntervalsForTest)
+          // console.log(bgIntervalsForTest)
           this.props.generateTestArr(
                 bgIntervalsForTest,
                 numberOfTasks
@@ -98,7 +98,7 @@ class ControlForm extends Component {
         let selectAllBox = $('#select-all')
         let deselectAllBox = $('#deselect-all')
         let simpleBoxes = boxes.filter((i, el) => Number(el.value) < 13)
-        // console.log(selectAllBox)
+        // // console.log(selectAllBox)
         selectAllBox.on('click', function () {
             simpleBoxes.prop('checked', true)
         })
