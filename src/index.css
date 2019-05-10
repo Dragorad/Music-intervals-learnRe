@@ -672,7 +672,7 @@ div.test-area {
     margin: 1%;
     width: 100%;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: stretch;
 }
 
 .answer-area {
