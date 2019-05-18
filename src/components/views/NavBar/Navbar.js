@@ -75,7 +75,7 @@ class Navbar extends Component {
         let addTxt = languagesText[this.props.language].header.titleTxt
         return (
             <header className='navbar'>
-                <div>
+                <div className='nav-left'>
                     <h1 className={'summary-field'}> Intervals L</h1>
                     <h4 className={'summary-field'}>
                         {userName === 'guest' ?
@@ -84,7 +84,8 @@ class Navbar extends Component {
                 </div>
                 {this.props.testRendered &&
                 <StatusArea/>}
-                {this.props.testRendered && this.props.isSigned && <SaveResultButton/>}
+               <div className='nav-buttons'>
+                   {this.props.testRendered && this.props.isSigned && <SaveResultButton/>}
 
                 {this.props.isSigned ?
                     <button onClick={this.signingOut.bind(this)}
@@ -95,7 +96,7 @@ class Navbar extends Component {
                         className={'summary-field link'}>Login
                     </button>}
                 {this.props.isSigning && <SignInScreen/>}
-
+               </div>
                 < LanguageButtons
                     strings={this.state.langButtonTxt}/>
                 < Link

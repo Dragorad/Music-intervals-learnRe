@@ -24,16 +24,18 @@ body {
     padding: 0;
 }
 
-@media (max-height: 600px) and (max-width: 800px) {
+@media (max-height: 800px) and (max-width: 568px) {
     body {
         width: 100%;
         height: 100%;
     }
 
     .welcome-text {
+        padding: 0.7%;
         height: 80%;
         display: flex;
         flex-flow: column nowrap;
+        box-sizing: border-box;
     }
 
     .landing {
@@ -95,17 +97,11 @@ body {
 /*height: 800px;*/
 /*}*/
 
-/*.work-pane {*/
-/*flex-flow: row nowrap;*/
-/*flex-shrink: 1;*/
-/*}*/
-/*}*/
-
 @media (min-width: 1281px) {
-    body {
-        width: 900px;
-        height: 1200px;
-    }
+    /*body {*/
+    /*    max-width: 800px;*/
+    /*    height: 1200px;*/
+    /*}*/
 
     header {
         height: 5em;
@@ -118,22 +114,40 @@ body {
 
 body {
     font-family: "Yanone", sans-serif;
-    max-width: 900px;
+    max-width: 800px;
+    height: 100%;
 }
 
 .navbar {
     /*background-image: url("./keyboard33.png");*/
     display: flex;
     flex-flow: row;
-    align-items: stretch;
+    align-items: center;
     align-content: center;
     justify-content: space-around;
     width: 97%;
+    max-height: 8%;
     box-shadow: 0 0 5em #666666;
     background: rgb(246, 246, 246);
     background: radial-gradient(circle, rgba(246, 246, 246, 1) 66%, rgba(233, 233, 233, 0.031232561383928603) 100%);
 }
+.nav-left{
+    width: 100%;
+}
+.nav-buttons{
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+    justify-content: space-evenly;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-transform: capitalize;
+    width: 80%;
+    height: 80%;
+    box-sizing: border-box;
+    /*padding: 1%;*/
 
+}
 .sign-in-screen {
     z-index: 5;
 }
@@ -187,11 +201,14 @@ body {
 }
 
 .lang-buttons {
-    width: 20%;
+    width: 80%;
     display: flex;
     flex-flow: column;
+align-items: flex-end;
 
-
+}
+.lang-buttons>button{
+    padding: 4%;
 }
 
 .lang-buttons button link {
@@ -210,7 +227,7 @@ a.summary-field, .landing-buttons button, header button, .summary-field.link {
 }
 
 .welcome-text {
-    padding: 3%;
+    padding: 1%;
     font-size: 1rem;
     font-style: italic;
     color: #e7f6e7;
@@ -340,7 +357,7 @@ input {
     height: 65%;
     width: 100%;
     box-sizing: border-box;
-    padding: 2%;
+    /*padding: 2%;*/
 }
 
 .little-big-intervals {
@@ -478,8 +495,8 @@ a.summary-field, button.summary-field, .summary-field.link {
 }
 
 svg {
-    margin: 0 3%;
-    height: 92%;
+    margin: 0 1%;
+    height: 100%;
     box-shadow: 5px 9px 12px 2px darkslategrey;
     flex-shrink: 1;
     flex-grow: 2;
@@ -501,6 +518,8 @@ header, .work-pane {
 
 .work-pane {
     flex-flow: row nowrap;
+    background-color: #fafafa;
+    padding: 1% 0;
 }
 
 header {
@@ -508,7 +527,7 @@ header {
     justify-content: space-between;
     align-items: stretch;
     flex-flow: row nowrap;
-    padding: 0.1%;
+    padding: 1% 8% 0 2%;
     /*border: 1px solid lemonchiffon;*/
     font-size: 0.8em;
 }
@@ -520,10 +539,6 @@ header > span {
 
 header a {
     margin: 3px;
-}
-
-.work-pane {
-    background-color: #fafafa;
 }
 
 .clicked-key {
@@ -545,8 +560,8 @@ header a {
     flex-flow: column;
     justify-content: flex-start;
     align-items: center;
-    height: 60%;
-    /*width: 50%;*/
+    /*height: 60%;*/
+    width: 50%;
     font-size: 1em;
     color: #666666;
     border: 1px solid cornflowerblue;
@@ -654,13 +669,14 @@ button {
     justify-content: space-evenly;
     width: 100%;
     /*height: 40%;*/
-    margin: 0 3%;
-    padding: 2%;
+    /*margin: 0 3%;*/
+    padding: 1%;
     z-index: 3;
 }
 
 header .condition {
-    font-size: 1.4em;
+    font-size: 1.2em;
+    width: 120%;
 }
 
 div.test-area {

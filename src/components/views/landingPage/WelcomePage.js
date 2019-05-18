@@ -22,7 +22,7 @@ class WelcomePage extends Component {
       <div className='welcome-text'>
         <h2>{texts.welcomeH2}</h2>
         <h3>{texts.welcomeH3}</h3>
-        {texts.exampleTexts.map((el, idx) => <p key={idx}>{el}</p>)}
+        {texts.exampleTexts.map((el, idx) => <p className={'welcome-text'} key={idx}>{el}</p>)}
         <button className='button'
                 onClick={() => this.props.history.push('/control-form')}>{texts.startButton.toUpperCase()}</button>
       </div>
