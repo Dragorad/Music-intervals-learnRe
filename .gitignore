@@ -19,3 +19,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+src/appWorkers/configAPI.js
+.idea/workspace.xml
+.idea/shelf/unnamed.xml
+.idea/shelf/unnamed/shelved.patch

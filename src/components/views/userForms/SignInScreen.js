@@ -61,7 +61,7 @@ class SignInScreen extends React.Component {
     render() {
         return (
             <div className={'sign-in-screen'}>
-                <h1>This is Mint version of music intervals</h1>
+                <h1>Sign in to Music intervals</h1>
                 <StyledFirebaseAuth uiConfig={uiConfig(this.props)} firebaseAuth={firebase.auth()}/>
             </div>
         )
