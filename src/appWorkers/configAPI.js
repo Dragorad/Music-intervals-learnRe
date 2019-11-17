@@ -1,6 +1,6 @@
 // import firebase from 'firebase'
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-import React from 'react'
+// import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+// import React from 'react'
 
 
 export const configAPI = {
