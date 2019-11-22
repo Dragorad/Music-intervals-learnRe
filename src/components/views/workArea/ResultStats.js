@@ -26,7 +26,7 @@ class ResultStats extends Component {
                     'cursor': 'pointer'
                   }
                   }> {this.props.bestResultsMinimized ?
-                    'minimize ' +  String.fromCharCode(215) :'maximize '+ String.fromCharCode(9645)}
+                    'minimize ' + String.fromCharCode(215) :'maximize '+ String.fromCharCode(9645)}
 
                 </span>
               </td>
