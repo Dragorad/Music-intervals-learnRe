@@ -19,7 +19,7 @@ export const resetStore = () => (
       user: getState().user
     }
     // console.log('from action ' + keepValues)
-    let reStateObj = {...initialState, ...keepValues}
+    let reStateObj = { ...initialState, ...keepValues }
     dispatch({
       type: types.RESET_STORE,
       payload: reStateObj
@@ -53,39 +53,39 @@ export const setTestFinished = boolean => ({
 })
 
 export const reGenerateNewTest = isTestWithSameData => ((dispatch, getState) => {
-    dispatch(setTimerWorking(false))
-    dispatch(setTestFinished(false))
-    dispatch(setTestRendered(false))
-    dispatch(setSessionPoints(0))
-    if (!isTestWithSameData) {
-      dispatch({
-        type: types.RE_GENERATE_NEW_TEST,
-        payload: {
-          newTestArr: [],
-          currentInterval: {}
-        }
-      })
-      dispatch(setTestIntervalData({}))
-      return
-    }
-    let intervalData = getState().testIntervalData
-    let numberOfTasks = intervalData.numberOfTasks
-    // let language = getState().languageSelected
-    let intervalsForTest = intervalData.intervalsForTest.map(el => (el = el.name.bg))
-    let newTestArr = muzWorker.generateTestArr(intervalsForTest, numberOfTasks)
-    let currentInterval = newTestArr[0]
-    dispatch(setTimeRemaining(intervalData.timeForAnswer))
-    dispatch(changeTasksRemaining(numberOfTasks + 1))
-    dispatch(setSessionPoints(0))
-    // dispatch(setTestRendered(false))
+  dispatch(setTimerWorking(false))
+  dispatch(setTestFinished(false))
+  dispatch(setTestRendered(false))
+  dispatch(setSessionPoints(0))
+  if (!isTestWithSameData) {
     dispatch({
       type: types.RE_GENERATE_NEW_TEST,
       payload: {
-        newTestArr,
-        currentInterval
+        newTestArr: [],
+        currentInterval: {}
       }
     })
+    dispatch(setTestIntervalData({}))
+    return
   }
+  let intervalData = getState().testIntervalData
+  let numberOfTasks = intervalData.numberOfTasks
+  // let language = getState().languageSelected
+  let intervalsForTest = intervalData.intervalsForTest.map(el => (el = el.name.bg))
+  let newTestArr = muzWorker.generateTestArr(intervalsForTest, numberOfTasks)
+  let currentInterval = newTestArr[0]
+  dispatch(setTimeRemaining(intervalData.timeForAnswer))
+  dispatch(changeTasksRemaining(numberOfTasks + 1))
+  dispatch(setSessionPoints(0))
+  // dispatch(setTestRendered(false))
+  dispatch({
+    type: types.RE_GENERATE_NEW_TEST,
+    payload: {
+      newTestArr,
+      currentInterval
+    }
+  })
+}
 )
 
 export const setTestIntervalData = intervalData => ({
@@ -140,10 +140,9 @@ export const timerReset = () => ({
     timerWorking: false
   }
 })
-export const toggleBestResults = () =>(
-  function(dispatch, getState) {
+export const toggleBestResults = () => (
+  function (dispatch, getState) {
     let bestResultsMinimized = getState().bestResultsMinimized
-    console.log(bestResultsMinimized)
     dispatch({
       type: types.SET_BEST_RESULS_MINIMIZED,
       payload: !bestResultsMinimized

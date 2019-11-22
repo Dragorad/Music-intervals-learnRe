@@ -7,8 +7,7 @@ class ResultStats extends Component {
   toggleMinimizing(e) {
     e.preventDefault()
     this.props.toggleBestResults()
-    console.log('best results change minimizing')
-  }
+      }
   render(props) {
     // let sessionAnswers = this.props.sessionAnswers
     let language = this.props.language
@@ -27,7 +26,7 @@ class ResultStats extends Component {
                     'cursor': 'pointer'
                   }
                   }> {this.props.bestResultsMinimized ?
-                    'minimize' : 'maximize'}
+                    'minimize ' +  String.fromCharCode(215) :'maximize '+ String.fromCharCode(9645)}
 
                 </span>
               </td>
