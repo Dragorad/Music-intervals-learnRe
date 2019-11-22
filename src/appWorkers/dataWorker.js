@@ -11,11 +11,11 @@ const dataWorker = (() => {
   
   db.enablePersistence()
     .catch(function (err) {
-      if (err.code == 'failed-precondition') {
+      if (err.code === 'failed-precondition') {
         console.log(`"Multiple tabs open, persistence can only be enabled
                 in one tab at a a time.
                 ...`)
-      } else if (err.code == 'unimplemented') {
+      } else if (err.code === 'unimplemented') {
         console.log(`The current browser does not support all of the
                 features required to enable persistence
                 ...`)
@@ -33,7 +33,7 @@ const dataWorker = (() => {
         let document = db.collection('results').doc(id)
         document.get()
           .then(doc => {
-            let timeSaved = doc.data().timeSaved.toDate().toLocaleDateString()
+            // let timeSaved = doc.data().timeSaved.toDate().toLocaleDateString()
             notify.show(`result saved with id ${id}`, 'success')
             // console.log(timeSaved)
             
@@ -45,7 +45,7 @@ const dataWorker = (() => {
   const resultsQuery = db.collection('results').where('sessionPoints', '>', 0)
     .orderBy('sessionPoints', 'desc').limit(8)
   function getBestScores (collectionName) {
-    let that = this
+    // let that = this
     // console.log('fetch data started')
     return resultsQuery.get()
       .then(snapshot => {

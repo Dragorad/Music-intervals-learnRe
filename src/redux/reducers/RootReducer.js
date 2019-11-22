@@ -88,6 +88,8 @@ const rootReducer = (state = initialState, action) => {
       return {...state, sessionPoints: state.sessionPoints + action.payload}
     case types.SET_SESSION_POINTS :
       return {...state, sessionPoints: action.payload}
+    case types.SET_BEST_RESULS_MINIMIZED :
+      return {...state, bestResultsMinimized: action.payload}
     case
     types.PUSH_INTERVAL_IN_RESULTS :
       return {...state, testResult: action.payload}

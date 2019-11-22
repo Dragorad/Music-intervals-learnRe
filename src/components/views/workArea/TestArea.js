@@ -22,12 +22,12 @@ class TestArea extends Component {
 
   render() {
     let text = languagesText[this.props.language].workPane
-    let BtnTexts = text.workHeader
+    // let BtnTexts = text.workHeader
     let language = this.props.language
     let testBtnVisible = this.props.testArr.length > 0 && !this.props.testRendered
     let texts = languagesText[language].workPane
     let startBtnTxt = texts.conditionArea.testBegin
-    let testRendered = this.props.testRendered
+    // let testRendered = this.props.testRendered
     let testFinished = this.props.testFinished
 
     return (

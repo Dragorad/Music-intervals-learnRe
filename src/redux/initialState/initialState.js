@@ -12,6 +12,7 @@ const initialState = {
   currentInterval: {},
   testRendered: false,
   testFinished: false,
+  bestResultsMinimized: false,
   answerVisible: false,
   answeringDisabled: false,
   regime:'local',

@@ -104,7 +104,10 @@ export const setTimeRemaining = time => ({
   type: types.SET_TIME_REMAINING,
   payload: time
 })
-
+export const setBestResultsMinimized = boolean => ({
+  type: types.SET_BEST_RESULS_MINIMIZED,
+  payload: boolean
+})
 export const setTimerWorking = boolean => ({
   type: types.SET_TIMER_WORKING,
   payload: boolean
@@ -137,6 +140,16 @@ export const timerReset = () => ({
     timerWorking: false
   }
 })
+export const toggleBestResults = () =>(
+  function(dispatch, getState) {
+    let bestResultsMinimized = getState().bestResultsMinimized
+    console.log(bestResultsMinimized)
+    dispatch({
+      type: types.SET_BEST_RESULS_MINIMIZED,
+      payload: !bestResultsMinimized
+    })
+  }
+)
 export const nextQuestionClickedAction = () => (
   (dispatch, getState) => {
     // dispatch(setTimerWorking(false))

@@ -7,9 +7,9 @@ const mapStateToProps = store => ({
  language : store.languageSelected,
   timeRemaining: store.timeRemaining
 })
-const mapDispatchToProps = dispatch => ({
+// const mapDispatchToProps = dispatch => ({
 
-})
+// })
 
 
 function ConditionFields (props) {
@@ -36,4 +36,6 @@ function ConditionFields (props) {
       text={props.interval.baseTone}/>
   </div>)
 }
-export default connect (mapStateToProps, mapDispatchToProps)(ConditionFields)
+export default connect (mapStateToProps) 
+  // mapDispatchToProps)
+  (ConditionFields)
