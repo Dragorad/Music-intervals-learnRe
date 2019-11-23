@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
 import FormInput from './FormInput.js'
-import muzWorker from '../../../appWorkers/intervalWorker.js'
+// import muzWorker from '../../../appWorkers/intervalWorker.js'
 import { connect } from 'react-redux'
 import { setLanguage } from '../../../redux/actions/indexActions'
 
-let {intervals} = muzWorker
+// let {intervals} = muzWorker
 
-let {secondMinor, secondMajor, thirdMinor, thirdMajor, ...rest} = intervals
-let {fourthPerfect, fourthAug, fifthDiminished, fifthPerfect, ...rest1} = rest
-let {sixthMinor, sixthMajor, seventhMinor, seventhMajor} = rest1
+// let {secondMinor, secondMajor, thirdMinor, thirdMajor, ...rest} = intervals
+// let {fourthPerfect, fourthAug, fifthDiminished, fifthPerfect,
+  //  ...rest1
+  // } = rest
+// let {sixthMinor, sixthMajor, seventhMinor, seventhMajor} = rest1
 
-let firstIntervals = [secondMinor, secondMajor, thirdMinor, thirdMajor]
-let secondIntervals = [fourthPerfect, fourthAug, fifthDiminished, fifthPerfect]
-let thirdIntervals = [sixthMinor, sixthMajor, seventhMinor, seventhMajor]
+// let firstIntervals = [secondMinor, secondMajor, thirdMinor, thirdMajor]
+// let secondIntervals = [fourthPerfect, fourthAug, fifthDiminished, fifthPerfect]
+// let thirdIntervals = [sixthMinor, sixthMajor, seventhMinor, seventhMajor]
 
-let intervalsGroups = [firstIntervals, secondIntervals, thirdIntervals]
+// let intervalsGroups = [firstIntervals, secondIntervals, thirdIntervals]
 
 class IntervalGroup extends Component {
    render () {

@@ -68,7 +68,7 @@ const eventWorker = (() => {
       this.props.setTestRendered(true)
       this.props.setTestFinished(false)
       this.props.setTimerWorking(true)
-      this.props.toggleBestResults()
+      this.props.setBestResultsMinimized(true)
       testButtonsCommon.call(this)
       this.props.setResultSaved(false)
     }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import dataWorker from '../../../appWorkers/dataWorker'
 import {
     // setTestRendered, 
-    // setBestResultsMinimized,
+    setBestResultsMinimized,
     toggleBestResults
 } from '../../../redux/actions/indexActions'
 
@@ -19,7 +19,7 @@ class BestResults extends Component {
     toggleMinimizing(e) {
         e.preventDefault()
         this.props.toggleBestResults()
-        console.log('best results change minimizing')
+        // console.log('best results change minimizing')
         // this.props.setTestRendered(!this.state.minimized)
         // this.setState({minimized: !this.state.minimized})
     }
@@ -61,17 +61,17 @@ class BestResults extends Component {
 
         return <table className='best-results'>
             <thead>
-                <tr style={{'font-size': '100%'}}>
+                <tr style={{ 'fontSize': '100%' }}>
                     <td style={{ 'color': '#c10413' }}>Best Results
                     <span className="close" onClick={this.toggleMinimizing.bind(this)}
                             style={{
                                 'position': 'absolute',
                                 'right': '1em',
                                 'cursor': 'pointer',
-                                'font-size': '100%'
+                                'fontSize': '100%'
                             }
                             }> {!this.props.bestResultsMinimized ?
-                               'minimize ' +  String.fromCharCode(215) :'maximize '+ String.fromCharCode(9645)}</span>
+                                'minimize ' + String.fromCharCode(215) : 'maximize ' + String.fromCharCode(9645)}</span>
                     </td>
                 </tr>
             </thead>

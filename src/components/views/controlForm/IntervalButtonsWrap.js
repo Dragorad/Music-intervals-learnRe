@@ -3,9 +3,9 @@ import muzWorker from '../../../appWorkers/intervalWorker'
 import IntervalGroup from './IntervalGroup'
 
 let {intervals} = muzWorker
-let {secondMinor, secondMajor, thirdMinor, thirdMajor, ...rest} = intervals
-let {fourthPerfect, fourthAug, fifthDiminished, fifthPerfect, ...rest1} = rest
-let {sixthMinor, sixthMajor, seventhMinor, seventhMajor} = rest1
+// let {secondMinor, secondMajor, thirdMinor, thirdMajor, ...rest} = intervals
+// let {fourthPerfect, fourthAug, fifthDiminished, fifthPerfect} = rest
+// let {sixthMinor, sixthMajor, seventhMinor, seventhMajor} = rest1
 
 
 let fourthIntervals = [

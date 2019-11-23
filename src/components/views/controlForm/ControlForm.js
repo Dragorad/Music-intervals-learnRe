@@ -83,7 +83,7 @@ class ControlForm extends Component {
             )
             this.props.setTestIntervalData(testIntervalData)
             this.props.setPointsPerAnswer(testIntervalData)
-            let newTestArr = this.props.testArr
+            // let newTestArr = this.props.testArr
             // window.localStorage.setItem(
             //   'testIntervalData',
             //   JSON.stringify(testIntervalData)

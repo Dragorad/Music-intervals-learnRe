@@ -105,6 +105,7 @@ const mapDispatchToProps = dispatch => ({
   addPointsToResult: (number, boolean) => dispatch(actions.addPointsToResult(number, boolean)),
   changeTasksRemaining: number => dispatch(actions.changeTasksRemaining(number)),
   toggleBestResults: () => dispatch(actions.toggleBestResults()),
+  setBestResultsMinimized: boolean => dispatch(actions.setBestResultsMinimized(boolean)),
   setAnswerVisible: boolean => dispatch(actions.setAnswerVisible(boolean)),
   setTimeRemaining: number => dispatch(actions.setTimeRemaining(number)),
   setCurrentInterval: testArr => dispatch(actions.setCurrentInterval(testArr)),
