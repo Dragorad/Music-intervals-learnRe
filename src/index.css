@@ -12,6 +12,7 @@ body {
 @import url('https://fonts.googleapis.com/css?family=Alegreya');
 @import url('https://fonts.googleapis.com/css?family=Marmelad');
 /*@import "../node_modules/bulma/css/bulma.css";*/
+
 * {
     margin: 0;
     padding: 0;
@@ -23,107 +24,6 @@ body {
     margin: 0;
     padding: 0;
 }
-
-@media  (max-width: 480px) {
-    body {
-        display: flex;
-        flex-flow: column;
-        width: 100%;
-        height: 100%;
-    }
-
-    .welcome-text {
-        padding: 0.7%;
-        height: 80%;
-        display: flex;
-        flex-flow: column nowrap;
-        box-sizing: border-box;
-    }
-h4{
-    display: none;
-}
-    .landing {
-        width: 100%;
-    }
-
-    .welcome-text button {
-        border: none;
-    }
-
-    h3 {
-        font-size: 0.4em;
-    }
-
-    .work-pane {
-        position: relative;
-                flex-flow: column-reverse;
-        width: 97%;
-        height: 90%;
-        display: flex;
-        flex-flow: column-reverse;
-        text-align: center;
-    }
-
-    .summary {
-        /* height: 30%; */
-        width: 25%;
-        flex-flow: column-reverse;
-
-    }
-
-    footer {
-        height: 50px;
-        width: 100%;
-    }
-
-    button.summary-field {
-        height: 100%;
-    }
-
-    
-    .best-results{
-        display: none;
-    order:5;
-        font-size: 0.5em;
-    }
-    .summary-field.link{
-        font-size: 0.6em;
-    }
-    .re-test-area{
-        order:8;
-    }
-}
-
-@media (min-height: 801px) {
-    a.summary-field, button.summary-field, .summary-field.link {
-        height: 2em;
-    }
-
-    .summary {
-        max-width: 30%;
-    }
-}
-
-/*@media (max-width: 1280px) and (min-width: 600px){*/
-/*body {*/
-/*width: 600px;*/
-/*height: 800px;*/
-/*}*/
-
-@media (min-width: 1281px) {
-    /*body {*/
-    /*    max-width: 800px;*/
-    /*    height: 1200px;*/
-    /*}*/
-
-    header {
-        height: 5em;
-        font-size: 0.8em;
-    }
-
-
-}
-
 
 body {
     font-family: "Yanone", sans-serif;
@@ -144,10 +44,12 @@ body {
     background: rgb(246, 246, 246);
     background: radial-gradient(circle, rgba(246, 246, 246, 1) 66%, rgba(233, 233, 233, 0.031232561383928603) 100%);
 }
-.nav-left{
+
+.nav-left {
     width: 100%;
 }
-.nav-buttons{
+
+.nav-buttons {
     display: flex;
     flex-flow: row;
     align-items: stretch;
@@ -159,15 +61,13 @@ body {
     height: 80%;
     box-sizing: border-box;
     /*padding: 1%;*/
-
 }
+
 .sign-in-screen {
     z-index: 5;
 }
 
-#loadingBox,
-#errorBox,
-#infoBox {
+#loadingBox, #errorBox, #infoBox {
     display: none;
 }
 
@@ -176,7 +76,6 @@ body {
     text-align: center;
     display: flex;
     flex-flow: column;
-
 }
 
 .welcome-screen {
@@ -217,10 +116,10 @@ body {
     width: 80%;
     display: flex;
     flex-flow: column;
-align-items: flex-end;
-
+    align-items: flex-end;
 }
-.lang-buttons>button{
+
+.lang-buttons>button {
     padding: 4%;
 }
 
@@ -245,7 +144,6 @@ a.summary-field, .landing-buttons button, header button, .summary-field.link {
     font-style: italic;
     color: #e7f6e7;
 }
-
 
 .control-form p {
     font-size: 0.8rem;
@@ -289,7 +187,6 @@ h2, h3 {
     /*width: 25%;*/
     text-align: center;
     display: flex;
-
     align-items: baseline;
     margin: 0.5%;
 }
@@ -393,8 +290,7 @@ legend {
     margin: auto;
 }
 
-.regimes input:checked + label,
-.interval-buttons-wrap input:checked + label {
+.regimes input:checked+label, .interval-buttons-wrap input:checked+label {
     background-color: crimson;
     text-decoration: none;
     color: white;
@@ -435,7 +331,7 @@ legend {
     background-color: darkslategrey;
 }
 
-.interval-button-medium > label {
+.interval-button-medium>label {
     background-color: slategrey;
     border-radius: 2%;
     padding: 3%;
@@ -493,7 +389,6 @@ footer {
 }
 
 a.summary-field, button.summary-field, .summary-field.link {
-
     box-sizing: border-box;
     text-align: center;
     text-transform: uppercase;
@@ -514,7 +409,6 @@ svg {
     flex-shrink: 1;
     flex-grow: 2;
     max-width: 75%;
-
 }
 
 header, .work-pane {
@@ -530,7 +424,7 @@ header, .work-pane {
 }
 
 .work-pane {
-    flex-flow: row nowrap;
+    flex-flow: column;
     background-color: #fafafa;
     padding: 1% 0;
 }
@@ -545,7 +439,7 @@ header {
     font-size: 0.8em;
 }
 
-header > span {
+header>span {
     color: darkred;
     font-style: italic;
 }
@@ -556,12 +450,10 @@ header a {
 
 .clicked-key {
     fill: lightpink;
-
 }
 
 .base-key {
     fill: #afffec;
-
 }
 
 .clicked-key:first-child {
@@ -570,11 +462,11 @@ header a {
 
 .summary {
     display: flex;
-    flex-flow: column;
+    flex-flow: row;
     justify-content: space-between;
     align-items: center;
     /*height: 60%;*/
-    width: 35%;
+    /* width: 35%; */
     font-size: 1em;
     color: #666666;
     border: 1px solid cornflowerblue;
@@ -590,7 +482,7 @@ table {
 }
 
 #test-start, #testedAnswer {
- background-color: rgba(250, 235, 215, 0.22);
+    background-color: rgba(250, 235, 215, 0.22);
     color: #658ab6;
 }
 
@@ -629,7 +521,6 @@ button {
 .result-stats p, .summary-field span {
     color: #0c0d6b;
     font-size: 1.0em;
-
 }
 
 .modal {
@@ -637,16 +528,17 @@ button {
 }
 
 .best-results {
-    position: absolute;
+    position: relative;
     /* display: block; */
-    max-width: 44%;
+    max-width: 95%;
     box-shadow: 0.5em 1em 2em #0426261a;
     bottom: 8%;
     right: 3%;
+    font-size: 0.8em;
     /* z-index: 1; */
 }
 
-.hidden > td {
+.hidden>td {
     transition: color 1s linear 1s;
     background-color: red;
     color: azure;
@@ -654,6 +546,9 @@ button {
 
 .best-results span {
     font-size: large;
+}
+thead{
+    position: relative;
 }
 
 .best-results tr p {
@@ -663,7 +558,6 @@ button {
     align-content: center;
     transition-property: display;
     transition-timing-function: ease-in-out;
-
 }
 
 .summary-field {
@@ -671,7 +565,7 @@ button {
     padding: 1%;
 }
 
-.answer-form > input {
+.answer-form>input {
     background-color: #c0cfe1;
 }
 
@@ -693,7 +587,9 @@ header .condition {
 }
 
 div.test-area {
-    width: 100%;
+    width: 35%;
+    padding: 4%;
+    justify-content: space-evenly;
 }
 
 .re-test-area {
@@ -713,6 +609,7 @@ div.test-area {
     display: flex;
     border: 1px solid antiquewhite;
     flex-flow: column;
+    align-content: flex-start;
 }
 
 .right-answer {
@@ -743,7 +640,6 @@ div.test-area {
     box-shadow: #867260;
     border: 1px solid blueviolet;
     background-color: midnightblue;
-
 }
 
 .testFinished p {
@@ -752,9 +648,7 @@ div.test-area {
     margin: 5%;
 }
 
-#infoBox,
-#errorBox,
-#loadingBox {
+#infoBox, #errorBox, #loadingBox {
     width: 80%;
     margin: 10px auto;
     color: white;
@@ -778,4 +672,112 @@ div.test-area {
 
 #0 {
     fill: red;
+}
+
+.start-best-results {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    /* text-align:-webkit-center; */
+    margin: auto;
+}
+
+.work-pane {
+    flex-flow: column-reverse;
+}
+
+.summary {
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+}
+
+@media (max-width: 480px) {
+    body {
+        display: flex;
+        flex-flow: column;
+        width: 100%;
+        height: 100%;
+    }
+    .welcome-text {
+        padding: 0.7%;
+        height: 80%;
+        display: flex;
+        flex-flow: column nowrap;
+        box-sizing: border-box;
+    }
+    h4 {
+        display: none;
+    }
+    .landing {
+        width: 100%;
+    }
+    .welcome-text button {
+        border: none;
+    }
+    h3 {
+        font-size: 0.4em;
+    }
+    .work-pane {
+        position: relative;
+        flex-flow: column;
+        width: 97%;
+        height: 90%;
+        display: flex;
+        flex-flow: column-reverse;
+        text-align: center;
+    }
+    .summary {
+        /* height: 30%; */
+        width: 100%;
+        /* flex-flow: column; */
+        margin: auto;
+    }
+    footer {
+        height: 50px;
+        width: 100%;
+    }
+    button.summary-field {
+        height: 100%;
+    }
+    #test-start {
+        width: 90%;
+        height: 80%;
+    }
+    .best-results {
+        /* display: none; */
+        order: 5;
+        font-size: 0.5em;
+    }
+    .summary-field.link {
+        font-size: 0.6em;
+    }
+    .re-test-area {
+        order: 8;
+    }
+    div.test-area {
+        width: 24%;
+        font-size: 1em;
+    }
+    #next-question,.summary-field{
+        font-size: 0.6em;
+    }
+}
+
+@media (max-width: 1280px) and (min-width: 481px) {
+    body {
+        width: 600px;
+        height: 800px;
+    }
+}
+
+@media (min-width: 1281px) {
+    body {
+        max-width: 600px;
+        /* max-height:850px; */
+    }
+    header {
+        height: 5em;
+        font-size: 0.8em;
+    }
 }

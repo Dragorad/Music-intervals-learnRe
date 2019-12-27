@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import ControlForm from './components/views/controlForm/ControlForm'
-import WorkPaneRedux from './components/containers/WorkPaneRedux'
+import WorkPaneRedux from './components/views/workArea/WorkPaneRedux'
 import UserForm from './components/views/userForms/SignInScreen'
 import WelcomePage from './components/views/landingPage/WelcomePage'
 

@@ -2,6 +2,7 @@ import TestField from './TestField'
 import React from 'react'
 import languagesText from '../../../LanguagesData/LanguagesText'
 import { connect } from 'react-redux'
+import StatusArea from './StatusArea'
 
 const mapStateToProps = store => ({
  language : store.languageSelected,
@@ -15,6 +16,7 @@ const mapStateToProps = store => ({
 function ConditionFields (props) {
   let texts = languagesText[props.language].workPane.testArea
   return( <div className='condition'>
+    <StatusArea/>
     <TestField
     label={texts.timeRemaining}
     text={props.timeRemaining}/>

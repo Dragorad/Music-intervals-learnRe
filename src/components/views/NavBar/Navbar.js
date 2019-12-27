@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import * as actions from '../../../redux/actions/indexActions'
 import LanguageButtons from './LanguageButtons'
 import {Link} from 'react-router-dom'
-import StatusArea from '../workArea/StatusArea'
+// import StatusArea from '../workArea/StatusArea'
 import languagesText from '../../../LanguagesData/LanguagesText'
 import {notify} from 'react-notify-toast'
 import firebase from 'firebase'
@@ -82,8 +82,7 @@ class Navbar extends Component {
                             addTxt :
                             <strong style={{'color': 'black'}}> Welcome {userName}</strong>}</h4>
                 </div>
-                {this.props.testRendered &&
-                <StatusArea/>}
+                {/* {this.props.testRendered && <StatusArea/>} */}
                <div className='nav-buttons'>
                    {this.props.testRendered && this.props.isSigned && <SaveResultButton/>}
 

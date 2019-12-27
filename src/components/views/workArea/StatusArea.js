@@ -14,7 +14,7 @@ class StatusArea extends Component {
   render () {
     let language = this.props.language
     let texts = languagesText[language].workPane.conditionArea
-    return <div className='condition'>
+    return <div className='condition status-area'>
       <TestField
         label={texts.taskRemaining}
         text={this.props.tasksRemaining}/>
