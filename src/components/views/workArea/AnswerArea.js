@@ -5,8 +5,8 @@ import * as actions from '../../../redux/actions/indexActions'
 import eventWorker from '../../../appWorkers/eventWorker'
 
 class AnswerArea extends Component {
-  constructor (props){
-    super(props)
+  constructor (){
+    super()
     this.state = {
       answeringDisabled: false
     }

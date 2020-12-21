@@ -6,8 +6,8 @@ import eventWorker from '../../../appWorkers/eventWorker'
 import languagesText from '../../../LanguagesData/LanguagesText'
 import AnswerArea from './AnswerArea'
 import ConditionFields from './ConditionFields'
-import NewTestLink from './NewTestLink'
-import NewTestSameIntervals from './NewTestSameIntervals'
+// import NewTestLink from './NewTestLink'
+// import NewTestSameIntervals from './NewTestSameIntervals'
 import BestResults from './BestResults'
 import Keyboard0 from './Keyboard0'
 
@@ -21,7 +21,7 @@ class TestArea extends Component {
       answeringDisabled: false,
       testFinished: this.props.testFinished
     }
-   
+
 
   }
 
@@ -36,37 +36,36 @@ class TestArea extends Component {
     let testFinished = this.props.testFinished
 
     return (
-      <React.Fragment >
-        <div className={'summary'}>
-          {!testBtnVisible && <Keyboard0 />}
-          {testFinished && <ResultStats />}
-          {testBtnVisible &&
-            <div className={'start-best-results'}>
-              <button className='summary-field data-field link'
-                id='test-start'
-                disabled={this.props.testRendered}
-                name='test-start-button'
-                onClick={eventWorker.onTestButtonClick.bind(this)}>
-                {startBtnTxt}
-              </button>
-              <BestResults />
-            </div>
-          }
+      <div className={'summary'}>
+        {!testBtnVisible && <Keyboard0 />}
+        {testFinished && <ResultStats />}
+        {testBtnVisible &&
+          <div className={'start-best-results'}>
+            <button className='summary-field data-field link'
+              id='test-start'
+              disabled={this.props.testRendered}
+              name='test-start-button'
+              onClick={eventWorker.onTestButtonClick.bind(this)}>
+              {startBtnTxt}
+            </button>
+            <BestResults />
+          </div>
+        }
 
-          {this.props.testRendered &&
+        {this.props.testRendered &&
 
-            (!testFinished &&
-              <div className='test-area'>
+          (!testFinished &&
+            <div className='test-area'>
 
-                <ConditionFields
-                  interval={this.props.interval} language={this.props.language} />
+              <ConditionFields
+                interval={this.props.interval} language={this.props.language} />
 
-                <AnswerArea
-                  onSendAnswClick={this.props.onSendAnswClick}
-                  interval={this.props.interval} />
-              </div>)}
-        </div>
-      </React.Fragment>
+              <AnswerArea
+                onSendAnswClick={this.props.onSendAnswClick}
+                interval={this.props.interval} />
+            </div>)}
+      </div>
+
     )
 
   }

@@ -38,6 +38,4 @@ function ConditionFields (props) {
       text={props.interval.baseTone}/>
   </div>)
 }
-export default connect (mapStateToProps)(ConditionFields)
-  // mapDispatchToProps)
-  
+export default connect (mapStateToProps)(ConditionFields)  
