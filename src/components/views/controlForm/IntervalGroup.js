@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import FormInput from './FormInput.js'
 // import muzWorker from '../../../appWorkers/intervalWorker.js'
 import { connect } from 'react-redux'
@@ -18,14 +18,13 @@ import { setLanguage } from '../../../redux/actions/indexActions'
 
 // let intervalsGroups = [firstIntervals, secondIntervals, thirdIntervals]
 
-class IntervalGroup extends Component {
-   render () {
-    let labelLang = this.props.language
+function IntervalGroup (props) {
+       let labelLang = props.language
     // console.log(labelLang)
     return (
       <div className='little-big-intervals'>
         
-        {this.props.group.map((obj, i) => {
+        {props.group.map((obj, i) => {
           return (
             <FormInput
               key={i}
@@ -38,7 +37,7 @@ class IntervalGroup extends Component {
             />
           )
         })
-        }      </div>)  }
+        }      </div>)  
 }
 
 const mapStateToProps  = store => {

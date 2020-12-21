@@ -1,9 +1,9 @@
-import React from 'react'
+// import React from 'react'
 import {connect} from 'react-redux'
 import dataWorker from '../../../appWorkers/dataWorker'
 import languagesText from '../../../LanguagesData/LanguagesText'
 import {notify} from 'react-notify-toast'
-import {setResultSaved} from "../../../redux/actions/indexActions";
+import {setResultSaved} from "../../../redux/actions/indexActions"
 
 function mapStateToProps(state) {
     return {
