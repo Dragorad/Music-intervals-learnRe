@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import muzWorker from '../../../appWorkers/intervalWorker'
 import IntervalGroup from './IntervalGroup'
 

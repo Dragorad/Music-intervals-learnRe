@@ -29,6 +29,8 @@ body {
     font-family: "Yanone", sans-serif;
     max-width: 800px;
     height: 100%;
+    margin: auto;
+    padding: 0,4%;
 }
 
 .navbar {
@@ -577,7 +579,7 @@ thead{
     width: 100%;
     /*height: 40%;*/
     /*margin: 0 3%;*/
-    padding: 1%;
+    padding: 0 3%;
     z-index: 3;
 }
 
@@ -587,8 +589,8 @@ header .condition {
 }
 
 div.test-area {
-    width: 35%;
-    padding: 4%;
+    width: 38%;
+    padding-right: 3%;
     justify-content: space-evenly;
 }
 
@@ -716,7 +718,8 @@ div.test-area {
         border: none;
     }
     h3 {
-        font-size: 0.4em;
+        margin: 1%;
+        /* font-size: 0.4em; */
     }
     .work-pane {
         position: relative;

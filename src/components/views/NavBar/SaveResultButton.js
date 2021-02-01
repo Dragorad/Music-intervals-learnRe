@@ -1,4 +1,4 @@
-// import React from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import dataWorker from '../../../appWorkers/dataWorker'
 import languagesText from '../../../LanguagesData/LanguagesText'
