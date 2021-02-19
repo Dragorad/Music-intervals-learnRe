@@ -406,9 +406,17 @@ svg {
     margin: 0 1%;
     height: 100%;
     box-shadow: 5px 9px 12px 2px darkslategrey;
+    /* box-shadow: 2px 3px 6px 1px #2f4f4fab; */
+    /* border-radius: 3%; */
     flex-shrink: 1;
     flex-grow: 2;
     max-width: 75%;
+}
+span>svg{
+    border-radius: 30%;
+    position: relative;
+    bottom: -22%;
+    box-shadow: 1px 3px 3px 2px #2f4f4fab;
 }
 
 header, .work-pane {
@@ -768,16 +776,14 @@ div.test-area {
     body {
         width: 600px;
         height: 800px;
+        margin: auto;
     }
 }
 
 @media (min-width: 1281px) {
     body {
         max-width: 600px;
-        /* max-height:850px; */
+        margin: auto;
     }
-    header {
-        height: 5em;
-        font-size: 0.8em;
-    }
+
 }

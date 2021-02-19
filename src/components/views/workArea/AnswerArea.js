@@ -5,15 +5,11 @@ import * as actions from '../../../redux/actions/indexActions'
 import eventWorker from '../../../appWorkers/eventWorker'
 
 class AnswerArea extends Component {
-  constructor (){
-    super()
-    this.state = {
-      answeringDisabled: false
-    }
-  }
+ 
   render () {
-    let language = this.props.language
-    let texts = languagesText[language].workPane.answerArea
+    const language = this.props.language
+    const texts = languagesText[language].workPane.answerArea
+    const answeringDisabled = this.props.answeringDisabled
     
     return <div className='answer-area'>
       <div className='summary-field ' style={{display: 'block'}}>
@@ -21,8 +17,8 @@ class AnswerArea extends Component {
         <input id='testedAnswer' type='text' name='testedAnswer' placeholder={texts.dontKnow}/>
       </div>
 
-    {!this.props.answeringDisabled &&  <button id='answering'
-              disabled={this.props.answeringDisabled}
+    {!answeringDisabled &&  <button id='answering'
+              disabled={answeringDisabled}
               className='summary-field' style={{
         margin: 'auto',
         backgroundColor: '#f9f9f9',
@@ -31,7 +27,7 @@ class AnswerArea extends Component {
               onClick={eventWorker.answeringClicked.bind(this)}>{texts.sendAnswer.toUpperCase()} </button>}
 
 
-     {this.props.answeringDisabled && <button id='next-question' className='summary-field'
+     { answeringDisabled && <button id='next-question' className='summary-field'
               onClick={eventWorker.nextQuestionClicked.bind(this)}>
         {languagesText[language].workPane.testArea.nextQuest}
       </button>}
