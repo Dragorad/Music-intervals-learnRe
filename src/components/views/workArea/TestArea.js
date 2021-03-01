@@ -10,6 +10,7 @@ import ConditionFields from './ConditionFields'
 // import NewTestSameIntervals from './NewTestSameIntervals'
 import BestResults from './BestResults'
 import Keyboard0 from './Keyboard0'
+import { Spring } from 'react-spring/renderprops'
 
 
 class TestArea extends Component {
@@ -55,15 +56,19 @@ class TestArea extends Component {
         {this.props.testRendered &&
 
           (!testFinished &&
-            <div className='test-area'>
+            <Spring from={{ opacity: 0 }}
+              to={{ opacity: 1 }}>
+              {props => (<div className='test-area' style={props}>
 
-              <ConditionFields
-                interval={this.props.interval} language={this.props.language} />
+                <ConditionFields
+                  interval={this.props.interval} language={this.props.language} />
 
-              <AnswerArea
-                onSendAnswClick={this.props.onSendAnswClick}
-                interval={this.props.interval} />
-            </div>)}
+                <AnswerArea
+                  onSendAnswClick={this.props.onSendAnswClick}
+                  interval={this.props.interval} />
+              </div>)}
+            </Spring>
+          )}
       </div>
 
     )

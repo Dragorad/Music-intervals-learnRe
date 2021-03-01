@@ -9,6 +9,7 @@ import { notify } from 'react-notify-toast'
 import firebase from 'firebase'
 import SignInScreen from '../userForms/SignInScreen'
 import SaveResultButton from './SaveResultButton'
+import { config, Spring } from 'react-spring/renderprops'
 
 function mapStateToProps(store) {
     return {
@@ -69,7 +70,9 @@ class Navbar extends Component {
         let userName = this.props.userName
         let isSigning = this.props.isSigning
 
-        let addTxt = languagesText[this.props.language].header.titleTxt
+        let addTxt = this.props.language === '' ? 'Please select a language'
+            :
+            languagesText[this.props.language].header.titleTxt
         return (
             <header className='navbar'>
                 <div className='nav-left'>
@@ -93,8 +96,12 @@ class Navbar extends Component {
                     </button>}
                     {this.props.isSigning && <SignInScreen />}
                 </div>
-                < LanguageButtons
-                    strings={this.state.langButtonTxt} />
+                <Spring from={{ opacity: 0 }}
+                    to={{ opacity: 1 }}
+                    config={config.slow}>
+                    {props => (< LanguageButtons style={props}
+                        strings={this.state.langButtonTxt} />)}
+                </Spring>
                 < Link
                     className={'button'}
                     to={'/'}>Help </Link>

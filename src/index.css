@@ -523,7 +523,7 @@ button {
 }
 
 .result-stats {
-    transition: background-color 1s linear 1s;
+    transition:  all 1s;
 }
 
 .result-stats p, .summary-field span {

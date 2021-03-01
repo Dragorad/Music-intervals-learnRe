@@ -7,6 +7,7 @@ import * as actions from '../../../redux/actions/indexActions'
 import languagesText from '../../../LanguagesData/LanguagesText'
 import muzWorker from '../../../appWorkers/intervalWorker'
 import { notify } from 'react-notify-toast'
+import { Spring } from 'react-spring/renderprops'
 
 let $ = jquery
 let testIntervalData = {
@@ -97,23 +98,27 @@ class ControlForm extends Component {
 
     render() {
         return (
-            <form
-                method='GET'
-                action='#/conditions'
-                className='control-form'
-                onSubmit={this.handleSubmit}
-            >
-                <div className='fields-wrap'>
-                    <ControlFields
-                        handleInputChange={this.handleInputChange}
-                    />
+            <Spring from={{ opacity: 0 }}
+                to={{ opacity: 1 }}>
+                {props => (<form
+                    style={props}
+                    method='GET'
+                    action='#/conditions'
+                    className='control-form'
+                    onSubmit={this.handleSubmit}
+                >
+                    <div className='fields-wrap'>
+                        <ControlFields
+                            handleInputChange={this.handleInputChange}
+                        />
 
-                    <IntervalButtonsWrap
-                        handleInputChange={this.handleInputChange}
-                        handleSubmit={this.handleSubmit}
-                    />
-                </div>
-            </form>
+                        <IntervalButtonsWrap
+                            handleInputChange={this.handleInputChange}
+                            handleSubmit={this.handleSubmit}
+                        />
+                    </div>
+                </form>)}
+            </Spring>
         )
     }
 }

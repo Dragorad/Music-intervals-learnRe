@@ -6,7 +6,7 @@ import eventWorker from '../../../appWorkers/eventWorker'
 class LanguageButtons extends Component {
   constructor (props) {
     super(props)
-    this.strings = this.props.strings
+    this.strings = ['БГ','EN']
     this.callBackFn = (el, idx) => {
       return (
         <button

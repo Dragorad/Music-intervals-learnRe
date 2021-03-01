@@ -30,11 +30,11 @@ let intervalsArr = Object.values(intervals)
 let intervalsGroups = [intervalsArr, fourthIntervals]
 
 class IntervalButtonsWrap extends Component {
-  constructor (props) {
-    super(props)
-    this.props.handleSubmit.bind(this)
-    this.props.handleInputChange.bind(this)
-  }
+  // constructor (props) {
+  //   super(props)
+  //   // this.props.handleSubmit.bind(this)
+  //   // this.props.handleInputChange.bind(this)
+  // }
   
   render () {
     return (<div className='interval-buttons-wrap'>

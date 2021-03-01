@@ -10,23 +10,20 @@ import Notifications from 'react-notify-toast'
 import { notifyOptions } from './notifyOptions'
 import 'firebase/auth'
 
-class App extends Component {
-  render () {
-    return (
-      <Provider store={store}>
-        <BrowserRouter>
-          <React.Fragment>
-            <Navbar/>
-            <Routes/>
-            <Footer/>
-            <Notifications
-              options={notifyOptions}
-            />
-          </React.Fragment>
-        </BrowserRouter>
-      </Provider>
-    )
-  }
-}
 
-export default App
+export default function App() {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <React.Fragment>
+          <Navbar />
+          {<Routes />}
+          <Footer />
+          <Notifications
+            options={notifyOptions}
+          />
+        </React.Fragment>
+      </BrowserRouter>
+    </Provider>
+  )
+}
