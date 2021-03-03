@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
-import {FirebaseApp, FirebaseContext} from "./appWorkers/firebaseWorker"
+// import {FirebaseApp, FirebaseContext} from "./appWorkers/firebaseWorker"
 import {defaultContextValue} from "./ReactContext/initialContext"
 import {AppContext} from '../src/ReactContext/initialContext'
 // import FirebaseContext from ''
