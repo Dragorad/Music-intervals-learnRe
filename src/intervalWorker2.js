@@ -300,6 +300,8 @@ const muzWorker = (() => {
 }
 )()
 
+// test in file
+
 // let intervalForTest = {
 //   baseTone: 'G - 1',
 //   direction: 'down',
@@ -309,8 +311,8 @@ const muzWorker = (() => {
 // }
 // let answer = muzWorker.generateAnswer(intervalForTest)
 // console.log(answer)
-let testArr = muzWorker.generateTestArr(['малка септима', 'голяма септима', 'малка секста'], 50).map(el => [el.name, el.direction, el.baseTone])
-console.log(testArr);
+// let testArr = muzWorker.generateTestArr(['малка септима', 'голяма септима', 'малка секста'], 50).map(el => [el.name, el.direction, el.baseTone])
+// console.log(testArr);
 // let mistakeArea = []
 // for (const answerObj of testArr) {
 //   if (answerObj.answer.includes('undef')) {

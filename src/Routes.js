@@ -1,18 +1,18 @@
 import React, { Suspense, lazy } from 'react'
 import { connect } from 'react-redux'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
-import { animated, useTransition } from 'react-spring'
+// import { animated, useTransition } from 'react-spring'
 import SelectLanguage from './components/views/landingPage/SelectLanguage'
-// import Navbar from './components/views/NavBar/Navbar'
+import WelcomePage  from  './components/views/landingPage/WelcomePage'
+import ControlForm from './components/views/controlForm/ControlForm'
+import WorkPaneRedux from './components/views/workArea/WorkPaneRedux'
+import * as UserForm from './components/views/userForms/SignInScreen'
 
 
-const WelcomePage  = React.lazy (() => import ('./components/views/landingPage/WelcomePage'))
-
-
-// const WelcomePage = React.lazy(() => import('./components/views/landingPage/WelcomePage'))
-const ControlForm = React.lazy(() => import('./components/views/controlForm/ControlForm'))
-const WorkPaneRedux = React.lazy(() => import('./components/views/workArea/WorkPaneRedux'))
-const UserForm = React.lazy(() => import('./components/views/userForms/SignInScreen'))
+// const WelcomePage  = React.lazy (() => import ('./components/views/landingPage/WelcomePage'))
+// const ControlForm = React.lazy(() => import('./components/views/controlForm/ControlForm'))
+// const WorkPaneRedux = React.lazy(() => import('./components/views/workArea/WorkPaneRedux'))
+// const UserForm = React.lazy(() => import('./components/views/userForms/SignInScreen'))
 
 
 const mapStateToProps = store => ({
@@ -20,17 +20,17 @@ const mapStateToProps = store => ({
 })
 
 const Routes = (props) => {
-  const location = useLocation()
+  // const location = useLocation()
 
-  const transitions = useTransition(location, location => location.pathname, {
-    from: { opacity: 0, width: "0%" },
-    enter: { opacity: 1, width: "100%" },
-    leave: { opacity: 0, width: "0%" }
-  })
+  // const transitions = useTransition(location, location => location.pathname, {
+  //   from: { opacity: 0, width: "0%" },
+  //   enter: { opacity: 1, width: "100%" },
+  //   leave: { opacity: 0, width: "0%" }
+  // })
 
   return (
-          <Suspense fallback={SelectLanguage} >
-            <Switch location={location}>
+          // <Suspense fallback={<Footer />} >
+            <Switch>
               <Route exact path='/' component={
                 props.language === '' ? SelectLanguage : WelcomePage} />
               <Route exact path='/login' component={UserForm} />
@@ -42,7 +42,7 @@ const Routes = (props) => {
               <Route path='/work-pane' component={WorkPaneRedux} />
               <div>404 page not found</div>
             </Switch>
-          </Suspense>
+          // </Suspense>
   
   )
 }

@@ -25,3 +25,4 @@ src/appWorkers/configAPI.js
 .idea/shelf/unnamed/shelved.patch
 src/appWorkers/configAPI.js
 .eslintcache
+src/stories

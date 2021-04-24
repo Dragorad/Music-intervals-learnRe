@@ -1,6 +1,9 @@
 import { connect } from 'react-redux'
 import languagesText from '../../../../src/LanguagesData/LanguagesText'
 import { useSpring, useTrail, useTransition, animated } from 'react-spring'
+import ControlForm from '../controlForm/ControlForm'
+
+
 
 function WelcomePage(props) {
   let texts = languagesText[props.language].welcomePage

@@ -8,6 +8,7 @@ import languagesText from '../../../LanguagesData/LanguagesText'
 import muzWorker from '../../../appWorkers/intervalWorker'
 import { notify } from 'react-notify-toast'
 import { Spring } from 'react-spring/renderprops'
+import BestResults from '../workArea/BestResults.js'
 
 let $ = jquery
 let testIntervalData = {
@@ -29,7 +30,6 @@ function mapForMuzWorkerGenerateTest(intervalsForTest, language) {
     }
     )
 }
-
 class ControlForm extends Component {
     constructor(props) {
         super(props)

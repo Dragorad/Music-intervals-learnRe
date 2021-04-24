@@ -33,6 +33,9 @@ const resultsHandler = (() => {
     answering
   }
 })()
+
+export default resultsHandler
+
 // let state = {
 //   testArr:[],
 //   sessionAnswers: []
@@ -106,4 +109,3 @@ const resultsHandler = (() => {
 //   }
 // }
 // console.log(storeArr)
-export default resultsHandler

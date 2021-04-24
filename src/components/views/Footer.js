@@ -1,9 +1,9 @@
-import React from 'react'
+// import React from 'react'
 // import * as actions from '../../redux/actions/indexActions'
 // import { connect } from 'react-redux'
 // import languagesText from '../../LanguagesData/LanguagesText'
 
-export default function Footer (props) {
+export default function Footer () {
   // let texts = languagesText[props.language].workPane.workHeader
   return (
       
