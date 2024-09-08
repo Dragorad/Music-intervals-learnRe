@@ -8,7 +8,7 @@ class WelcomePage extends Component {
     super(props)
     this.state = {
       langButtonTxt: ['БЪЛГАРСКИ', 'ENGLISH'],
-      welcomeTxtRendered: false
+      welcomeTxtRendered: true
     }
     this.language = this.props.languageSelected
   }
